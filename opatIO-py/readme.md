@@ -4,11 +4,20 @@ The OPAT fileformat is a custom file format designed to efficiently store
 opacity information for a variety of compositions. 
 
 ## Installation
+The prefered, stable, way to install opatio is to use the version on pypi
+```bash
+pip install opatio
+```
+If you wish to insall from source or for developemnt you can and should clone the git repository instead
 You can install this module with pip
 ```bash
-git clone <repo>
-cd 4DSSE/utils/opat
-pip install .
+git clone https://github.com/4D-STAR/opat-core
+cd opat-core/opatio-py
+pip install . # For non development
+```
+or
+```bash
+pip install . -e # for development
 ```
 
 ## General Usage
