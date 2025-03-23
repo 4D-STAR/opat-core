@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath, amssymb, listings, hyperref}
+\usepackage{booktabs, longtable}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+
+\title{\textbf{OPAT File Format Specification}\\Version 1.0}
+\author{Emily M. Boudreaux}
+\date{February 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The untitled 4DSSE code (herafter ``the code'' will make use of the OPAT
+  (Opacity Table) file format for efficient storage and retrieval of opacity
+  tables parameterized in density and temperature. The format is designed to be
+  extensible, self-contained, and computationally efficient, supporting fast
+  lookups, structured metadata, and data integrity verification. All radiative
+  opacity tables used by the code should be stored in OPAT format. Python
+  bindings are provided to allow users to easily generate OPAT formated files.
+\end{abstract}
+
+\newpage
+
+\section{Introduction}
+The OPAT format provides a structured binary format for storing opacity tables
+indexed by an arbitrary floating point vector (for example hydrogen mass
+fraction ($X$) and metal mass fraction ($Z$)). It is designed for
+high-performance, data-integrity, and generalizability in mind. OPAT is the
+format that all radiative opacity tables are stored in for the code. The format
+ensures data integrity using SHA-256 checksums. All numeric values are stored
+as 64 bit floating point (double) values; this ensures approximately 15
+decimals of precision. The file format is open source and full described in
+this document. Data are stored in \textbf{little endian} format. 
+
+\noindent Each OPAT file consists of three main sections:
+\begin{enumerate}
+    \item \textbf{File Header}: Contains metadata, format version, and a lookup table offset.
+    \item \textbf{Data Tables}: Contains gridded opacity data.
+    \item \textbf{Table Index}: Maps indexing vector values to byte offsets for direct access.
+\end{enumerate}
+
+\noindent A few important things to note here are that the table index is
+stored at the \textbf{end} of the file. Therefore when reading, the index
+offset will need to be used in order to move the current position to the end of
+the file. This is done for ease of wrigint since the checksums of each table
+wont be known till the tables have been read in. Further, each table is
+intended to store opacity values as a function of log density ($\log R$) and
+log temperature ($\log T$). The actual numeric values in there could be
+anything, however, the more important takeaway is that each table stores its
+horizontal and vertical parameters as lists of length n and m and then its data
+as a list of length nxm.
+
+\section{File Structure}
+An OPAT file is structured as follows:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Section} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+File Header & 256 (fixed) & Metadata, format version, index offset \\
+Data Tables & Variable & Opacity tables for different compositions \\
+Table Index & Variable & Maps indexing vector to byte locations \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{File Header}
+The header provides general metadata and file organization details.
+
+\begin{longtable}{|l|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+Magic Number & char[4] & 4 & "OPAT" identifier \\
+Version & uint16 & 2 & Format version (e.g., 1.0 = 0x0001) \\
+Num Tables & uint32 & 4 & Number of stored ($X, Z$) tables \\
+Header Size & uint32 & 4 & Byte offset to the Data Tables \\
+Index Offset & uint64 & 8 & Byte offset of Table Index \\
+Creation Date & char[16] & 16 & Creation Date (Feb 15, 2025) \\
+Source Info & char[64] & 64 & Description of data source \\
+Comment & char[128] & 128 & Units, notes, etc. \\
+Nun Indices & uint16 & 2 & Number of index values per table \\
+Reserved & char[24] & 24 & Future use (zero-filled) \\
+\hline
+\end{longtable}
+
+\subsection{Table Index}
+Each entry in the index provides byte offsets for locating the corresponding
+opacity table. Note that the table index size is variable OPAT file to OPAT
+file but within one OPAT t file must always be constant. This changes if the
+OPAT files has a different number of indexes. Tables can be indexed by anywhere
+between 1 and 255 floats. This might look like a table for each X, Z pair (as
+in OPAL type I files) or an vector of X, Z, excess O, and excess C (as in OPAL
+type II files). This must be specified before adding any tables. \textbf{All
+tables in a single OPAT file must use the same number of indices or reading
+will fail}. The python \texttt{opatio} module enforces this behavior through
+the \texttt{OpatIO.set\_numIndex} method.
+\begin{longtable}{|l|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+Index $n$ \texttt{n} & float64 & 8 & $n^{th}$ index of file \\
+..... & float64 & 8 & $(n+1)^{th}$ index \\
+Byte Start & uint64 & 8 & Start of data in file \\
+Byte End & uint64 & 8 & End of data in file \\
+Checksum & char[32] & 32 & SHA-265 checksum of table \\
+\hline
+\end{longtable}
+
+Each entry is 48+8*numIndex bytes long, allowing for efficient binary
+searching. The minimum possible size is 56 bytes per index, while the maximum
+possible size is 2088 bytes per index.
+
+\subsection{Data Tables}
+Each opacity table contains gridded values of opacity as a function of density and temperature.
+
+\textbf{Binary Storage Format:}
+
+\begin{lstlisting}[language=C, basicstyle=\ttfamily]
+struct OpacityTable {
+    uint32_t N_R;    // Number of density points
+    uint32_t N_T;    // Number of temperature points
+    double* logR; // Log Density grid
+    double* logT; // Log Temperature grid
+    double* logK; // Log Opacity values
+};
+\end{lstlisting}
+
+
+\section{Checksum and Data Integrity}
+Each data table is assigned a SHA-256 checksum stored in the Table Index for validation.
+
+\section{Creation}
+The python module opatio (in utils/opatio) provides
+a straightforward interface for the creation and reading of opat formated
+files. There is a readme in that directory which outlines its use.  
+
+\section{Usage}
+Both the python module opatio and the cpp module opatIO allow for opat file generation.
+
+
+\end{document}
+
