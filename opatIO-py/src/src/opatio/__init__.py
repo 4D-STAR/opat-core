@@ -1,0 +1,1 @@
+from .opat.opat import OpatIO, loadOpat

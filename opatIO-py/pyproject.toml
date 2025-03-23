@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opatio"
+version = "0.1"
+description = "A python module for handling OPAT files"
+readme = "readme.md"
+authors = [{name = "Emily M. Boudreaux", email = "emily.boudreaux@dartmouth.edu"}]
+requires-python = ">=3.8"
+dependencies = ["numpy >= 1.21.1"]
+
+[tool.setuptools]
+packages = ["opatio", "opatio.opat"]
+package-dir = {"" = "src"}
