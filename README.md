@@ -68,28 +68,6 @@ for j in range(number_of_tables):
 
 o.save("GS98hz.opat")
 o.save_as_ascii("GS98hz_OPAT.ascii")
-
-o = OpatIO()
-o.set_comment("OPAL Type I table with Grevesse & Sauval (1998) composition")
-o.set_source("OPAL file GS98hz")
-    
-#first 240 lines are header
-skip=239 #lines that says "***** Tables *****"
-for j in range(number_of_tables):
-    comp_index = skip + 2 + lines_per_table*j
-
-    Tnum,Xval,Zval=process_comp_info(contents[comp_index].rstrip())
-
-    table_index=comp_index+6
-    logkappa=zeros((NUM_R,NUM_T))
-    for i in range(NUM_T):
-        result=table_data(contents[table_index+i])
-        for k in range(len(result)):
-            logkappa[k,i] = result[k]
-    o.add_table((Xval, Zval), logR, logT, logkappa)
-
-o.save("GS98hz2.opat")
-o.save_as_ascii("GS98hz_2_OPAT.ascii")
 ```
 
 ## C++ Usage
