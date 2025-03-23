@@ -1,9 +1,9 @@
 # OpatIO Core Libraries
 This repository contains the core C++ library, python module, and file specification for the OPAT file format. 
 
-OPAT is a structure binary file format developed by the 4D-STAR collaboration for efficient and standardized storage of opaticity tables. 
+OPAT is a structured binary file format developed by the 4D-STAR collaboration for efficient and standardized storage of opacity tables. 
 
-The general principle behind OPAT is that an arbitrary number of opacity tables are stored, indexed by some arbitrary length composition vector.
+The general principle behind OPAT is that an arbitrary number of opacity tables are stored, indexed by some arbitrary-length composition vector.
 
 The provided python module can be used to create and read OPAT files while the C++ module is intended to be used to interface OPAT tables with C++ code for reading (but not currently generation).
 

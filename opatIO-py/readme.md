@@ -12,7 +12,7 @@ pip install .
 ```
 
 ## General Usage
-The general way that this module is mean to be used is to first build a schema for the opaticy table and then save that to disk. The module will handle all the byte aligment and lookup table construction for you. 
+The general way that this module is mean to be used is to first build a schema for the opacity table and then save that to disk. The module will handle all the byte aligment and lookup table construction for you. 
 
 A simple example might look like the following
 
@@ -27,8 +27,9 @@ opaticyFile.set_source("OPLIB")
 # where logKappa is of size (n,m) if logR is size n and
 # logT is size m
 
-opacityFile.add_table(X, Z, logR, logT, logKappa)
+opacityFile.add_table((X, Z), logR, logT, logKappa)
 opacityFile.save("opacity.opat")
+opaticyFile.save_as_ascii("opacity.txt")
 ```
 
 You can also read opat files which have been generated with the loadOpat function
