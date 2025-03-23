@@ -36,7 +36,7 @@ when installing three executables will be installed. These should end up in your
 - opatVerify : Verify if a file is a valid OPAT file
 - opatInspect : Display the header and table index of an OPAT file
 
-all of these tools have the same usage
+all of these tools have the same usage pattern
 
 ```bash
 opatHeader -f <path/to/file>
