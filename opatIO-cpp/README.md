@@ -13,8 +13,8 @@ pip install ninja
 Building is done with meson 
 
 ```bash
-git clone 
-cd opatIO/opatIO-cpp
+git clone https://github.com/4D-STAR/opat-core
+cd opat-core
 meson setup build --buildtype=release
 meson compile -C build
 ```
