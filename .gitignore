@@ -58,11 +58,8 @@ tags
 *.private
 *.private/
 
-subprojects/mfem/
-subprojects/tetgen/
-subprojects/yaml-cpp/
-subprojects/quill/
-subprojects/googletest-1.15.2/
+opatIO-cpp/subprojects/googletest-1.15.2/
+opatIO-cpp/subprojects/packagecache/
 
 .vscode/
 
