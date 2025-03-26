@@ -7,6 +7,40 @@ The general principle behind OPAT is that an arbitrary number of opacity tables 
 
 The provided python module can be used to create and read OPAT files while the C++ module is intended to be used to interface OPAT tables with C++ code for reading (but not currently generation).
 
+## Installation
+This repository provides both C++ and python bindings. The first thing to note is that these do not depend on each other at all. If you want to generate OPAT tables and/or use them in python code you will want the python module. If you want to use OPAT tables in C++ code you will want the C++ module. 
+
+There are more details on usage for each language in their respective folder; however, broad installation instructions are included here as well.
+
+### Python Installation
+```bash
+pip install opatio
+```
+
+### C++ Installation
+You will need `meson`, `cmake`, and `ninja` installed pre-installed. These can be installed with pip
+```bash
+pip install meson>=1.6.0
+pip install cmake
+pip install ninja
+```
+Then you can build and install opat-core
+```bash
+git clone https://github.com/4D-STAR/opat-core
+cd opat-core
+meson setup build --buildtype=release
+meson compile -C build
+```
+If you want to run tests
+```bash
+meson test -C build
+```
+To install headers, libraries, and the command line utilities
+```
+meson install -C build
+```
+# Usage
+
 ## Python Usage
 See opatIO-py for installation instructions. A sample python program which can be used to generate OPAT tables fom Type 1 OPAL tables is included below (This example was written by Aaron Dotter)
 
