@@ -2,9 +2,10 @@
 #include "opatIO.h"
 #include "picosha2.h"
 
+#include <iostream>
 #include <string>
 
-std::string EXAMPLE_FILENAME = std::string(getenv("MESON_SOURCE_ROOT")) + "/tests/synthetic_tables.opat";
+std::string EXAMPLE_FILENAME = std::string(getenv("MESON_SOURCE_ROOT")) + "/opatIO-cpp/tests/synthetic_tables.opat";
 
 /**
  * @file opatIOTest.cpp
