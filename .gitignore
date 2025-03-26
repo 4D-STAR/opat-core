@@ -58,8 +58,8 @@ tags
 *.private
 *.private/
 
-opatIO-cpp/subprojects/googletest-1.15.2/
-opatIO-cpp/subprojects/packagecache/
+subprojects/googletest-1.15.2/
+subprojects/packagecache/
 
 .vscode/
 
