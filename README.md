@@ -104,7 +104,7 @@ o.save("GS98hz.opat")
 o.save_as_ascii("GS98hz_OPAT.ascii")
 ```
 
-## C++ Usage
+## C++ Library/Header Usage
 See OpatIO-cpp for cpp building and installation instructions. General use in c++ might look like
 
 ```cpp
@@ -115,3 +115,12 @@ int main() {
     OPATable table = opat.getTable({0.1, 0.001});
 }
 ```
+
+## Command Line Utility Usage
+If you run `meson install` there will be three command line utilities avalible in your path (you may have to resource your shell either by closing and reopening the terminal or by typing `source ~/.zshrc` if on zsh or `source ~/.bashrc` if on bash. These utilities are `opatHeader`, `opatInspect`, and `opatVerify`. They: print out the header, print the header and the table index, print if the provided file is a valid OPAT file respectivley. Usgae of these tools looks like
+
+```bash
+opatHeader -f path/to/file.opat
+```
+
+Note the `-f`, that is needed before providing the path to the file. Usage for all tools looks the same.
