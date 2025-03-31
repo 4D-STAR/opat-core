@@ -6,7 +6,7 @@
 
 \title{\textbf{OPAT File Format Specification}\\Version 1.0}
 \author{Emily M. Boudreaux}
-\date{February 2025}
+\date{March 2025}
 
 \begin{document}
 
@@ -68,7 +68,7 @@ Card Catalog & Variable & Maps indexing vector to byte locations of data card\\
 \end{center}
 
 \subsection{File Header}
-The header provides general metadata and file organization details.
+The header provides general metadata and file organization details. The header is always 256 bytes long.
 \begin{longtable}{|l|l|l|l|}
 \hline
 \textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
@@ -82,11 +82,12 @@ Creation Date & char[16] & 16 & Creation Date (Feb 15, 2025) \\
 Source Info & char[64] & 64 & Description of data source \\
 Comment & char[128] & 128 & Units, notes, etc. \\
 Num Indices & uint16 & 2 & Number of index values per table \\
-Reserved & char[24] & 24 & Future use (zero-filled) \\
+  Hash Precision & uint8 & 1 & Presicion to round index values too when calculating hash\footnote{While this value can range from 0-255 numerically, modules enforce that its max value is 14 due to the max presicion of float64} \\
+Reserved & char[23] & 23 & Future use (zero-filled) \\
 \hline
 \end{longtable} 
 
-\subsection{Table Index}
+\subsection{Card Catalog}
 Each entry in the catalog provides byte offsets for locating the
 corresponding data card.  Note that the index vector size may be
 variable from OPAT file to OPAT file, but within one OPAT file it must always be
@@ -117,8 +118,31 @@ Each entry is 48 + 8*numIndex bytes long, allowing for efficient binary
 searching.  The minimum possible size is 56 bytes per index, while the maximum
 possible size is 2088 bytes per index. 
 
+\subsection{Data Card Lookup}
+Recall that the purpose of the card catalog is to provide a lookup table
+between vectors of floats and a particular data card. Therefore we need some
+way to map vectors to entries in the table. The most obvious choise, comparing
+the value in a provided vector directly to the vector stored in the index
+field, has some major issues. 
+\begin{enumerate}
+  \item Floating point errors make looking up tables this way very prone to error.
+  \item Each time a table is requested the entire index may need to be iterated over to find the correct entry.
+\end{enumerate}
+
+Both of these issues are resolvable while still doing direct comparisons.
+However, a better approach, and the one which OPAT adopts, is to use a hash
+map. Specifically OPAT files round all floats to the presicion given in the
+header field ``Hash Precision'' and then calculate the murmmer hash of this
+vector. That has is then used in a hash map to allow for average O(1) lookup
+efficiency while also avoiding floating point rounding errors. Note that this
+means that when setting a table the user needs to make sure that the Hash
+Presicion is greater than the minimum seperation between any values in the
+index vectors. The various official opatIO modules automatically enforce this
+constraint. By default the Hash Presicion is set to 8 which cooresponds to 8
+digits of presicion in base 10.
+
 \section{Data Cards}\label{Sec:Cards}
-Each data card is formatted similarly to the overall OPAT table.  Each card contains a header, an index, and a set of tables.  The structure of a data card is as follows: 
+Each data card is formatted similarly to the overall OPAT table.  Each card contains a header (which is also always 256 bytes long), an index (64 bytes long per entry), and a set of tables.  The structure of a data card is as follows: 
 \begin{enumerate}
   \item \textbf{Card Header}: Contains metadata and an offset to the Card Index
   \item \textbf{Tables}: Contains the actual data stored in the card

@@ -36,7 +36,7 @@ opaticyFile.set_source("OPLIB")
 # where logKappa is of size (n,m) if logR is size n and
 # logT is size m
 
-opacityFile.add_table((X, Z), logR, logT, logKappa)
+opacityFile.add_table((X, Z), "data", logR, logT, logKappa)
 opacityFile.save("opacity.opat")
 opaticyFile.save_as_ascii("opacity.txt")
 ```
@@ -49,7 +49,6 @@ from opatio import loadOpat
 opacityFile = loadOpat("opacity.opat")
 
 print(opacityFile.header)
-print(opaticyFile.tables[0])
 ```
 
 ## Problems
