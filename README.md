@@ -22,7 +22,7 @@ pip install opatio
 ### C++ Installation
 You will need `meson`, `cmake`, and `ninja` installed pre-installed. These can be installed with pip
 ```bash
-pip install meson>=1.6.0
+pip install "meson>=1.6.0"
 pip install cmake
 pip install ninja
 ```
