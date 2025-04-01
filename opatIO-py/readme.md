@@ -30,7 +30,7 @@ from opatio import OPAT
 
 opacityFile = OPAT()
 opacityFile.set_comment("This is a sample opacity file")
-opaticyFile.set_source("OPLIB")
+opacityFile.set_source("OPLIB")
 
 # some code to get a logR, logT, and logKappa table
 # where logKappa is of size (n,m) if logR is size n and
