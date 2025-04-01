@@ -26,9 +26,9 @@ The general way that this module is mean to be used is to first build a schema f
 A simple example might look like the following
 
 ```python
-from opatio import OpatIO
+from opatio import Opat
 
-opacityFile = OpatIO()
+opacityFile = OPAT()
 opacityFile.set_comment("This is a sample opacity file")
 opaticyFile.set_source("OPLIB")
 
