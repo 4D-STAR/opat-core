@@ -44,7 +44,7 @@ opacityFile.save_as_ascii("opacity.txt")
 If you wish you can add more tables to the same card. This means that there can be multiple tables associated to the same indexing vector (for example you might store data and pre calculated interpolation coefficients along side the same data)
 
 ```python
-opatcityFile.add_table((X, Z), "interp", xOrder, yOrder, coeff, rowName="xCoeff", columnName="yCoeff", card=card)
+opacityFile.add_table((X, Z), "interp", xOrder, yOrder, coeff, rowName="xCoeff", columnName="yCoeff", card=card)
 ```
 
 Note how here I passed the card as an argument. This means that the same card will be modified and then repushed into the file.
