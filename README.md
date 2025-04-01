@@ -1,4 +1,6 @@
 # OpatIO Core Libraries
+![PyPI - Version](https://img.shields.io/pypi/v/opatio)
+
 This repository contains the core C++ library, python module, and file specification for the OPAT file format. 
 
 OPAT is a structured binary file format developed by the 4D-STAR collaboration for efficient and standardized storage of set of tabular data indexed by some floating point vector (such as composition).
