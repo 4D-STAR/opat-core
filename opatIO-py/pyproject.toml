@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "opatio"
-version = "0.2"
+version = "0.2.2"
 description = "A python module for handling OPAT files"
 readme = "readme.md"
 authors = [
@@ -34,5 +34,7 @@ Issues="https://github.com/4D-STAR/opat-core/issues"
 4D-STAR="https://4d-star.org/"
 
 [tool.setuptools]
-packages = ["opatio"]
 package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

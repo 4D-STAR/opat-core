@@ -375,7 +375,7 @@ class OPAT():
   version: {self.header.version}
   numCards: {self.header.numCards}
   headerSize: {self.header.headerSize}
-  indexOffset: {self.header.indexOffset}
+  indexOffset: {self.header.catalogOffset}
   creationDate: {self.header.creationDate}
   sourceInfo: {self.header.sourceInfo}
   comment: {self.header.comment}
