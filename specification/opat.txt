@@ -1,0 +1,198 @@
+\documentclass{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath, amssymb, listings, hyperref}
+\usepackage{booktabs, longtable}
+\usepackage[T1]{fontenc}
+
+\title{\textbf{OPAT File Format Specification}\\Version 1.0}
+\author{Emily M. Boudreaux}
+\date{February 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The untitled 4DSSE code (herafter ``the code'' will make use of the OPAT (Open
+  Parameterized Array Table) file format for efficient storage and retrieval of
+  double precision tabular data parameterized by some arbitrary length vector
+  (such as a composition vector). The format is designed to be extensible,
+  self-contained, and computationally efficient, supporting fast lookups,
+  structured metadata, and data integrity verification. We have developed the
+  OPAT format specifically for opacity tables; however, we are releasing it
+  generally under GPLv3 and encorage its use for other applications. This
+  document contains a full description of OPAT, including data types,
+  endianness, byte arangment, and interace tools.
+\end{abstract}
+
+\newpage
+
+\section{Introduction}
+The OPAT format provides a structured binary format for storing tabular data
+sets indexed by an arbitrary floating point vector (for example hydrogen mass
+fraction ($X$) and metal mass fraction ($Z$)). It is designed for
+high-performance, data-integrity, and generalizability in mind. OPAT is the
+format that all radiative opacity tables are stored in for the code. The format
+ensures data integrity using SHA-256 checksums. All numeric values are stored
+as 64 bit floating point (double) values; this ensures approximately 15
+decimals of precision.  Data are explicitly stored in \textbf{little endian}
+format.
+
+\noindent Each OPAT file consists of three main sections:
+\begin{enumerate}
+    \item \textbf{File Header}: Contains metadata, format version, and a lookup table offset.
+    \item \textbf{Data Cards}: Contains data cards. These are collections of tables and other data associated to index vectors.
+    \item \textbf{Table Index}: Maps indexing vector values to byte offsets for direct access.
+\end{enumerate}
+
+\noindent A few important things to note here are that the table index is
+stored at the \textbf{end} of the file. Therefore when reading, the index
+offset will need to be used in order to move the current position to the end of
+the file. This is done for ease of wrigint since the checksums of each data
+card wont be known till the cards have been read in. Each data card contains
+its own header which outlines its structure. These are disccused in detail in
+\S \ref{Sec:Cards}.
+
+\section{OPAT File Structure}
+An OPAT file is structured as follows:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Section} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+File Header & 256 (fixed) & Metadata, format version, index offset \\
+Data Cards & Variable & A Header, lookup index, and arbitrary numeric data \\
+Card Catalouge & Variable & Maps indexing vector to byte locations of data card\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{File Header}
+The header provides general metadata and file organization details.
+
+\begin{longtable}{|l|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+Magic Number & char[4] & 4 & "OPAT" identifier \\
+Version & uint16 & 2 & Format version (e.g., 1.0 = 0x0001) \\
+Num Cards & uint32 & 4 & Number of stored data cards \\
+Header Size & uint32 & 4 & Byte offset to the Data Cards \\
+Catalouge Offset & uint64 & 8 & Byte offset of card catalouge \\
+Creation Date & char[16] & 16 & Creation Date (Feb 15, 2025) \\
+Source Info & char[64] & 64 & Description of data source \\
+Comment & char[128] & 128 & Units, notes, etc. \\
+Nun Indices & uint16 & 2 & Number of index values per table \\
+Reserved & char[24] & 24 & Future use (zero-filled) \\
+\hline
+\end{longtable}
+
+\subsection{Table Index}
+Each entry in the catalouge provides byte offsets for locating the
+corresponding data card. Note that the size of the index vector size may be
+variable OPAT file to OPAT file but within one OPAT file it must always be
+constant. Data cards can be indexed with vectors of size anywhere between 1 and
+255 floats. This might look like a table for each X, Z pair (as in OPAL type I
+files) or an vector of X, Z, excess O, and excess C (as in OPAL type II files).
+This must be specified before adding any tables. \textbf{All tables in a single
+OPAT file must use the same number size index vector or reading will fail}. The python
+\texttt{opatio} module enforces this behavior through the
+\texttt{OpatIO.set\_numIndex} method. 
+
+\noindent\textbf{N.B.} If duplicate index vectors are given then only the most
+recent card associated to an index vector will be stored. The python module
+has safe checking for this (explicitly dissalowing duplicate index vectors).
+
+\begin{longtable}{|l|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+Index $n$ \texttt{n} & float64 & 8 & $n^{th}$ index of file \\
+..... & float64 & 8 & $(n+1)^{th}$ index \\
+Byte Start & uint64 & 8 & Start of data card in file \\
+Byte End & uint64 & 8 & End of data card in file \\
+Checksum & char[32] & 32 & SHA-265 checksum of data card \\
+\hline
+\end{longtable}
+
+Each entry is 48+8*numIndex bytes long, allowing for efficient binary
+searching. The minimum possible size is 56 bytes per index, while the maximum
+possible size is 2088 bytes per index.
+
+\section{Data Cards}\label{Sec:Cards}
+Each data card is formated similar to the overall OPAT table. Each card contains a header, an index, and a set of tables. The structure of a data card is as follows
+\begin{enumerate}
+  \item \textbf{Card Header}: Contains metadata and an offset to the Card Index
+  \item \textbf{Tables}: Contains the actual data stored in the card
+  \item \textbf{Card Index}: Contains byte offsets, relative to the start of the data card, for the locations of tables. Tables are indexed by tags which are 8 byte unsigned charecter arrays.
+\end{enumerate}
+
+\subsection{Data Card Header}
+Each data card has a header not unlike the global header for the entire OPAT file. This has the following form:
+\begin{longtable}{|l|l|l|p{5cm}|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+Magic Number & char[4] & 4 & "CARD" identifier \\
+Num Tables & uint32 & 4 & Number of stored tables \\
+Header Size & uint32 & 4 & Byte offset to the Data Tables relative to the start of the data card \\
+Index Offset & uint64 & 8 & Byte offset of card Index relative to the start of the data card \\
+Card Size & uint64 & 8 & Total byte size of the data card \\
+Comment & char[128] & 128 & Units, notes, etc. \\
+Reserved & char[100] & 100 & Future use (zero-filled) \\
+\hline
+\end{longtable}
+Note that the header is 256 bytes. 
+
+\subsection{Data Card Index}
+The data card index is written immediatly after the header (this is in contrast
+to the Card Catalouge for the entire OPAT file which is the last part of the
+file). It contains a variable number of bytes depending on how many tables are
+present in the file. The data card index is a table whith 7 columns and a
+number of rows equal to the Num Tables fild in the header. These data are
+arranged in row-major order in the file. Each row has the form
+
+\noindent\textbf{N.B.}The same tag can exist in multiple data cards; however,
+within one data card there may only be one instance of the same tag. Tags are
+case insensitive. 
+
+\begin{longtable}{|l|l|l|p{5cm}|}
+\hline
+\textbf{Field} & \textbf{Type} & \textbf{Size (bytes)} & \textbf{Description} \\
+\hline
+  Tag & char[8] & 8 & tag used to identify the table in the card. \\
+  Byte Start & uint64 & 8 & Start byte of the table relative to the start byte of the card. The start byte of the card is byte 0. \\ 
+  Byte End & uint64 & 8 & End byte of the table relative to the start byte of the card. The start byte of the card is byte 0. \\
+  Num Colums & uint16 & 2 & Number of columns the table contains. \\
+  Num Rows & uint16 & 2 & Number of rows the table contains. \\
+  Column Name & char[8] & 8 & Label for value parameterizing columns. \\
+  Row Name & char[8] & 8 & Label for for value parameterizing rows. \\
+  Reserved & char[20] & 20 & Reserved for future use. \\
+\hline
+\end{longtable}
+
+\subsection{Data card tables}
+The actual data in an OPAt file is stored in tables. These are row-major lists
+of double precision values. Each table has a known size from the data card
+index and so reading in is simply a matter of reading the correct number of
+bytes and rearanging to fit the number of rows x number of columns.
+
+
+\section{Checksum and Data Integrity}
+Each data card is assigned a SHA-256 checksum stored in the Cart Catalouge for
+validation. These should be checked whenever reading in OPAT files (the
+official opat libraries handle this automatically.)
+
+\section{Creation}
+The python module opatio (in utils/opatio) provides
+a straightforward interface for the creation and reading of opat formated
+files. There is a readme in that directory which outlines its use.  
+
+\section{Usage}
+Both the python module opatio and the cpp module opatIO allow for opat file generation.
+
+
+
+\end{document}
+

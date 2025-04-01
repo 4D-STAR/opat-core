@@ -23,11 +23,13 @@ int main(int argc, char* argv[]) {
 
         if (std::filesystem::exists(filePath)) {
             if (std::filesystem::is_regular_file(filePath)) {
-                OpatIO opatIO(filePath);
+                opat::OPAT opat = opat::readOPAT(filePath);
                 std::cout << ANSI_COLOR_GREEN << "== OPAT Header Information ==" << ANSI_COLOR_RESET << std::endl;
-                opatIO.printHeader();
+                opat.header.print();
                 std::cout << ANSI_COLOR_GREEN << "== OPAT Table Index Information ==" << ANSI_COLOR_RESET << std::endl;
-                opatIO.printTableIndex();
+                for (const auto& entry : opat.cardCatalog.tableIndex) {
+                    std::cout << entry.second << std::endl;
+                }
             } else {
                 throw std::invalid_argument("The file path provided is not a regular file.");
             }

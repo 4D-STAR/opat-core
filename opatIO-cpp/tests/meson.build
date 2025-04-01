@@ -17,7 +17,7 @@ foreach test_file : test_sources
   test_exe = executable(
       exe_name,
       test_file,
-      dependencies: [gtest_dep, picosha2_dep, gtest_main, opatio_dep],
+      dependencies: [gtest_dep, picosha2_dep, gtest_main, opatio_dep, xxhash_dep],
       install_rpath: '@loader_path/../../src'  # Ensure runtime library path resolves correctly
   )
 

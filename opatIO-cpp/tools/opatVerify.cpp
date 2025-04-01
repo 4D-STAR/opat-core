@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         if (std::filesystem::exists(filePath)) {
             if (std::filesystem::is_regular_file(filePath)) {
                 try {
-                    OpatIO opatIO(filePath);
+                    opat::OPAT opat = opat::readOPAT(filePath);
                     std::cout << "The file is a valid OPAT file." << std::endl;
                 } catch (const std::exception &e) {
                     std::cout << "The file is not a valid OPAT file: " << e.what() << std::endl;
