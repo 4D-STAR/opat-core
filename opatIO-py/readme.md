@@ -36,19 +36,36 @@ opaticyFile.set_source("OPLIB")
 # where logKappa is of size (n,m) if logR is size n and
 # logT is size m
 
-opacityFile.add_table((X, Z), "data", logR, logT, logKappa)
+card = opacityFile.add_table((X, Z), "data", logR, logT, logKappa, rowName="logR", columnName="logT")
 opacityFile.save("opacity.opat")
 opaticyFile.save_as_ascii("opacity.txt")
 ```
 
+If you wish you can add more tables to the same card. This means that there can be multiple tables associated to the same indexing vector (for example you might store data and pre calculated interpolation coefficients along side the same data)
+
+```python
+opatcityFile.add_table((X, Z), "interp", xOrder, yOrder, coeff, rowName="xCoeff", columnName="yCoeff", card=card)
+```
+
+Note how here I passed the card as an argument. This means that the same card will be modified and then repushed into the file.
+
 You can also read opat files which have been generated with the loadOpat function
 
 ```python
-from opatio import loadOpat
+from opatio import read_opat
 
-opacityFile = loadOpat("opacity.opat")
+opacityFile = read_opat("opacity.opat")
 
 print(opacityFile.header)
+```
+
+## Converting from OPAL type I
+Given the prevelence of OPAL type I tables, we have included a utility function to take care of this conversion for you. Assuming there is some OPAL type I file in your current working directory (in the below example we assume it is called `GS98hz`) then converting is as simple as calling the convert function...
+
+```python
+from opatio.convert import OPALI_2_OPAT
+
+OPALI_2_OPAT("GS98hz", "gs98hz.opat")
 ```
 
 ## Problems
