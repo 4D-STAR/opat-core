@@ -25,8 +25,8 @@ int main(int argc, char* argv[]) {
 
         if (std::filesystem::exists(filePath)) {
             if (std::filesystem::is_regular_file(filePath)) {
-                OpatIO opatIO(filePath);
-                opatIO.printHeader();
+                opat::OPAT opat = opat::readOPAT(filePath);
+                opat.header.print();
             } else {
                 throw std::invalid_argument(ANSI_COLOR_RED + "The file path provided is not a regular file."+ANSI_COLOR_RESET);
             }
