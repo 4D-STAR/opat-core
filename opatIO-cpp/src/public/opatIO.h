@@ -418,6 +418,10 @@ struct OPAT {
      */
     const DataCard& get(const FloatIndexVector& index) const;
 
+    const DataCard& get(const std::vector<double>& index) const {
+        return get(FloatIndexVector(index));
+    }
+
     /**
      * @brief Accesses a DataCard from the OPAT structure by index.
      * @param index The index vector of the DataCard to access.
@@ -425,6 +429,10 @@ struct OPAT {
      * @throws std::out_of_range if the index is not found.
      */
     const DataCard& operator[](const FloatIndexVector& index) const;
+
+    const DataCard& operator[](const std::vector<double>& index) const {
+        return get(FloatIndexVector(index));
+    }
 };
 
 /**
