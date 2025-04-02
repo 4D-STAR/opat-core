@@ -269,6 +269,15 @@ struct OPATTable {
     const double& operator()(uint32_t row, uint32_t column) const;
 
     /**
+     * @brief Slices the table into a smaller OPATTable.
+     * @param rowSlice The range of rows to extract.
+     * @param colSlice The range of columns to extract.
+     * @return An OPATTable containing the specified slice.
+     * @throws std::out_of_range if the slice indices are out of bounds.
+     */
+    OPATTable operator()(const Slice& rowSlice, const Slice& colSlice) const;
+
+    /**
      * @brief Retrieves a table value by row and column.
      * @param row The row index.
      * @param column The column index.

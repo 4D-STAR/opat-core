@@ -297,6 +297,10 @@ namespace opat {
         return getData(row, column);
     }
 
+    OPATTable OPATTable::operator()(const Slice& rowSlice, const Slice& colSlice) const {
+        return slice(rowSlice, colSlice);
+    }
+
     const double& OPATTable::getData(uint32_t row, uint32_t column) const {
         if (row >= N_R || column >= N_C) {
             throw std::out_of_range("Index out of range");
