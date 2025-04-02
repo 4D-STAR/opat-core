@@ -269,6 +269,15 @@ struct OPATTable {
     const double& operator()(uint32_t row, uint32_t column) const;
 
     /**
+     * @brief Slices the table into a smaller OPATTable.
+     * @param rowSlice The range of rows to extract.
+     * @param colSlice The range of columns to extract.
+     * @return An OPATTable containing the specified slice.
+     * @throws std::out_of_range if the slice indices are out of bounds.
+     */
+    OPATTable operator()(const Slice& rowSlice, const Slice& colSlice) const;
+
+    /**
      * @brief Retrieves a table value by row and column.
      * @param row The row index.
      * @param column The column index.
@@ -409,6 +418,10 @@ struct OPAT {
      */
     const DataCard& get(const FloatIndexVector& index) const;
 
+    const DataCard& get(const std::vector<double>& index) const {
+        return get(FloatIndexVector(index));
+    }
+
     /**
      * @brief Accesses a DataCard from the OPAT structure by index.
      * @param index The index vector of the DataCard to access.
@@ -416,6 +429,10 @@ struct OPAT {
      * @throws std::out_of_range if the index is not found.
      */
     const DataCard& operator[](const FloatIndexVector& index) const;
+
+    const DataCard& operator[](const std::vector<double>& index) const {
+        return get(FloatIndexVector(index));
+    }
 };
 
 /**
