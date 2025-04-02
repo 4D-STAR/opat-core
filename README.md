@@ -1,5 +1,8 @@
 # OpatIO Core Libraries
 ![PyPI - Version](https://img.shields.io/pypi/v/opatio)
+![GitHub License](https://img.shields.io/github/license/4D-STAR/opat-core)
+
+[Documentation](https://4d-star.github.io/opat-core/)
 
 This repository contains the core C++ library, python module, and file specification for the OPAT file format. 
 
