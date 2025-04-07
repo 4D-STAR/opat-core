@@ -2,6 +2,7 @@
 opatio_sources = files(
   'private/opatIO.cpp',
   'private/indexVector.cpp',
+  'private/fextern.cpp'
 )
 
 opatio_headers = files(

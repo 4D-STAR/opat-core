@@ -1,10 +1,20 @@
+#include <ostream>
 #include <vector>
 #include <cstdint>
 #include <cmath> // For std::pow and std::trunc
 #include <stdexcept> // For exception handling
+#include <iostream> // For std::cout
 
 #include "indexVector.h"
 #include "xxhash64.h"
+
+
+int round_to_nearest_multiple_of_power_of_10(int value) {
+    if (value == 0.0) return 0.0;
+
+    double orderOfMagnitude = std::pow(10.0, std::floor(std::log10(std::abs(value))));
+    return static_cast<int>(std::round(value / orderOfMagnitude) * orderOfMagnitude);
+}
 
 // Constructor: Initializes the object with default hash precision of 8.
 // The object is marked as uninitialized until a vector is provided.
@@ -15,27 +25,21 @@ FloatIndexVector::FloatIndexVector() : m_hashPrescision(8) {
 // Constructor: Initializes the object with a given vector and default hash precision of 8.
 // Throws an exception if the input vector is empty.
 FloatIndexVector::FloatIndexVector(const std::vector<double>& vec) : m_hashPrescision(8) {
-    if (vec.empty()) {
-        throw std::invalid_argument("Input vector cannot be empty.");
-    }
-
-    // Scale factor is used to convert floating-point values to integers for hashing.
-    double scaleFactor = std::pow(10.0, m_hashPrescision);
-    m_vector.reserve(vec.size()); // Reserve memory to avoid reallocations.
-    m_vectorInt.reserve(vec.size());
-
-    // Populate the internal vector and its integer representation.
-    for(const auto& val : vec) {
-        m_vector.push_back(val);
-        m_vectorInt.push_back(static_cast<uint64_t>(std::trunc(val * scaleFactor)));
-    }
-
-    m_initialized = true; // Mark the object as initialized.
+    setupVecs(vec, 8);
+    m_initialized = true;
 }
 
 // Constructor: Initializes the object with a given vector and custom hash precision.
 // Throws exceptions for invalid hash precision or empty input vector.
 FloatIndexVector::FloatIndexVector(const std::vector<double>& vec, int hashPrescision) : m_hashPrescision(hashPrescision) {
+    setupVecs(vec, hashPrescision);
+    m_initialized = true;
+}
+
+void FloatIndexVector::setupVecs(const std::vector<double>& vec, int hashPrescision) {
+    if (m_initialized) {
+        throw std::runtime_error("Cannot set vector after initialization.");
+    }
     if (hashPrescision <= 0) {
         throw std::invalid_argument("hashPrescision must be a positive integer.");
     }
@@ -45,17 +49,15 @@ FloatIndexVector::FloatIndexVector(const std::vector<double>& vec, int hashPresc
     if (vec.empty()) {
         throw std::invalid_argument("Input vector cannot be empty.");
     }
-
     double scaleFactor = std::pow(10.0, m_hashPrescision);
     m_vector.reserve(vec.size());
     m_vectorInt.reserve(vec.size());
 
     for(const auto& val : vec) {
         m_vector.push_back(val);
-        m_vectorInt.push_back(static_cast<uint64_t>(std::trunc(val * scaleFactor)));
+        int intVal = static_cast<int>(std::trunc(val * scaleFactor));
+        m_vectorInt.push_back(round_to_nearest_multiple_of_power_of_10(intVal));
     }
-
-    m_initialized = true;
 }
 
 // Copy constructor: Creates a deep copy of another FloatIndexVector.
@@ -194,5 +196,17 @@ size_t FloatIndexVector::hash() const {
     size_t sizeInBytes = m_vectorInt.size() * sizeof(uint64_t);
     uint64_t hash = XXHash64::hash(data, sizeInBytes, 0);
     return static_cast<size_t>(hash);
+}
+
+std::ostream& operator<<(std::ostream& os, const FloatIndexVector& iv) {
+    os << "FloatIndexVector (" << iv.m_initialized << "): [";
+    for (size_t i = 0; i < iv.m_vector.size(); ++i) {
+        os << "(" << iv.m_vector[i] << ", " << iv.m_vectorInt[i] << ")";
+        if (i < iv.m_vector.size() - 1) {
+            os << ", ";
+        }
+    }
+    os << "]";
+    return os;
 }
 

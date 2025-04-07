@@ -1,0 +1,1 @@
+executable('readOpat', 'testRead.f90', dependencies: [opatio_f_dep])
