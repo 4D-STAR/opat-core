@@ -56,8 +56,6 @@
 #include <string>
 #include <sys/types.h>
 #include <vector>
-#include <deque>
-#include <map>
 #include <utility>
 #include <cstdint>
 #include <unordered_map>

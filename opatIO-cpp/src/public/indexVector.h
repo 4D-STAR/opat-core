@@ -153,11 +153,15 @@ public:
         m_vectorInt.reserve(size);
     }
 
+    friend std::ostream& operator<<(std::ostream& os, const FloatIndexVector& vec);
+
 private:
     std::vector<double> m_vector; ///< The vector of floating-point values.
     std::vector<uint64_t> m_vectorInt; ///< Internal representation of the vector for hashing.
     int m_hashPrescision; ///< The precision used for hashing.
     bool m_initialized = false; ///< Flag indicating whether the vector has been initialized.
+
+    void setupVecs(const std::vector<double>& vec, int hashPrescision);
 };
 
 /**

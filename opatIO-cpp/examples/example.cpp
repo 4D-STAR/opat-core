@@ -1,11 +1,15 @@
 #include "opatIO.h"
+#include "indexVector.h"
 
 #include <iostream>
 
 int main() {
     std::string filename = "gs98hz.opat";
     opat::OPAT file = opat::readOPAT(filename);
-    const auto& table = file.get({0.95, 0.001}).get("data");
+    std::cout << "OPAT file loaded successfully." << std::endl;
+    FloatIndexVector indexVector({0.95, 0.001});
+    std::cout << indexVector << std::endl;
+    const auto& table = file.get(indexVector).get("data");
     // you could print this with table.print(), however, we will show slicing
     opat::Slice rowSlice(0, 6); // Gets rows 0 to 5
     opat::Slice colSlice(25, 36); // Gets columns 25 to 35

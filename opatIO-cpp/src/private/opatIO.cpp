@@ -250,6 +250,7 @@ namespace opat {
     // Utility functions
     const DataCard& OPAT::get(const FloatIndexVector& index) const {
         auto it = cards.find(index);
+        std::cout << "OPAT::get called with index: " << index << std::endl;
         if (it != cards.end()) {
             return it->second;
         } else {
