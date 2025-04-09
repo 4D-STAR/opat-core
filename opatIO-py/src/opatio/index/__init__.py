@@ -14,3 +14,4 @@ floatvectorindex
     float indices.
 
 """
+from .floatvectorindex import FloatVectorIndex
