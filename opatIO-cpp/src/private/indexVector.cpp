@@ -10,10 +10,13 @@
 
 
 int round_to_nearest_multiple_of_power_of_10(int value) {
-    if (value == 0.0) return 0.0;
+    if (value == 0.0) return 0;
+    if (value < 0) {
+        throw std::invalid_argument("Negative value cannot be used as index");
+    }
 
-    double orderOfMagnitude = std::pow(10.0, std::floor(std::log10(std::abs(value))));
-    return static_cast<int>(std::round(value / orderOfMagnitude) * orderOfMagnitude);
+    return (value + 5) / 10 * 10;
+
 }
 
 // Constructor: Initializes the object with default hash precision of 8.

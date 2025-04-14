@@ -42,7 +42,7 @@ namespace opat {
     }
 
     // Checks if the file has the "OPAT" magic number at the beginning
-    bool hasMagic(std::string filename) {
+    bool hasMagic(const std::string& filename) {
         std::ifstream file(filename, std::ios::binary);
         if (!file.is_open()) {
             return false; // File could not be opened
@@ -56,7 +56,7 @@ namespace opat {
     }
 
     // Reads an OPAT file and constructs an OPAT object
-    OPAT readOPAT(std::string filename) {
+    OPAT readOPAT(const std::string& filename) {
         // Verify the file has the correct magic number
         bool isOPAT = hasMagic(filename);
         if (!isOPAT) {
@@ -203,6 +203,7 @@ namespace opat {
                 indexEntry.numRows = swap_bytes(indexEntry.numRows);
                 indexEntry.byteStart = swap_bytes(indexEntry.byteStart);
                 indexEntry.byteEnd = swap_bytes(indexEntry.byteEnd);
+                indexEntry.size = swap_bytes(indexEntry.size);
             }
             tableIndex.tableIndex[indexEntry.tag] = indexEntry;
         }
@@ -211,16 +212,17 @@ namespace opat {
 
     // Reads an OPAT table from the file
     OPATTable readOPATTable(std::ifstream &file, const CardCatalogEntry &cardEntry, const TableIndexEntry &tableEntry) {
+        // TODO : replace these with make_unique instead of raw ptr initialization
         std::unique_ptr<double[]> rowValues(new double[tableEntry.numRows]);
         std::unique_ptr<double[]> columnValues(new double[tableEntry.numColumns]);
-        std::unique_ptr<double[]> data(new double[tableEntry.numRows * tableEntry.numColumns]);
+        std::unique_ptr<double[]> data(new double[tableEntry.numRows * tableEntry.numColumns * tableEntry.size]);
 
         file.seekg(cardEntry.byteStart + tableEntry.byteStart, std::ios::beg);
         file.read(reinterpret_cast<char*>(rowValues.get()), tableEntry.numRows * sizeof(double));
         file.read(reinterpret_cast<char*>(columnValues.get()), tableEntry.numColumns * sizeof(double));
-        file.read(reinterpret_cast<char*>(data.get()), tableEntry.numRows * tableEntry.numColumns * sizeof(double));
+        file.read(reinterpret_cast<char*>(data.get()), tableEntry.numRows * tableEntry.numColumns * tableEntry.size *sizeof(double));
 
-        if (file.gcount() != tableEntry.numRows * tableEntry.numColumns * sizeof(double)) {
+        if (file.gcount() != tableEntry.numRows * tableEntry.numColumns * tableEntry.size * sizeof(double)) {
             throw std::runtime_error("Error reading OPAT table from file");
         }
 
@@ -231,6 +233,7 @@ namespace opat {
 
         table.N_R = tableEntry.numRows;
         table.N_C = tableEntry.numColumns;
+        table.m_vsize = tableEntry.size;
         return table;
     }
 
@@ -250,7 +253,6 @@ namespace opat {
     // Utility functions
     const DataCard& OPAT::get(const FloatIndexVector& index) const {
         auto it = cards.find(index);
-        std::cout << "OPAT::get called with index: " << index << std::endl;
         if (it != cards.end()) {
             return it->second;
         } else {
@@ -294,37 +296,56 @@ namespace opat {
     }
 
 
-    const double& OPATTable::operator()(uint32_t row, uint32_t column) const {
+    OPATTable OPATTable::operator()(uint32_t row, uint32_t column) const {
         return getData(row, column);
     }
+
+    double OPATTable::operator()(uint32_t row, uint32_t column, uint64_t zdepth) const {
+        return getData(row, column, zdepth);
+    }
+
+    double OPATTable::getData(uint32_t row, uint32_t column, uint64_t zdepth) const {
+        OPATTable table = getData(row, column);
+        return table.data[zdepth];
+    }
+
 
     OPATTable OPATTable::operator()(const Slice& rowSlice, const Slice& colSlice) const {
         return slice(rowSlice, colSlice);
     }
 
-    const double& OPATTable::getData(uint32_t row, uint32_t column) const {
+    OPATTable OPATTable::getData(uint32_t row, uint32_t column) const {
         if (row >= N_R || column >= N_C) {
-            throw std::out_of_range("Index out of range");
-        }
-        if (row < 0 || column < 0) {
             throw std::out_of_range("Index out of range");
         }
         if (data == nullptr) {
             throw std::runtime_error("Data not initialized");
         }
-        return data[row * N_C + column];
+        OPATTable cellVector;
+        cellVector.N_R = 1;
+        cellVector.N_C = m_vsize;
+        cellVector.m_vsize = 1;
+        cellVector.columnValues = std::make_unique<double[]>(m_vsize);
+        cellVector.rowValues = std::make_unique<double[]>(1);
+        cellVector.data = std::make_unique<double[]>(m_vsize);
+
+        double *dataStartPointer = data.get() + (row * N_C + column) * m_vsize;
+        std::memcpy(cellVector.data.get(), dataStartPointer, m_vsize * sizeof(double));
+
+        return cellVector;
     }
 
     OPATTable OPATTable::getRow(uint32_t row) const {
         OPATTable rowData;
         rowData.N_C = N_C;
+        rowData.m_vsize = m_vsize;
         rowData.N_R = 1;
-        rowData.data = std::make_unique<double[]>(N_C);
+        rowData.data = std::make_unique<double[]>(N_C*m_vsize);
         rowData.rowValues = std::make_unique<double[]>(1);
         rowData.columnValues = std::make_unique<double[]>(N_C);
         rowData.rowValues[0] = rowValues[row];
+        std::memcpy(rowData.data.get(), data.get() + (row * N_C) * m_vsize, N_C * m_vsize * sizeof(double));
         for (uint32_t i = 0; i < N_C; ++i) {
-            rowData.data[i] = getData(row, i);
             rowData.columnValues[i] = columnValues[i];
         }
         return rowData;
@@ -334,14 +355,19 @@ namespace opat {
         OPATTable columnData;
         columnData.N_R = N_R;
         columnData.N_C = 1;
+        columnData.m_vsize = m_vsize;
 
-        columnData.data = std::make_unique<double[]>(N_R);
+        columnData.data = std::make_unique<double[]>(N_R*m_vsize);
         columnData.rowValues = std::make_unique<double[]>(N_R);
         columnData.columnValues = std::make_unique<double[]>(1);
         columnData.columnValues[0] = columnValues[column];
+
         for (uint32_t i = 0; i < N_R; ++i) {
-            columnData.data[i] = getData(i, column);
             columnData.rowValues[i] = rowValues[i];
+            for (uint64_t j = 0; j < m_vsize; ++j) {
+                int currentIndex = i * m_vsize + j;
+                columnData.data[currentIndex] = getData(i, column, j);
+            }
         }
         return columnData;
     }
@@ -356,6 +382,7 @@ namespace opat {
         OPATTable rowValuesTable;
         rowValuesTable.N_R = N_R;
         rowValuesTable.N_C = 1;
+        rowValuesTable.m_vsize = 1;
         rowValuesTable.data = std::make_unique<double[]>(N_R);
         rowValuesTable.rowValues = std::make_unique<double[]>(N_R);
         rowValuesTable.columnValues = std::make_unique<double[]>(1);
@@ -377,6 +404,7 @@ namespace opat {
         OPATTable columnValuesTable;
         columnValuesTable.N_R = 1;
         columnValuesTable.N_C = N_C;
+        columnValuesTable.m_vsize = 1;
         columnValuesTable.data = std::make_unique<double[]>(N_C);
         columnValuesTable.rowValues = std::make_unique<double[]>(1);
         columnValuesTable.columnValues = std::make_unique<double[]>(N_C);
@@ -398,28 +426,35 @@ namespace opat {
         return data.get();
     }
 
-    OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
-        if (rowSlice.start >= N_R || rowSlice.end > N_R || colSlice.start >= N_C || colSlice.end > N_C) {
-            throw std::out_of_range("Slice out of range");
-        }
-        if (rowSlice.start < 0 || rowSlice.end < 0 || colSlice.start < 0 || colSlice.end < 0) {
-            throw std::out_of_range("Slice out of range");
-        }
-        OPATTable slicedTable;
-        slicedTable.N_R = rowSlice.end - rowSlice.start;
-        slicedTable.N_C = colSlice.end - colSlice.start;
-        slicedTable.data = std::make_unique<double[]>(slicedTable.N_R * slicedTable.N_C);
-        slicedTable.rowValues = std::make_unique<double[]>(slicedTable.N_R);
-        slicedTable.columnValues = std::make_unique<double[]>(slicedTable.N_C);
-        for (uint32_t i = rowSlice.start; i < rowSlice.end; ++i) {
-            for (uint32_t j = colSlice.start; j < colSlice.end; ++j) {
-                slicedTable.data[(i - rowSlice.start) * slicedTable.N_C + (j - colSlice.start)] = getData(i, j);
+OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
+            if (rowSlice.start >= N_R || rowSlice.end > N_R || colSlice.start >= N_C || colSlice.end > N_C) {
+                throw std::out_of_range("Slice out of range");
+            }
+            if (rowSlice.start < 0 || rowSlice.end < 0 || colSlice.start < 0 || colSlice.end < 0) {
+                throw std::out_of_range("Slice out of range");
+            }
+            OPATTable slicedTable;
+            slicedTable.N_R = rowSlice.end - rowSlice.start;
+            slicedTable.N_C = colSlice.end - colSlice.start;
+            slicedTable.m_vsize = m_vsize;
+            slicedTable.data = std::make_unique<double[]>(slicedTable.N_R * slicedTable.N_C * slicedTable.m_vsize);
+            slicedTable.rowValues = std::make_unique<double[]>(slicedTable.N_R);
+            slicedTable.columnValues = std::make_unique<double[]>(slicedTable.N_C);
+
+            for (uint32_t i = rowSlice.start; i < rowSlice.end; ++i) {
+                for (uint32_t j = colSlice.start; j < colSlice.end; ++j) {
+                    for (uint64_t k = 0; k < m_vsize; ++k) {
+                        int slicedIndex = m_vsize * (slicedTable.N_C * (i - rowSlice.start) + (j - colSlice.start)) + k;
+                        slicedTable.data[slicedIndex] = getData(i, j, k);
+                    }
+                }
                 slicedTable.rowValues[i - rowSlice.start] = rowValues[i];
+            }
+            for (uint32_t j = colSlice.start; j < colSlice.end; ++j) {
                 slicedTable.columnValues[j - colSlice.start] = columnValues[j];
             }
+            return slicedTable;
         }
-        return slicedTable;
-    }
 
     std::string OPATTable::ascii() const {
         std::string result;
