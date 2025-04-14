@@ -188,7 +188,8 @@ case insensitive.
   Num Rows & uint16 & 2 & Number of rows the table contains.  \\
   Column Name & char[8] & 8 & Label for value parameterizing columns.  \\
   Row Name & char[8] & 8 & Label for value parameterizing rows.  \\
-  Reserved & char[20] & 20 & Reserved for future use.  \\
+  Size & uint64 & 8 & Vector size of each cell.  \\
+  Reserved & char[12] & 12 & Reserved for future use.  \\
 \hline
 \end{longtable}
 
