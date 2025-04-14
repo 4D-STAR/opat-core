@@ -1,4 +1,4 @@
-class OPATEntitity:
+class OPATEntity:
     """
     Represents a generic OPAT entity. This class serves as a base class for entities
     that need to define their size in bytes and provide a byte representation.
@@ -8,7 +8,7 @@ class OPATEntitity:
 
     Examples
     --------
-    >>> class MyEntity(OPATEntitity):
+    >>> class MyEntity(OPATEntity):
     ...     def __bytes__(self):
     ...         return b"example"
     ...
@@ -30,7 +30,7 @@ class OPATEntitity:
 
         Examples
         --------
-        >>> class MyEntity(OPATEntitity):
+        >>> class MyEntity(OPATEntity):
         ...     def __bytes__(self):
         ...         return b"example"
         ...
@@ -56,7 +56,7 @@ class OPATEntitity:
 
         Examples
         --------
-        >>> class MyEntity(OPATEntitity):
+        >>> class MyEntity(OPATEntity):
         ...     def __bytes__(self):
         ...         return b"example"
         ...

@@ -2,13 +2,17 @@ from dataclasses import dataclass
 import struct
 import hashlib
 import numpy as np
+import numpy.typing as npt
 
-from typing import Dict, Iterable, List
+from collections.abc import Sized
+from typing import Dict, Iterable, Tuple, Union
+from numbers import Number
 
-from opatio.misc.opatentity import OPATEntitity
+from opatio.misc.opatentity import OPATEntity
+
 
 @dataclass
-class CardHeader(OPATEntitity):
+class CardHeader(OPATEntity):
     """
     Represents the header of a data card.
 
@@ -166,7 +170,7 @@ class CardHeader(OPATEntitity):
         )
 
 @dataclass
-class CardIndexEntry(OPATEntitity):
+class CardIndexEntry(OPATEntity):
     """
     Represents an entry in the index of a data card.
 
@@ -188,8 +192,10 @@ class CardIndexEntry(OPATEntitity):
         Name of the column.
     rowName : str
         Name of the row.
+    size : int
+        Length of the row entry, default is 1 (scaler). Max is 2^64 - 1 (max 8 byte u int)
     reserved : bytes
-        Reserved for future use (default is 20 null bytes).
+        Reserved for future use (default is 12 null bytes).
     """
 
     tag: str
@@ -199,7 +205,8 @@ class CardIndexEntry(OPATEntitity):
     numRows: int
     columnName: str
     rowName: str
-    reserved: bytes = b"\x00"*20
+    size: int = 1
+    reserved: bytes = b"\x00"*12
 
     def __bytes__(self) -> bytes:
         """
@@ -223,8 +230,10 @@ class CardIndexEntry(OPATEntitity):
         nullPaddedTag = self.tag.ljust(8, '\x00').encode('utf-8')
         nullPaddedColumnName = self.columnName.ljust(8, '\x00').encode('utf-8')
         nullPaddedRowName = self.rowName.ljust(8, '\x00').encode('utf-8')
+        if not self.size.is_integer():
+            raise TypeError(f"Due to an unknown error the size of the index entry is not an integer. The size is {self.size}. This is a opatio bug and should be reported.")
         indexBytes = struct.pack(
-            f"<8s Q Q H H 8s 8s 20s",
+            f"<8s Q Q H H 8s 8s Q 12s",
             nullPaddedTag,
             self.byteStart,
             self.byteEnd,
@@ -232,6 +241,7 @@ class CardIndexEntry(OPATEntitity):
             self.numRows,
             nullPaddedColumnName,
             nullPaddedRowName,
+            int(self.size),
             self.reserved
         )
         assert len(indexBytes) == 64, f"Card index entry must be 64 bytes. Due to an unknown error the card index entry has {len(indexBytes)} bytes"
@@ -248,11 +258,11 @@ class CardIndexEntry(OPATEntitity):
 
         Examples
         --------
-        >>> index = CardIndexEntry(tag="Example", byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName="col", rowName="row")
+        >>> index = CardIndexEntry(tag="Example", byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName="col", rowName="row", size=1)
         >>> repr(index)
-        'CardIndexEntry(Tag=Example, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=col, rowName=row)'
+        'CardIndexEntry(Tag=Example, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=col, rowName=row, size=1)'
         """
-        return f"CardIndexEntry(Tag={self.tag}, byteStart={self.byteStart}, byteEnd={self.byteEnd}, numColumns={self.numColumns}, numRows={self.numRows}, columnName={self.columnName}, rowName={self.rowName})"
+        return f"CardIndexEntry(Tag={self.tag}, byteStart={self.byteStart}, byteEnd={self.byteEnd}, numColumns={self.numColumns}, numRows={self.numRows}, columnName={self.columnName}, rowName={self.rowName}, size={self.size})"
 
     def ascii(self) -> str:
         """
@@ -265,11 +275,11 @@ class CardIndexEntry(OPATEntitity):
 
         Examples
         --------
-        >>> index = CardIndexEntry(tag="Example", byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName="col", rowName="row")
+        >>> index = CardIndexEntry(tag="Example", byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName="col", rowName="row", size=1)
         >>> print(index.ascii())
-        Example  |        0 |       64 |        4 |        4 | col      | row
+        Example  |        0 |       64 |        4 |        4 | col      | row       | 1
         """
-        return f"{self.tag:8} | {self.byteStart:8} | {self.byteEnd:8} | {self.numColumns:8} | {self.numRows:8} | {self.columnName:8} | {self.rowName:8}\n"
+        return f"{self.tag:8} | {self.byteStart:8} | {self.byteEnd:8} | {self.numColumns:8} | {self.numRows:8} | {self.columnName:8} | {self.rowName:8} | {self.size:8}\n"
 
     def copy(self):
         """
@@ -295,11 +305,77 @@ class CardIndexEntry(OPATEntitity):
             numRows=self.numRows,
             columnName=self.columnName,
             rowName=self.rowName,
+            size = self.size,
             reserved=self.reserved
         )
 
+class OPATCell(OPATEntity):
+    data : npt.ArrayLike
+    shape: Tuple[int, ...]
+
+    def __init__(self, data):
+       try:
+           self.build(data)
+       except Exception as e:
+           raise Exception(f"An unknown error occurred while building the OPAT entity: {e}")
+
+    def from_ndarray(self, ndarray: npt.ArrayLike):
+        if not isinstance(ndarray, np.ndarray):
+            raise TypeError(f"ndarray must be a numpy array! Currently it is {type(ndarray)}")
+        self.shape = ndarray.shape
+        self.data = ndarray
+
+    def build(self, data):
+        if isinstance(data, npt.ArrayLike):
+            self.from_ndarray(data)
+        else:
+            try:
+                data = np.array(data)
+                if data.dtype.kind not in {'i', 'f', 'u'}:
+                    raise TypeError(f"Unsupported data type: {data.dtype}")
+                self.from_ndarray(data)
+            except TypeError as e:
+                raise TypeError(f"Data must be castable to a numeric numpy array! Currently it is {type(data)}. {e}")
+            except ValueError as e:
+                raise ValueError(f"Data must be castable to a numeric numpy array! Currently it is {type(data)}. {e}")
+            except Exception as e:
+                raise Exception(f"An unknown error occurred while building the OPAT entity: {e}")
+
+    def __bytes__(self) -> bytes:
+        """
+        recurse through the entire entity and convert it to a flat byte stream.
+
+        Returns
+        -------
+        bytes
+            The OPAT entity as bytes.
+        """
+        return self.data.flatten().tobytes()
+
+    def __repr__(self) -> str:
+        """
+        Get the string representation of the OPAT entity.
+
+        Returns
+        -------
+        str
+            The string representation.
+        """
+        if self.data.ndim == 1 and self.data.shape[0] == 1:
+            return str(self.data[0])
+        else:
+            return ', '.join([str(x) for x in self.data.flatten()])
+
+    def ascii(self) -> str:
+        return self.__repr__()
+
+    def __array__(self, dtype=None):
+        if dtype.kind not in {'i', 'f', 'u'}:
+            raise TypeError(f"Unsupported data type: {dtype}")
+        return self.data.flatten()
+
 @dataclass
-class OPATTable(OPATEntitity):
+class OPATTable(OPATEntity):
     """
     Structure to hold the data of a single table. Recall the structure of an OPAT file
     is a collection of data cards, each containing a header, an index, and a collection
@@ -319,7 +395,7 @@ class OPATTable(OPATEntitity):
         Column values of the table.
     rowValues : Iterable[float]
         Row values of the table.
-    data : Iterable[Iterable[float]]
+    data : npt.ArrayLike
         Data of the table.
 
     Examples
@@ -328,11 +404,25 @@ class OPATTable(OPATEntitity):
     >>> table = OPATTable(columnValues=np.array([1.0, 2.0]), rowValues=np.array([3.0, 4.0]), data=[[5.0, 6.0], [7.0, 8.0]])
     """
 
-    columnValues: Iterable[float]
-    rowValues: Iterable[float]
-    data: Iterable[Iterable[float]]
+    columnValues: npt.ArrayLike
+    rowValues: npt.ArrayLike
+    data: npt.ArrayLike
+    _size: int = ...
 
-    def sha256(self) -> bytes:
+    def __post_init__(self):
+        if self.data.ndim != 2 and self.data.ndim != 3:
+           raise ValueError(f"data must be a 2D or 3D array! Currently it is {self.data.ndim}D")
+
+        if self.data.ndim == 2:
+            self._size = 1
+        elif self.data.ndim == 3:
+            self._size = self.data.shape[2]
+
+    @property
+    def size(self) -> int:
+        return self._size
+
+    def sha256(self) -> "_Hash":
         """
         Compute the SHA-256 checksum of the given data.
 
@@ -351,14 +441,8 @@ class OPATTable(OPATEntitity):
         >>> table = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])
         >>> table.sha256()
         """
-        if not isinstance(self.data, np.ndarray):
-            try:
-                data = np.array(self.data, dtype=np.float64).flatten()
-            except ValueError as e:
-                raise ValueError(f"data must be castable to a numpy array! Currently it is {type(self.data)}. {e}")
-        else:
-            data = self.data.flatten()
-        return hashlib.sha256(data.tobytes())
+        flatData = self.data.flatten()
+        return hashlib.sha256(flatData.tobytes())
 
     def __bytes__(self) -> bytes:
         """
@@ -412,6 +496,29 @@ class OPATTable(OPATEntitity):
         )
         return tableBytes
 
+
+    @staticmethod
+    def compute_col_width(size: int, floatWidth: int) -> int:
+        """
+        Computes the total width of a cell that will hold `size` floats,
+        each with `floatWidth` characters, formatted like <f1, f2, ..., fN>.
+        """
+        # Width per float plus the separator ", "
+        floatWidth = len(f"{0:7.{floatWidth}f}")
+        perFloat = floatWidth
+        separatorWidth = 2 * (size - 1) if size > 1 else 0
+        # Include 2 for the surrounding <>
+        bracketWidth = 2 if size > 1 else 0
+        return int(size * perFloat + separatorWidth + bracketWidth)
+
+    def format_centered(self, value: float, floatWidth: int) -> str:
+        """
+        Centers a single float value in a fixed-width field.
+        """
+        totalWidth = self.compute_col_width(self.size, floatWidth)
+        formatSpec = f"^{totalWidth}.{floatWidth}f"
+        return f"{value:{formatSpec}}"
+
     def ascii(self) -> str:
         """
         Get the ASCII representation of the OPAT table.
@@ -429,13 +536,21 @@ class OPATTable(OPATEntitity):
         tableStr = ""
         numRows = len(self.rowValues)
         numColumns = len(self.columnValues)
-        colNameRow = " | ".join([f"{col:4.4f}" for col in self.columnValues])
-        colNameRow = "     | " + colNameRow
+        # colNameRow = " | ".join([f"{col:4.4f}" for col in self.columnValues])
+        colNameRow = " | ".join([self.format_centered(col, 4) for col in self.columnValues])
+        colNameRow = "        | " + colNameRow
         tableStr += colNameRow + "\n"
         tableStr += "-" * (len(colNameRow) + 4) + "\n"
         for i in range(numRows):
-            row = " | ".join([f"{self.data[i][j]:4.4f}" for j in range(numColumns)])
-            tableStr += f"{self.rowValues[i]:4.4f} | " + row + "\n"
+            cellValues = [self.data[i][j] for j in range(numColumns)]
+            if isinstance(cellValues[0], np.ndarray):
+                dataSequence = [', '.join([f"{y:7.4f}" for y in x]) for x in cellValues]
+                dataVectorFormated = [f'<{x}>' if ',' in x else x for x in dataSequence]
+            else:
+                dataVectorFormated = [f"{x:7.4f}" for x in cellValues]
+
+            row = " | ".join(dataVectorFormated)
+            tableStr += f"{self.rowValues[i]:7.4f} | " + row + "\n"
         return tableStr
 
     def copy(self):
@@ -462,7 +577,7 @@ class OPATTable(OPATEntitity):
         return newTable
 
 @dataclass
-class DataCard(OPATEntitity):
+class DataCard(OPATEntity):
     """
     Represents a data card containing header, index, and tables.
 
@@ -559,7 +674,8 @@ class DataCard(OPATEntitity):
             numColumns=len(table.columnValues),
             numRows=len(table.rowValues),
             columnName=columnName,
-            rowName=rowName
+            rowName=rowName,
+            size=table.size
         )
 
         # Add the index entry to the data card

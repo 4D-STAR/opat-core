@@ -3,10 +3,10 @@ from typing import List
 import struct
 
 from opatio.index.floatvectorindex import FloatVectorIndex
-from opatio.misc.opatentity import OPATEntitity
+from opatio.misc.opatentity import OPATEntity
 
 @dataclass
-class CardCatalogEntry(OPATEntitity):
+class CardCatalogEntry(OPATEntity):
     """
     Structure to hold the card catalog information for an OPAT file.
 

@@ -2,11 +2,11 @@ import struct
 from dataclasses import dataclass
 from datetime import datetime
 
-from opatio.misc.opatentity import OPATEntitity
+from opatio.misc.opatentity import OPATEntity
 
 
 @dataclass
-class Header(OPATEntitity):
+class Header(OPATEntity):
     """
     A class to represent the header information of an OPAT file.
 

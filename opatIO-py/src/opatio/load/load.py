@@ -120,7 +120,7 @@ def load_data_card(b: bytes) -> DataCard:
     for indexEntry in range(header.numTables):
         startByte = header.indexOffset + indexEntry*64
         indexBytes = b[startByte:startByte+64]
-        unpackedIndexEntry = struct.unpack("<8s Q Q H H 8s 8s 20s", indexBytes)
+        unpackedIndexEntry = struct.unpack("<8s Q Q H H 8s 8s Q 12s", indexBytes)
 
         tableTag = unpackedIndexEntry[0].decode().replace("\x00", "")
         tableByteStart = unpackedIndexEntry[1]
@@ -129,13 +129,17 @@ def load_data_card(b: bytes) -> DataCard:
         tableNumRows = unpackedIndexEntry[4]
         tableColumnName = unpackedIndexEntry[5].decode().replace("\x00", "")
         tableRowName = unpackedIndexEntry[6].decode().replace("\x00", "")
+        tableCellVectorSize = unpackedIndexEntry[7]
 
         tableBytes = b[tableByteStart:tableByteEnd]
-        rawData = struct.unpack(f"<{tableNumRows}d{tableNumColumns}d{tableNumRows*tableNumColumns}d", tableBytes)
+        rawData = struct.unpack(f"<{tableNumRows}d{tableNumColumns}d{tableNumRows*tableNumColumns*tableCellVectorSize}d", tableBytes)
 
         rowValues = np.array(rawData[:tableNumRows], dtype=np.float64)
         columnValues = np.array(rawData[tableNumRows:tableNumRows+tableNumColumns], dtype=np.float64)
-        dataArray = np.array(rawData[tableNumRows+tableNumColumns:], dtype=np.float64).reshape((tableNumRows, tableNumColumns))
+        if tableCellVectorSize > 1:
+            dataArray = np.array(rawData[tableNumRows+tableNumColumns:], dtype=np.float64).reshape((tableNumRows, tableNumColumns, tableCellVectorSize))
+        else:
+            dataArray = np.array(rawData[tableNumRows+tableNumColumns:], dtype=np.float64).reshape((tableNumRows, tableNumColumns))
 
         newTable = OPATTable(rowValues=rowValues, columnValues=columnValues, data=dataArray)
 
