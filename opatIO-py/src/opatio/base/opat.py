@@ -1,4 +1,4 @@
-from typing import Iterable, List, Dict, Union
+from typing import Iterable, List, Dict, Union, Tuple
 import os
 import numpy as np
 
@@ -473,3 +473,9 @@ class OPAT():
         for index in self.catalog.values():
             outBytes += bytes(index)
         return outBytes
+
+    def __getitem__(self, key: Tuple[float]):
+        fiv = FloatVectorIndex(key, hashPrecision=self.header.hashPrecision)
+        if fiv not in self.catalog:
+            raise KeyError(f"indexVector {fiv} not found in catalog!")
+        return self.cards[fiv]

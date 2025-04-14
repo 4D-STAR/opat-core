@@ -309,71 +309,6 @@ class CardIndexEntry(OPATEntity):
             reserved=self.reserved
         )
 
-class OPATCell(OPATEntity):
-    data : npt.ArrayLike
-    shape: Tuple[int, ...]
-
-    def __init__(self, data):
-       try:
-           self.build(data)
-       except Exception as e:
-           raise Exception(f"An unknown error occurred while building the OPAT entity: {e}")
-
-    def from_ndarray(self, ndarray: npt.ArrayLike):
-        if not isinstance(ndarray, np.ndarray):
-            raise TypeError(f"ndarray must be a numpy array! Currently it is {type(ndarray)}")
-        self.shape = ndarray.shape
-        self.data = ndarray
-
-    def build(self, data):
-        if isinstance(data, npt.ArrayLike):
-            self.from_ndarray(data)
-        else:
-            try:
-                data = np.array(data)
-                if data.dtype.kind not in {'i', 'f', 'u'}:
-                    raise TypeError(f"Unsupported data type: {data.dtype}")
-                self.from_ndarray(data)
-            except TypeError as e:
-                raise TypeError(f"Data must be castable to a numeric numpy array! Currently it is {type(data)}. {e}")
-            except ValueError as e:
-                raise ValueError(f"Data must be castable to a numeric numpy array! Currently it is {type(data)}. {e}")
-            except Exception as e:
-                raise Exception(f"An unknown error occurred while building the OPAT entity: {e}")
-
-    def __bytes__(self) -> bytes:
-        """
-        recurse through the entire entity and convert it to a flat byte stream.
-
-        Returns
-        -------
-        bytes
-            The OPAT entity as bytes.
-        """
-        return self.data.flatten().tobytes()
-
-    def __repr__(self) -> str:
-        """
-        Get the string representation of the OPAT entity.
-
-        Returns
-        -------
-        str
-            The string representation.
-        """
-        if self.data.ndim == 1 and self.data.shape[0] == 1:
-            return str(self.data[0])
-        else:
-            return ', '.join([str(x) for x in self.data.flatten()])
-
-    def ascii(self) -> str:
-        return self.__repr__()
-
-    def __array__(self, dtype=None):
-        if dtype.kind not in {'i', 'f', 'u'}:
-            raise TypeError(f"Unsupported data type: {dtype}")
-        return self.data.flatten()
-
 @dataclass
 class OPATTable(OPATEntity):
     """
@@ -421,6 +356,15 @@ class OPATTable(OPATEntity):
     @property
     def size(self) -> int:
         return self._size
+
+    def __getitem__(self, key: Union[Tuple[int, int], Tuple[int, int, int]]):
+        if not isinstance(key, tuple):
+            raise TypeError(f"key must be a tuple! Currently it is {type(key)}")
+        if not all([isinstance(x, int) for x in key]):
+            raise KeyError(f"key must be a tuple of integers! Currently it is {key}")
+        if len(key) != 2 and len(key) != 3:
+            raise KeyError(f"key must be a tuple of length 2 or 3! Currently it is {len(key)}")
+        return self.data[*key]
 
     def sha256(self) -> "_Hash":
         """
@@ -575,6 +519,13 @@ class OPATTable(OPATEntity):
             data=self.data.copy()
         )
         return newTable
+
+    def __repr__(self):
+        outStr = "OPATTable("
+        outStr += f"columnValues: [{self.columnValues.min():0.4f} -> {self.columnValues.max():0.4f}], "
+        outStr += f"rowValues: [{self.rowValues.min():0.4f} -> {self.rowValues.max():0.4f}], "
+        outStr += f"vSize={self.size})"
+        return outStr
 
 @dataclass
 class DataCard(OPATEntity):
