@@ -130,6 +130,6 @@ TEST_F(opatIOTest, TableAscii) {
 TEST_F(opatIOTest, getValue) {
     opat::OPAT opat = opat::readOPAT(EXAMPLE_FILENAME);
     FloatIndexVector index({0.35, 0.004});
-    const double& value = opat[index]["data"](5, 35);
+    const double& value = opat[index]["data"](5, 35, 0);
     EXPECT_DOUBLE_EQ(value, -0.402); // Replace -1 with the expected value
 }

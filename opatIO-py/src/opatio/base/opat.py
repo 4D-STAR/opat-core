@@ -1,4 +1,4 @@
-from typing import Iterable, List, Dict, Union
+from typing import Iterable, List, Dict, Union, Tuple
 import os
 import numpy as np
 
@@ -347,7 +347,7 @@ class OPAT():
         
         assert cV.ndim == 1, f"columnValues must be a 1D array! Currently it has {cV.ndim} dimensions"
         assert rV.ndim == 1, f"rowValues must be a 1D array! Currently it has {rV.ndim} dimensions"
-        assert d.ndim == 2, f"data must be a 2D array! Currently it has {d.ndim} dimensions"
+        assert d.ndim == 2 or d.ndim == 3, f"data must be a 2D or 3D array! Currently it has {d.ndim} dimensions"
         assert d.shape[1] == len(cV), f"data must have the same number of rows as columnValues! Currently it has {d.shape[0]} rows and {len(cV)} columns"
         assert d.shape[0] == len(rV), f"data must have the same number of columns as rowValues! Currently it has {d.shape[1]} columns and {len(rV)} rows"
 
@@ -473,3 +473,9 @@ class OPAT():
         for index in self.catalog.values():
             outBytes += bytes(index)
         return outBytes
+
+    def __getitem__(self, key: Tuple[float]):
+        fiv = FloatVectorIndex(key, hashPrecision=self.header.hashPrecision)
+        if fiv not in self.catalog:
+            raise KeyError(f"indexVector {fiv} not found in catalog!")
+        return self.cards[fiv]

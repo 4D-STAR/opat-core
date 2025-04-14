@@ -1,5 +1,6 @@
 from opatio import OPAT
 from opatio.card.datacard import OPATTable
+from opatio.card.datacard import OPATCell
 import numpy as np
 
 np.random.seed(42)
@@ -18,7 +19,7 @@ num_tables = 10
 
 cards = list()
 for tableID in range(num_tables): 
-    data = np.random.rand(num_rows, num_cols).astype(np.float64)
+    data = np.random.rand(num_rows, num_cols, 4).astype(np.float64)
 
     column_values = np.random.rand(num_cols).astype(np.float64)
     column_name = "TC {}".format(tableID)

@@ -24,7 +24,7 @@
  * @brief Header file for the OPAT I/O library, providing structures and functions for reading and manipulating OPAT files.
  *
  * This file defines the core data structures and functions used for handling OPAT files. 
- * The OPAT format is designed for efficient storage and retrieval of multi-dimensional data tables, 
+ * The OPAT format is designed for efficient storage and retrieval of multidimensional data tables,
  * with metadata and indexing for fast access.
  *
  * The design prioritizes:
@@ -160,20 +160,22 @@ struct CardCatalog {
     friend std::ostream& operator<<(std::ostream& os, const CardCatalog& catalog);
 };
 
+#pragma pack(1)
 /**
  * @brief Structure to hold the index information of a table within a DataCard.
  *
  * Each TableIndexEntry contains metadata about a table, such as its dimensions and location.
  */
 struct TableIndexEntry {
-    char tag[4];             ///< Tag identifying the table.
+    char tag[8];             ///< Tag identifying the table.
     uint64_t byteStart;      ///< Byte start position of the table in the card.
     uint64_t byteEnd;        ///< Byte end position of the table in the card.
     uint16_t numColumns;     ///< Number of columns in the table.
     uint16_t numRows;        ///< Number of rows in the table.
     char columnName[8];      ///< Name of the columns (optional).
     char rowName[8];         ///< Name of the rows (optional).
-    char reserved[20];       ///< Reserved for future use.
+    uint64_t size;           ///< Vector size of each cell
+    char reserved[12];       ///< Reserved for future use.
 
     /**
      * @brief Stream insertion operator for printing the table index entry.
@@ -183,6 +185,7 @@ struct TableIndexEntry {
      */
     friend std::ostream& operator<<(std::ostream& os, const TableIndexEntry& entry);
 };
+#pragma pack()
 
 /**
  * @brief Structure to hold the index of tables within a DataCard.
@@ -246,25 +249,39 @@ struct OPATTable {
     std::unique_ptr<double[]> columnValues; ///< Array of column values.
     std::unique_ptr<double[]> data; ///< Array of table data.
 
-    uint32_t N_R; ///< Number of rows in the table.
-    uint32_t N_C; ///< Number of columns in the table.
+    uint32_t N_R;   ///< Number of rows in the table.
+    uint32_t N_C;   ///< Number of columns in the table.
+    uint64_t m_vsize; ///< Vector size of each cell
 
     /**
      * @brief Returns the size of the table as a pair of rows and columns.
      * @return A pair containing the number of rows and columns.
      */
     std::pair<double, double> size() const { return std::make_pair(N_R, N_C); }
+    int vsize() const { return m_vsize; }
 
     friend std::ostream& operator<<(std::ostream& os, const OPATTable& table);
+
+    const double& operator()() const;
 
     /**
      * @brief Accesses a table value by row and column.
      * @param row The row index.
      * @param column The column index.
+     * @return A opat table representing that vector
+     * @throws std::out_of_range if the row or column index is out of bounds.
+     */
+    OPATTable operator()(uint32_t row, uint32_t column) const;
+
+    /**
+     * @brief Accesses a table value by row and column.
+     * @param row The row index.
+     * @param column The column index.
+     * @param zdepth The vector index to retriev
      * @return A constant reference to the value at the specified row and column.
      * @throws std::out_of_range if the row or column index is out of bounds.
      */
-    const double& operator()(uint32_t row, uint32_t column) const;
+    double operator()(uint32_t row, uint32_t column, uint64_t zdepth) const;
 
     /**
      * @brief Slices the table into a smaller OPATTable.
@@ -282,7 +299,17 @@ struct OPATTable {
      * @return A constant reference to the value at the specified row and column.
      * @throws std::out_of_range if the row or column index is out of bounds.
      */
-    const double& getData(uint32_t row, uint32_t column) const;
+    OPATTable getData(uint32_t row, uint32_t column) const;
+
+    /**
+     * @brief Retrieves a table value by row and column.
+     * @param row The row index.
+     * @param column The column index.
+     * @param zdepth The vector index to retriev
+     * @return A constant reference to the value at the specified row and column.
+     * @throws std::out_of_range if the row or column index is out of bounds.
+     */
+    double getData(uint32_t row, uint32_t column, uint64_t zdepth) const;
 
     /**
      * @brief Extracts a single row from the table.
@@ -439,7 +466,7 @@ struct OPAT {
  * @return An OPAT structure containing the file's data.
  * @throws std::runtime_error if the file cannot be read or is invalid.
  */
-OPAT readOPAT(std::string filename);
+OPAT readOPAT(const std::string& filename);
 
 /**
  * @brief Reads the header of an OPAT file.
@@ -514,7 +541,7 @@ OPATTable readOPATTable(std::ifstream &file, const CardCatalogEntry &cardEntry, 
  * @param filename Path to the file.
  * @return True if the file has the correct magic number, false otherwise.
  */
-bool hasMagic(std::string filename);
+bool hasMagic(const std::string& filename);
 
 /**
  * @brief Determines if the system is big-endian.
@@ -534,7 +561,7 @@ bool is_big_endian();
  */
 template <typename T>
 T swap_bytes(T value) {
-    static_assert(std::is_trivially_copyable<T>::value, "swap_bytes only supports trivial types.");
+    static_assert(std::is_trivially_copyable_v<T>, "swap_bytes only supports trivial types.");
     T result;
     uint8_t* src = reinterpret_cast<uint8_t*>(&value);
     uint8_t* dest = reinterpret_cast<uint8_t*>(&result);
