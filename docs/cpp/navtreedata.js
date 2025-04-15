@@ -25,6 +25,14 @@
 var NAVTREE =
 [
   [ "opatIO-cpp", "index.html", [
+    [ "OPAT I/O Library Documentation", "index.html", "index" ],
+    [ "Fortran Interface", "md_docs_2static_2fortran.html", [
+      [ "Example: Reading an OPAT File in Fortran", "md_docs_2static_2fortran.html#autotoc_md20", [
+        [ "Key Steps:", "md_docs_2static_2fortran.html#autotoc_md21", null ],
+        [ "Example Code:", "md_docs_2static_2fortran.html#autotoc_md22", null ],
+        [ "Notes:", "md_docs_2static_2fortran.html#autotoc_md23", null ]
+      ] ]
+    ] ],
     [ "Test List", "test.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -51,13 +59,15 @@ var NAVTREE =
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ]
       ] ]
-    ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2private_2fextern_8cpp-example.html",
+"structopat_1_1_o_p_a_t_table.html#a9f30d01501a31313e1c9ea1448436b7a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

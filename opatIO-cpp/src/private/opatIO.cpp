@@ -304,6 +304,13 @@ namespace opat {
         return getData(row, column, zdepth);
     }
 
+    const double& OPATTable::operator()() const {
+        if (data == nullptr) {
+            throw std::runtime_error("Data not initialized");
+        }
+        return data[0]; // Always return the first value in the table
+    }
+
     double OPATTable::getData(uint32_t row, uint32_t column, uint64_t zdepth) const {
         OPATTable table = getData(row, column);
         return table.data[zdepth];

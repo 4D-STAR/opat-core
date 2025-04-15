@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -116,6 +112,7 @@ $(function(){initNavTree('functions_vars.html',''); initResizable(true); });
 <li>cardSize&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#a61d6c0bd609f3918e9fd47152050794e">opat::CardHeader</a></li>
 <li>columnName&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#a177610e80a9c3147ed41bbbfeee61912">opat::TableIndexEntry</a></li>
 <li>columnValues&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#a637a98bdc1c45f0b6875f4cc3a6e8476">opat::OPATTable</a></li>
+<li>colValuesPtr&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#afa4e4ca31d3e32dc433f869cc1e76123">OPATTable_C</a></li>
 <li>comment&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#ac37c06d5ba4e3a509299b6747ba56fb3">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#ae7135cb4d8c5493d758b0bf1ba5a36a5">opat::Header</a></li>
 <li>creationDate&#160;:&#160;<a class="el" href="structopat_1_1_header.html#a42f417d6fdf0b2995b92ddda455faf1f">opat::Header</a></li>
 </ul>
@@ -123,11 +120,14 @@ $(function(){initNavTree('functions_vars.html',''); initResizable(true); });
 
 <h3><a id="index_d" name="index_d"></a>- d -</h3><ul>
 <li>data&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#ac9c9b4a9962807f0e7acdad81ff0db17">opat::OPATTable</a></li>
+<li>dataPtr&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#af5828a4dc52e0db5b1621708f8fa9471">OPATTable_C</a></li>
 </ul>
 
 
 <h3><a id="index_e" name="index_e"></a>- e -</h3><ul>
 <li>end&#160;:&#160;<a class="el" href="structopat_1_1_slice.html#aa4feb1ca6facc5e9d02b1644e915d178">opat::Slice</a></li>
+<li>errorCode&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#ac6220b34acc8985958d33a0460ada0ec">OPATTable_C</a></li>
+<li>errorMessage&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#a1f32a54eb38b16e56fe05ea21a5a06c8">OPATTable_C</a></li>
 </ul>
 
 
@@ -145,6 +145,7 @@ $(function(){initNavTree('functions_vars.html',''); initResizable(true); });
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>m_vsize&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#abe6db012bdd1442b720caf14bbc983a3">opat::OPATTable</a></li>
 <li>magic&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#ad7b411c39fd2af6ed41b130fc889c741">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#a4444ae5119b819db58a25aa289f7b155">opat::Header</a></li>
 </ul>
 
@@ -152,22 +153,25 @@ $(function(){initNavTree('functions_vars.html',''); initResizable(true); });
 <h3><a id="index_n" name="index_n"></a>- n -</h3><ul>
 <li>N_C&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#aac396a0a4f3ad0dfc36d8e32998901e2">opat::OPATTable</a></li>
 <li>N_R&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#a1608fea0f0b6d323946dcfaeed008165">opat::OPATTable</a></li>
+<li>numCols&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#ae18d4c50f440ac4b5e8cc831343fe7cb">OPATTable_C</a></li>
 <li>numColumns&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#aa86ba76b6c169e8401d363e4368cb676">opat::TableIndexEntry</a></li>
 <li>numIndex&#160;:&#160;<a class="el" href="structopat_1_1_header.html#a4bc413e5cd584943e115c7f8841163db">opat::Header</a></li>
-<li>numRows&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#abe63fa8402cb60bf24243e7c53ca094f">opat::TableIndexEntry</a></li>
+<li>numRows&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#abe63fa8402cb60bf24243e7c53ca094f">opat::TableIndexEntry</a>, <a class="el" href="struct_o_p_a_t_table___c.html#af45abb0725997929ce0a21e3d8a78e3d">OPATTable_C</a></li>
 <li>numTables&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#a00bb593a438a623a98d023313544ed4a">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#ab15563f44f56769b537e78b6690e4db3">opat::Header</a></li>
 </ul>
 
 
 <h3><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>reserved&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#a9c92a48bb2c79dd2fba4149d27a91637">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#a2d9bb874c1582f92a08493bbcacbae37">opat::Header</a>, <a class="el" href="structopat_1_1_table_index_entry.html#a40060c0e6987a941de40d4910d4018a0">opat::TableIndexEntry</a></li>
+<li>reserved&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#a9c92a48bb2c79dd2fba4149d27a91637">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#a2d9bb874c1582f92a08493bbcacbae37">opat::Header</a>, <a class="el" href="structopat_1_1_table_index_entry.html#a8711b503aad34c1c62b821360c594e2c">opat::TableIndexEntry</a></li>
 <li>rowName&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#ae1f9155903905c69753a4e3a3127a143">opat::TableIndexEntry</a></li>
 <li>rowValues&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#a9f30d01501a31313e1c9ea1448436b7a">opat::OPATTable</a></li>
+<li>rowValuesPtr&#160;:&#160;<a class="el" href="struct_o_p_a_t_table___c.html#a5fcbf08128173cd9cc778029974d13b9">OPATTable_C</a></li>
 </ul>
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>sha256&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog_entry.html#ab0cfd19f747f133d5f07bc492abceda2">opat::CardCatalogEntry</a></li>
+<li>size&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#aabd66bbf14fb0be375f22b8398bf89b3">opat::TableIndexEntry</a></li>
 <li>sourceInfo&#160;:&#160;<a class="el" href="structopat_1_1_header.html#aab94d539484f61cba5f6481b615a0e9c">opat::Header</a></li>
 <li>start&#160;:&#160;<a class="el" href="structopat_1_1_slice.html#a4233fdec77a3085e43d8843eaf58b8f3">opat::Slice</a></li>
 </ul>
@@ -176,7 +180,7 @@ $(function(){initNavTree('functions_vars.html',''); initResizable(true); });
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>tableData&#160;:&#160;<a class="el" href="structopat_1_1_data_card.html#a779d7bc0a1843769754c386cea75c6ce">opat::DataCard</a></li>
 <li>tableIndex&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog.html#aae5e834bd2478418d55c376de2ef6261">opat::CardCatalog</a>, <a class="el" href="structopat_1_1_data_card.html#a9a3f9ede4cf71b4bafdfcc6a7d86f066">opat::DataCard</a>, <a class="el" href="structopat_1_1_table_index.html#a215f4a53892400fa225acce8fd6dc6d0">opat::TableIndex</a></li>
-<li>tag&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#abeef4fa245478fce00b58783b64e0c17">opat::TableIndexEntry</a></li>
+<li>tag&#160;:&#160;<a class="el" href="structopat_1_1_table_index_entry.html#ab4f5000c7c169dfbcd10f96c86f1b31b">opat::TableIndexEntry</a></li>
 </ul>
 
 

@@ -1,6 +1,6 @@
 var opat_i_o_8cpp =
 [
-    [ "opat::hasMagic", "namespaceopat.html#a04f6b889a3dd1d8c8e19dc9efef906d3", null ],
+    [ "opat::hasMagic", "namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5", null ],
     [ "opat::is_big_endian", "namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f", null ],
     [ "opat::operator<<", "namespaceopat.html#adae37c549fd00861a56e1219621a98ab", null ],
     [ "opat::operator<<", "namespaceopat.html#acb2a02f224d9b1cc513f589a86cad12c", null ],
@@ -18,7 +18,7 @@ var opat_i_o_8cpp =
     [ "opat::readDataCardHeader", "namespaceopat.html#a51c9e2f3df352cd12e652ee590486c13", null ],
     [ "opat::readDataCards", "namespaceopat.html#af7e996b8bece6a40e9b9c3fc123358cc", null ],
     [ "opat::readHeader", "namespaceopat.html#adc760e1fb2ed66512490d28eca2286a4", null ],
-    [ "opat::readOPAT", "namespaceopat.html#a983bca6af4652f9ecb261543853ea614", null ],
+    [ "opat::readOPAT", "namespaceopat.html#aca57fce2c7ef3e4714709b3d9507d4b0", null ],
     [ "opat::readOPATTable", "namespaceopat.html#a5c14cc47d910dba560a126cfceb175a6", null ],
     [ "opat::readTableIndex", "namespaceopat.html#a19e2c4f97e7950dbcf76687884715af6", null ]
 ];

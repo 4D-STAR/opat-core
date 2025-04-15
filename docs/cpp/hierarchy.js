@@ -9,6 +9,7 @@ var hierarchy =
     [ "opat::Header", "structopat_1_1_header.html", null ],
     [ "opat::OPAT", "structopat_1_1_o_p_a_t.html", null ],
     [ "opat::OPATTable", "structopat_1_1_o_p_a_t_table.html", null ],
+    [ "OPATTable_C", "struct_o_p_a_t_table___c.html", null ],
     [ "opat::Slice", "structopat_1_1_slice.html", null ],
     [ "opat::TableIndex", "structopat_1_1_table_index.html", null ],
     [ "opat::TableIndexEntry", "structopat_1_1_table_index_entry.html", null ],

@@ -4,9 +4,7 @@ import hashlib
 import numpy as np
 import numpy.typing as npt
 
-from collections.abc import Sized
 from typing import Dict, Iterable, Tuple, Union
-from numbers import Number
 
 from opatio.misc.opatentity import OPATEntity
 
@@ -21,17 +19,17 @@ class CardHeader(OPATEntity):
     numTables : int
         Number of tables in the data card.
     indexOffset : int
-        Offset to the index section.
+        Offset to the index section in bytes.
     cardSize : int
-        Size of the data card.
+        Total size of the data card in bytes.
     comment : str
-        Comment section.
+        Comment section of the header.
     reserved : bytes
         Reserved for future use (default is 100 null bytes).
     magicNumber : str
         Magic number to validate the data card (default is "CARD").
     headerSize : int
-        Size of the data card header (default is 256 bytes).
+        Fixed size of the data card header (default is 256 bytes).
     """
 
     numTables: int
@@ -179,11 +177,9 @@ class CardIndexEntry(OPATEntity):
     tag : str
         Tag to identify the table.
     byteStart : int
-        Byte start position of the table. These are given relative to the start
-        of the card.
+        Byte start position of the table relative to the start of the card.
     byteEnd : int
-        Byte end position of the table. These are given relative to the start of
-        the card.
+        Byte end position of the table relative to the start of the card.
     numColumns : int
         Number of columns in the table.
     numRows : int
@@ -193,7 +189,7 @@ class CardIndexEntry(OPATEntity):
     rowName : str
         Name of the row.
     size : int
-        Length of the row entry, default is 1 (scaler). Max is 2^64 - 1 (max 8 byte u int)
+        Length of the row entry (default is 1). Maximum is 2^64 - 1.
     reserved : bytes
         Reserved for future use (default is 12 null bytes).
     """
@@ -312,17 +308,7 @@ class CardIndexEntry(OPATEntity):
 @dataclass
 class OPATTable(OPATEntity):
     """
-    Structure to hold the data of a single table. Recall the structure of an OPAT file
-    is a collection of data cards, each containing a header, an index, and a collection
-    of tables. Each table is represented by this class.
-
-    Notes
-    -----
-    - Generally, the user should not need to create an OPATTable directly. Instead,
-    opatio will use these internally. However, this class is provided for
-    completeness and for any advanced users who may want to create their own
-    tables.
-
+    Represents the data of a single table in an OPAT file.
 
     Attributes
     ----------
@@ -331,12 +317,12 @@ class OPATTable(OPATEntity):
     rowValues : Iterable[float]
         Row values of the table.
     data : npt.ArrayLike
-        Data of the table.
+        Data of the table, stored as a 2D or 3D array.
 
-    Examples
-    --------
-    >>> import numpy as np
-    >>> table = OPATTable(columnValues=np.array([1.0, 2.0]), rowValues=np.array([3.0, 4.0]), data=[[5.0, 6.0], [7.0, 8.0]])
+    Notes
+    -----
+    - This class is primarily used internally by opatio. Advanced users may
+      create their own tables using this class if needed.
     """
 
     columnValues: npt.ArrayLike
@@ -345,6 +331,14 @@ class OPATTable(OPATEntity):
     _size: int = ...
 
     def __post_init__(self):
+        """
+        Perform post-initialization checks and set the size attribute based on the data's dimensions.
+
+        Raises
+        ------
+        ValueError
+            If the data is not a 2D or 3D array.
+        """
         if self.data.ndim != 2 and self.data.ndim != 3:
            raise ValueError(f"data must be a 2D or 3D array! Currently it is {self.data.ndim}D")
 
@@ -355,9 +349,37 @@ class OPATTable(OPATEntity):
 
     @property
     def size(self) -> int:
+        """
+        Get the size of the table, which is 1 for 2D data or the third dimension for 3D data.
+
+        Returns
+        -------
+        int
+            The size of the table.
+        """
         return self._size
 
     def __getitem__(self, key: Union[Tuple[int, int], Tuple[int, int, int]]):
+        """
+        Retrieve a specific element or slice from the table.
+
+        Parameters
+        ----------
+        key : tuple
+            A tuple of indices specifying the element or slice to retrieve.
+
+        Returns
+        -------
+        Any
+            The requested element or slice.
+
+        Raises
+        ------
+        TypeError
+            If the key is not a tuple.
+        KeyError
+            If the key is not a tuple of integers or has an invalid length.
+        """
         if not isinstance(key, tuple):
             raise TypeError(f"key must be a tuple! Currently it is {type(key)}")
         if not all([isinstance(x, int) for x in key]):
@@ -444,8 +466,19 @@ class OPATTable(OPATEntity):
     @staticmethod
     def compute_col_width(size: int, floatWidth: int) -> int:
         """
-        Computes the total width of a cell that will hold `size` floats,
-        each with `floatWidth` characters, formatted like <f1, f2, ..., fN>.
+        Compute the total width of a cell for ASCII representation.
+
+        Parameters
+        ----------
+        size : int
+            Number of floats in the cell.
+        floatWidth : int
+            Width of each float.
+
+        Returns
+        -------
+        int
+            Total width of the cell.
         """
         # Width per float plus the separator ", "
         floatWidth = len(f"{0:7.{floatWidth}f}")
@@ -457,7 +490,19 @@ class OPATTable(OPATEntity):
 
     def format_centered(self, value: float, floatWidth: int) -> str:
         """
-        Centers a single float value in a fixed-width field.
+        Format a float value centered in a fixed-width field.
+
+        Parameters
+        ----------
+        value : float
+            The value to format.
+        floatWidth : int
+            The width of the float.
+
+        Returns
+        -------
+        str
+            The formatted string.
         """
         totalWidth = self.compute_col_width(self.size, floatWidth)
         formatSpec = f"^{totalWidth}.{floatWidth}f"
@@ -521,6 +566,14 @@ class OPATTable(OPATEntity):
         return newTable
 
     def __repr__(self):
+        """
+        Get the string representation of the OPAT table.
+
+        Returns
+        -------
+        str
+            The string representation.
+        """
         outStr = "OPATTable("
         outStr += f"columnValues: [{self.columnValues.min():0.4f} -> {self.columnValues.max():0.4f}], "
         outStr += f"rowValues: [{self.rowValues.min():0.4f} -> {self.rowValues.max():0.4f}], "
@@ -530,37 +583,27 @@ class OPATTable(OPATEntity):
 @dataclass
 class DataCard(OPATEntity):
     """
-    Represents a data card containing header, index, and tables.
+    Represents a data card containing a header, index, and tables.
 
     Attributes
     ----------
     header : CardHeader
         Header of the data card.
     index : Dict[str, CardIndexEntry]
-        Index of the data card.
+        Index of the data card, mapping tags to index entries.
     tables : Dict[str, OPATTable]
-        Tables in the data card.
+        Tables in the data card, mapped by their tags.
 
     Methods
     -------
     add_table(tag: str, table: OPATTable, columnName: str = "columnValues", rowName: str = "rowValues")
         Add a table to the data card.
-
     sha256() -> bytes
-        Compute the SHA-256 hash of the data card. Note that this is the combination hash of
-        all the tables in the card including their data, column values, and row values.
-
+        Compute the SHA-256 hash of the data card, including all tables and their data.
     ascii() -> str
         Get the ASCII representation of the data card.
-
     copy() -> DataCard
-        Create a copy of the data card.
-
-    Examples
-    --------
-    >>> card = DataCard()
-    >>> table = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])
-    >>> card.add_table(tag="Example", table=table)
+        Create a deep copy of the data card.
     """
 
     header: CardHeader
@@ -569,7 +612,7 @@ class DataCard(OPATEntity):
 
     def __init__(self):
         """
-        Initialize a DataCard instance.
+        Initialize a DataCard instance with default header, index, and tables.
         """
         self.header = CardHeader(numTables=0, indexOffset=256, cardSize=256, comment="")
         self.index = {}
@@ -667,7 +710,7 @@ class DataCard(OPATEntity):
 
     def __bytes__(self) -> bytes:
         """
-        Convert the data card to bytes.
+        Convert the entire data card to bytes, including header, tables, and index.
 
         Returns
         -------

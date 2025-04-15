@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -117,9 +113,9 @@ $(function(){initNavTree('structopat_1_1_table_index_entry.html',''); initResiza
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abeef4fa245478fce00b58783b64e0c17" id="r_abeef4fa245478fce00b58783b64e0c17"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abeef4fa245478fce00b58783b64e0c17">tag</a> [4]</td></tr>
-<tr class="memdesc:abeef4fa245478fce00b58783b64e0c17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag identifying the table.  <br /></td></tr>
-<tr class="separator:abeef4fa245478fce00b58783b64e0c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f5000c7c169dfbcd10f96c86f1b31b" id="r_ab4f5000c7c169dfbcd10f96c86f1b31b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4f5000c7c169dfbcd10f96c86f1b31b">tag</a> [8]</td></tr>
+<tr class="memdesc:ab4f5000c7c169dfbcd10f96c86f1b31b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tag identifying the table.  <br /></td></tr>
+<tr class="separator:ab4f5000c7c169dfbcd10f96c86f1b31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3744ebca2f6f0fde912d1051899434d1" id="r_a3744ebca2f6f0fde912d1051899434d1"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3744ebca2f6f0fde912d1051899434d1">byteStart</a></td></tr>
 <tr class="memdesc:a3744ebca2f6f0fde912d1051899434d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Byte start position of the table in the card.  <br /></td></tr>
 <tr class="separator:a3744ebca2f6f0fde912d1051899434d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,9 +134,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ae1f9155903905c69753a4e3a3127a143" id="r_ae1f9155903905c69753a4e3a3127a143"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae1f9155903905c69753a4e3a3127a143">rowName</a> [8]</td></tr>
 <tr class="memdesc:ae1f9155903905c69753a4e3a3127a143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the rows (optional).  <br /></td></tr>
 <tr class="separator:ae1f9155903905c69753a4e3a3127a143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40060c0e6987a941de40d4910d4018a0" id="r_a40060c0e6987a941de40d4910d4018a0"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40060c0e6987a941de40d4910d4018a0">reserved</a> [20]</td></tr>
-<tr class="memdesc:a40060c0e6987a941de40d4910d4018a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved for future use.  <br /></td></tr>
-<tr class="separator:a40060c0e6987a941de40d4910d4018a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabd66bbf14fb0be375f22b8398bf89b3" id="r_aabd66bbf14fb0be375f22b8398bf89b3"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabd66bbf14fb0be375f22b8398bf89b3">size</a></td></tr>
+<tr class="memdesc:aabd66bbf14fb0be375f22b8398bf89b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector size of each cell.  <br /></td></tr>
+<tr class="separator:aabd66bbf14fb0be375f22b8398bf89b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8711b503aad34c1c62b821360c594e2c" id="r_a8711b503aad34c1c62b821360c594e2c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8711b503aad34c1c62b821360c594e2c">reserved</a> [12]</td></tr>
+<tr class="memdesc:a8711b503aad34c1c62b821360c594e2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved for future use.  <br /></td></tr>
+<tr class="separator:a8711b503aad34c1c62b821360c594e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -272,14 +271,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a40060c0e6987a941de40d4910d4018a0" name="a40060c0e6987a941de40d4910d4018a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40060c0e6987a941de40d4910d4018a0">&#9670;&#160;</a></span>reserved</h2>
+<a id="a8711b503aad34c1c62b821360c594e2c" name="a8711b503aad34c1c62b821360c594e2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8711b503aad34c1c62b821360c594e2c">&#9670;&#160;</a></span>reserved</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char opat::TableIndexEntry::reserved[20]</td>
+          <td class="memname">char opat::TableIndexEntry::reserved[12]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -304,14 +303,30 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="abeef4fa245478fce00b58783b64e0c17" name="abeef4fa245478fce00b58783b64e0c17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abeef4fa245478fce00b58783b64e0c17">&#9670;&#160;</a></span>tag</h2>
+<a id="aabd66bbf14fb0be375f22b8398bf89b3" name="aabd66bbf14fb0be375f22b8398bf89b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabd66bbf14fb0be375f22b8398bf89b3">&#9670;&#160;</a></span>size</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char opat::TableIndexEntry::tag[4]</td>
+          <td class="memname">uint64_t opat::TableIndexEntry::size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vector size of each cell. </p>
+
+</div>
+</div>
+<a id="ab4f5000c7c169dfbcd10f96c86f1b31b" name="ab4f5000c7c169dfbcd10f96c86f1b31b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f5000c7c169dfbcd10f96c86f1b31b">&#9670;&#160;</a></span>tag</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char opat::TableIndexEntry::tag[8]</td>
         </tr>
       </table>
 </div><div class="memdoc">

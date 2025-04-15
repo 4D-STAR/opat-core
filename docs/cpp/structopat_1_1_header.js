@@ -1,5 +1,6 @@
 var structopat_1_1_header =
 [
+    [ "print", "structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236", null ],
     [ "operator<<", "structopat_1_1_header.html#ae1345f71c4017e4da3c4da96fe05b612", null ],
     [ "comment", "structopat_1_1_header.html#ae7135cb4d8c5493d758b0bf1ba5a36a5", null ],
     [ "creationDate", "structopat_1_1_header.html#a42f417d6fdf0b2995b92ddda455faf1f", null ],

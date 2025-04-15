@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -107,7 +103,25 @@ $(function(){initNavTree('test.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><dl class="reflist">
 <dt>Member <a class="el" href="opat_i_o_test_8cpp.html#ac3a79e8bac7362518c4495f4b9136a99">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, DefaultConstructor)</dt>
-<dd><a class="anchor" id="_test000001"></a>Verify default constructor initializes correctly. </dd>
+<dd><a class="anchor" id="_test000001"></a>Verify default constructor initializes correctly.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#a1d78dc3880f9f87e4f5a77d483de321a">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, ReadHeader)</dt>
+<dd><a class="anchor" id="_test000002"></a>Verify reading the header of an OPAT file.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#a5b95a07139492ef1e0fd9829304387ab">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, ReadCardCatalog)</dt>
+<dd><a class="anchor" id="_test000003"></a>Verify reading the CardCatalog of an OPAT file.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#ab573c40bad8ff7b96096c620ef2538ed">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, ReadDataCard)</dt>
+<dd><a class="anchor" id="_test000004"></a>Verify reading a DataCard from an OPAT file.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#a23f583c8d95a8e6f21187fa140285ce1">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, AccessTableByTag)</dt>
+<dd><a class="anchor" id="_test000005"></a>Verify accessing a table by tag in a DataCard.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#ac4f85b6287c0263c13261daa93e058cf">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, SliceTable)</dt>
+<dd><a class="anchor" id="_test000006"></a>Verify slicing a table.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#ac70e4b3d6f03d8a67847645a8d9ade8e">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, GetRow)</dt>
+<dd><a class="anchor" id="_test000007"></a>Verify retrieving a single row from a table.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#ab4375c01d76aabdf28760b1135a42a7b">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, GetColumn)</dt>
+<dd><a class="anchor" id="_test000008"></a>Verify retrieving a single column from a table.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#a817da364c3fc1f1e028bfa48cb591ee4">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, GetRawData)</dt>
+<dd><a class="anchor" id="_test000009"></a>Verify retrieving raw data from a table.  </dd>
+<dt>Member <a class="el" href="opat_i_o_test_8cpp.html#aed2788bb9f923046dd439cf97ddb0ba4">TEST_F</a>  (<a class="el" href="classopat_i_o_test.html" title="Test suite for the const class.">opatIOTest</a>, TableAscii)</dt>
+<dd><a class="anchor" id="_test000010"></a>Verify ASCII representation of a table. </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

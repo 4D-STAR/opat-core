@@ -14,5 +14,6 @@ var class_float_index_vector =
     [ "operator==", "class_float_index_vector.html#a77ec3f9781325d06286d01f63e24a552", null ],
     [ "reserve", "class_float_index_vector.html#a77872ceb4ec291b9dd0cb263c780bc76", null ],
     [ "setHashPrecision", "class_float_index_vector.html#a76df52d228431173508ae1222e89eedb", null ],
-    [ "setVector", "class_float_index_vector.html#a5442d65a5e5f27d215de982d5ba135b0", null ]
+    [ "setVector", "class_float_index_vector.html#a5442d65a5e5f27d215de982d5ba135b0", null ],
+    [ "operator<<", "class_float_index_vector.html#a00a8b3cfc0bb391926a066868651fa2f", null ]
 ];

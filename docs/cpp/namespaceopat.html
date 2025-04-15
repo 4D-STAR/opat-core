@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -147,12 +143,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a9f654ea75d3883a807eec5b610b4b65f" id="r_a9f654ea75d3883a807eec5b610b4b65f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f654ea75d3883a807eec5b610b4b65f">is_big_endian</a> ()</td></tr>
 <tr class="memdesc:a9f654ea75d3883a807eec5b610b4b65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the system is big-endian.  <br /></td></tr>
 <tr class="separator:a9f654ea75d3883a807eec5b610b4b65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04f6b889a3dd1d8c8e19dc9efef906d3" id="r_a04f6b889a3dd1d8c8e19dc9efef906d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04f6b889a3dd1d8c8e19dc9efef906d3">hasMagic</a> (std::string filename)</td></tr>
-<tr class="memdesc:a04f6b889a3dd1d8c8e19dc9efef906d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a file has the correct magic number for an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.  <br /></td></tr>
-<tr class="separator:a04f6b889a3dd1d8c8e19dc9efef906d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a983bca6af4652f9ecb261543853ea614" id="r_a983bca6af4652f9ecb261543853ea614"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structopat_1_1_o_p_a_t.html">OPAT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a983bca6af4652f9ecb261543853ea614">readOPAT</a> (std::string filename)</td></tr>
-<tr class="memdesc:a983bca6af4652f9ecb261543853ea614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file and returns its contents as an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure.  <br /></td></tr>
-<tr class="separator:a983bca6af4652f9ecb261543853ea614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37f0f5a1aa68e3c6ad509e31a7d33bb5" id="r_a37f0f5a1aa68e3c6ad509e31a7d33bb5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">hasMagic</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:a37f0f5a1aa68e3c6ad509e31a7d33bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a file has the correct magic number for an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.  <br /></td></tr>
+<tr class="separator:a37f0f5a1aa68e3c6ad509e31a7d33bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca57fce2c7ef3e4714709b3d9507d4b0" id="r_aca57fce2c7ef3e4714709b3d9507d4b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structopat_1_1_o_p_a_t.html">OPAT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aca57fce2c7ef3e4714709b3d9507d4b0">readOPAT</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:aca57fce2c7ef3e4714709b3d9507d4b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file and returns its contents as an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure.  <br /></td></tr>
+<tr class="separator:aca57fce2c7ef3e4714709b3d9507d4b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc760e1fb2ed66512490d28eca2286a4" id="r_adc760e1fb2ed66512490d28eca2286a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structopat_1_1_header.html">Header</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc760e1fb2ed66512490d28eca2286a4">readHeader</a> (std::ifstream &amp;file)</td></tr>
 <tr class="memdesc:adc760e1fb2ed66512490d28eca2286a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the header of an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.  <br /></td></tr>
 <tr class="separator:adc760e1fb2ed66512490d28eca2286a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,8 +199,8 @@ Functions</h2></td></tr>
 <tr class="separator:ab398f378e2ccf94866991786be29aff9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a04f6b889a3dd1d8c8e19dc9efef906d3" name="a04f6b889a3dd1d8c8e19dc9efef906d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04f6b889a3dd1d8c8e19dc9efef906d3">&#9670;&#160;</a></span>hasMagic()</h2>
+<a id="a37f0f5a1aa68e3c6ad509e31a7d33bb5" name="a37f0f5a1aa68e3c6ad509e31a7d33bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">&#9670;&#160;</a></span>hasMagic()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,21 +208,27 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">bool opat::hasMagic </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Checks if a file has the correct magic number for an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
+<p>This function reads the first four bytes of the file and compares them to the expected "OPAT" magic number.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>Path to the file. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the file has the correct magic number, false otherwise. </dd></dl>
-
+<dl class="section return"><dt>Returns</dt><dd>True if the file has the correct magic number, false otherwise.</dd></dl>
+<div class="fragment"><div class="line"><span class="keywordtype">bool</span> isValid = <a class="code hl_function" href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">opat::hasMagic</a>(<span class="stringliteral">&quot;example.opat&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (isValid) {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Valid OPAT file!&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespaceopat_html_a37f0f5a1aa68e3c6ad509e31a7d33bb5"><div class="ttname"><a href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">opat::hasMagic</a></div><div class="ttdeci">bool hasMagic(const std::string &amp;filename)</div><div class="ttdoc">Checks if a file has the correct magic number for an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:45</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9f654ea75d3883a807eec5b610b4b65f" name="a9f654ea75d3883a807eec5b610b4b65f"></a>
@@ -245,8 +247,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Determines if the system is big-endian. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the system is big-endian, false otherwise. </dd></dl>
-
+<p>This utility function checks the system's endianness by examining the byte order of a test value.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if the system is big-endian, false otherwise.</dd></dl>
+<div class="fragment"><div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="#a9f654ea75d3883a807eec5b610b4b65f">opat::is_big_endian</a>()) {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;System is big-endian.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+<div class="ttc" id="anamespaceopat_html_a9f654ea75d3883a807eec5b610b4b65f"><div class="ttname"><a href="#a9f654ea75d3883a807eec5b610b4b65f">opat::is_big_endian</a></div><div class="ttdeci">bool is_big_endian()</div><div class="ttdoc">Determines if the system is big-endian.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:39</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="adae37c549fd00861a56e1219621a98ab" name="adae37c549fd00861a56e1219621a98ab"></a>
@@ -551,6 +558,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads the <a class="el" href="structopat_1_1_card_catalog.html" title="Structure to hold the catalog of tables in a DataCard.">CardCatalog</a> from the file. </p>
+<p>This function reads all entries in the card catalog, using the header information to determine the number of entries and their locations.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -559,7 +567,21 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_card_catalog.html" title="Structure to hold the catalog of tables in a DataCard.">CardCatalog</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the card catalog cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog.html">opat::CardCatalog</a> catalog = <a class="code hl_function" href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a>(file, header);</div>
+<div class="line">std::cout &lt;&lt; catalog &lt;&lt; std::endl;</div>
+<div class="ttc" id="anamespaceopat_html_aae8dd619feb63a21eeb547b18ff211f7"><div class="ttname"><a href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a></div><div class="ttdeci">CardCatalog readCardCatalog(std::ifstream &amp;file, const Header &amp;header)</div><div class="ttdoc">Reads the CardCatalog from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:132</div></div>
+<div class="ttc" id="anamespaceopat_html_adc760e1fb2ed66512490d28eca2286a4"><div class="ttname"><a href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a></div><div class="ttdeci">Header readHeader(std::ifstream &amp;file)</div><div class="ttdoc">Reads the header of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:92</div></div>
+<div class="ttc" id="astructopat_1_1_card_catalog_html"><div class="ttname"><a href="structopat_1_1_card_catalog.html">opat::CardCatalog</a></div><div class="ttdoc">Structure to hold the catalog of tables in a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:149</div></div>
+<div class="ttc" id="astructopat_1_1_header_html"><div class="ttname"><a href="structopat_1_1_header.html">opat::Header</a></div><div class="ttdoc">Structure to hold the header information of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:72</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a7a85681cd3a2478a85784ed27e0fa1e4" name="a7a85681cd3a2478a85784ed27e0fa1e4"></a>
@@ -592,6 +614,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads a <a class="el" href="structopat_1_1_card_catalog_entry.html" title="Structure to hold the index information of a table in an OPAT file.">CardCatalogEntry</a> from the file. </p>
+<p>This function reads a single entry from the card catalog, including its index, byte range, and SHA-256 hash. It also performs byte-swapping for compatibility with big-endian systems.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -602,7 +625,18 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_card_catalog_entry.html" title="Structure to hold the index information of a table in an OPAT file.">CardCatalogEntry</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the entry cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = <a class="code hl_function" href="#a7a85681cd3a2478a85784ed27e0fa1e4">opat::readCardCatalogEntry</a>(file, 128, 3, 8);</div>
+<div class="line">std::cout &lt;&lt; entry &lt;&lt; std::endl;</div>
+<div class="ttc" id="anamespaceopat_html_a7a85681cd3a2478a85784ed27e0fa1e4"><div class="ttname"><a href="#a7a85681cd3a2478a85784ed27e0fa1e4">opat::readCardCatalogEntry</a></div><div class="ttdeci">CardCatalogEntry readCardCatalogEntry(std::ifstream &amp;file, uint64_t offset, uint16_t numIndex, uint8_t hashPrecision)</div><div class="ttdoc">Reads a CardCatalogEntry from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:110</div></div>
+<div class="ttc" id="astructopat_1_1_card_catalog_entry_html"><div class="ttname"><a href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a></div><div class="ttdoc">Structure to hold the index information of a table in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:129</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aca17137bb6bb97713a09ef475ce6c736" name="aca17137bb6bb97713a09ef475ce6c736"></a>
@@ -625,6 +659,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads a single <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the file. </p>
+<p>This function reads the header, table index, and table data for a single <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -633,7 +668,18 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_data_card.html">opat::DataCard</a> card = <a class="code hl_function" href="#aca17137bb6bb97713a09ef475ce6c736">opat::readDataCard</a>(file, entry);</div>
+<div class="ttc" id="anamespaceopat_html_aca17137bb6bb97713a09ef475ce6c736"><div class="ttname"><a href="#aca17137bb6bb97713a09ef475ce6c736">opat::readDataCard</a></div><div class="ttdeci">DataCard readDataCard(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads a single DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:156</div></div>
+<div class="ttc" id="astructopat_1_1_data_card_html"><div class="ttname"><a href="structopat_1_1_data_card.html">opat::DataCard</a></div><div class="ttdoc">Structure to hold a DataCard, which contains multiple tables.</div><div class="ttdef"><b>Definition</b> opatIO.h:404</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a51c9e2f3df352cd12e652ee590486c13" name="a51c9e2f3df352cd12e652ee590486c13"></a>
@@ -656,6 +702,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads the header of a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the file. </p>
+<p>This function reads the header structure of a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> and performs byte-swapping for compatibility with big-endian systems.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -664,7 +711,18 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_card_header.html" title="Structure to hold the header information of a DataCard in an OPAT file.">CardHeader</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> header cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_header.html">opat::CardHeader</a> header = <a class="code hl_function" href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a>(file, entry);</div>
+<div class="ttc" id="anamespaceopat_html_a51c9e2f3df352cd12e652ee590486c13"><div class="ttname"><a href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a></div><div class="ttdeci">CardHeader readDataCardHeader(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads the header of a DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:175</div></div>
+<div class="ttc" id="astructopat_1_1_card_header_html"><div class="ttname"><a href="structopat_1_1_card_header.html">opat::CardHeader</a></div><div class="ttdoc">Structure to hold the header information of a DataCard in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:104</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af7e996b8bece6a40e9b9c3fc123358cc" name="af7e996b8bece6a40e9b9c3fc123358cc"></a>
@@ -692,6 +750,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads all DataCards from the file. </p>
+<p>This function reads all DataCards in the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file, using the card catalog to locate each card and its associated data.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -701,7 +760,18 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A map of index vectors to DataCards. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if any <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog.html">opat::CardCatalog</a> catalog = <a class="code hl_function" href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a>(file, header);</div>
+<div class="line"><span class="keyword">auto</span> cards = <a class="code hl_function" href="#af7e996b8bece6a40e9b9c3fc123358cc">opat::readDataCards</a>(file, header, catalog);</div>
+<div class="ttc" id="anamespaceopat_html_af7e996b8bece6a40e9b9c3fc123358cc"><div class="ttname"><a href="#af7e996b8bece6a40e9b9c3fc123358cc">opat::readDataCards</a></div><div class="ttdeci">std::unordered_map&lt; FloatIndexVector, DataCard &gt; readDataCards(std::ifstream &amp;file, const Header &amp;header, const CardCatalog &amp;cardCatalog)</div><div class="ttdoc">Reads all DataCards from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:146</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="adc760e1fb2ed66512490d28eca2286a4" name="adc760e1fb2ed66512490d28eca2286a4"></a>
@@ -720,6 +790,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads the header of an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
+<p>This function reads the header structure from the file and performs byte-swapping if the system is big-endian.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream positioned at the start of the header. </td></tr>
@@ -727,11 +798,21 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_header.html" title="Structure to hold the header information of an OPAT file.">Header</a> structure containing the file's metadata. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the header cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
+<div class="line">header.<a class="code hl_function" href="structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236">print</a>();</div>
+<div class="ttc" id="astructopat_1_1_header_html_af80325e25e93dfd6f3dc5938550a3236"><div class="ttname"><a href="structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236">opat::Header::print</a></div><div class="ttdeci">void print() const</div><div class="ttdoc">Prints the header information to the console.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:240</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
-<a id="a983bca6af4652f9ecb261543853ea614" name="a983bca6af4652f9ecb261543853ea614"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a983bca6af4652f9ecb261543853ea614">&#9670;&#160;</a></span>readOPAT()</h2>
+<a id="aca57fce2c7ef3e4714709b3d9507d4b0" name="aca57fce2c7ef3e4714709b3d9507d4b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca57fce2c7ef3e4714709b3d9507d4b0">&#9670;&#160;</a></span>readOPAT()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,13 +820,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structopat_1_1_o_p_a_t.html">OPAT</a> opat::readOPAT </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Reads an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file and returns its contents as an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure. </p>
+<p>This function validates the file's magic number, reads the header, card catalog, and all data cards, and constructs an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> object representing the file's contents.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filename</td><td>Path to the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </td></tr>
@@ -755,11 +837,16 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure containing the file's data. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the file cannot be read or is invalid. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>if the file cannot be opened, is invalid, or has an incorrect magic number.</td></tr>
   </table>
   </dd>
 </dl>
-
+<div class="fragment"><div class="line"><a class="code hl_struct" href="structopat_1_1_o_p_a_t.html">OPAT</a> file = <a class="code hl_function" href="#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a>(<span class="stringliteral">&quot;example.opat&quot;</span>);</div>
+<div class="line">std::cout &lt;&lt; file.<a class="code hl_variable" href="structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245">header</a> &lt;&lt; std::endl;</div>
+<div class="ttc" id="anamespaceopat_html_aca57fce2c7ef3e4714709b3d9507d4b0"><div class="ttname"><a href="#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a></div><div class="ttdeci">OPAT readOPAT(const std::string &amp;filename)</div><div class="ttdoc">Reads an OPAT file and returns its contents as an OPAT structure.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:59</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></div><div class="ttdoc">Structure to hold the entire OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:455</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_html_a0c7a30f0a06bb0892f8b166378c80245"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245">opat::OPAT::header</a></div><div class="ttdeci">Header header</div><div class="ttdoc">Header of the OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:456</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a5c14cc47d910dba560a126cfceb175a6" name="a5c14cc47d910dba560a126cfceb175a6"></a>
@@ -787,6 +874,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads an <a class="el" href="structopat_1_1_o_p_a_t_table.html" title="Structure to hold the data of an OPAT table.">OPATTable</a> from the file. </p>
+<p>This function reads the row values, column values, and data for a single table within a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -796,7 +884,20 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="structopat_1_1_o_p_a_t_table.html" title="Structure to hold the data of an OPAT table.">OPATTable</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the table cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> cardEntry = ...; <span class="comment">// Retrieved from the catalog</span></div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_table_index_entry.html">opat::TableIndexEntry</a> tableEntry = ...; <span class="comment">// Retrieved from the table index</span></div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a> table = <a class="code hl_function" href="#a5c14cc47d910dba560a126cfceb175a6">opat::readOPATTable</a>(file, cardEntry, tableEntry);</div>
+<div class="ttc" id="anamespaceopat_html_a5c14cc47d910dba560a126cfceb175a6"><div class="ttname"><a href="#a5c14cc47d910dba560a126cfceb175a6">opat::readOPATTable</a></div><div class="ttdeci">OPATTable readOPATTable(std::ifstream &amp;file, const CardCatalogEntry &amp;cardEntry, const TableIndexEntry &amp;tableEntry)</div><div class="ttdoc">Reads an OPATTable from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:214</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_table_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a></div><div class="ttdoc">Structure to hold the data of an OPAT table.</div><div class="ttdef"><b>Definition</b> opatIO.h:256</div></div>
+<div class="ttc" id="astructopat_1_1_table_index_entry_html"><div class="ttname"><a href="structopat_1_1_table_index_entry.html">opat::TableIndexEntry</a></div><div class="ttdoc">Structure to hold the index information of a table within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:167</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a19e2c4f97e7950dbcf76687884715af6" name="a19e2c4f97e7950dbcf76687884715af6"></a>
@@ -824,6 +925,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reads the <a class="el" href="structopat_1_1_table_index.html" title="Structure to hold the index of tables within a DataCard.">TableIndex</a> from a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </p>
+<p>This function reads the table index of a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>, which maps table tags to their metadata and locations within the card.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Input file stream. </td></tr>
@@ -833,7 +935,19 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="structopat_1_1_table_index.html" title="Structure to hold the index of tables within a DataCard.">TableIndex</a> structure. </dd></dl>
-
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if the <a class="el" href="structopat_1_1_table_index.html" title="Structure to hold the index of tables within a DataCard.">TableIndex</a> cannot be read or is incomplete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_card_header.html">opat::CardHeader</a> header = <a class="code hl_function" href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a>(file, entry);</div>
+<div class="line"><a class="code hl_struct" href="structopat_1_1_table_index.html">opat::TableIndex</a> index = <a class="code hl_function" href="#a19e2c4f97e7950dbcf76687884715af6">opat::readTableIndex</a>(file, entry, header);</div>
+<div class="ttc" id="anamespaceopat_html_a19e2c4f97e7950dbcf76687884715af6"><div class="ttname"><a href="#a19e2c4f97e7950dbcf76687884715af6">opat::readTableIndex</a></div><div class="ttdeci">TableIndex readTableIndex(std::ifstream &amp;file, const CardCatalogEntry &amp;entry, const CardHeader &amp;header)</div><div class="ttdoc">Reads the TableIndex from a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:192</div></div>
+<div class="ttc" id="astructopat_1_1_table_index_html"><div class="ttname"><a href="structopat_1_1_table_index.html">opat::TableIndex</a></div><div class="ttdoc">Structure to hold the index of tables within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:193</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab398f378e2ccf94866991786be29aff9" name="ab398f378e2ccf94866991786be29aff9"></a>
@@ -867,8 +981,11 @@ template&lt;typename T&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The value with its byte order reversed. </dd></dl>
-
+<dl class="section return"><dt>Returns</dt><dd>The value with its byte order reversed.</dd></dl>
+<div class="fragment"><div class="line">uint16_t value = 0x1234;</div>
+<div class="line">uint16_t swapped = <a class="code hl_function" href="#ab398f378e2ccf94866991786be29aff9">opat::swap_bytes</a>(value);</div>
+<div class="ttc" id="anamespaceopat_html_ab398f378e2ccf94866991786be29aff9"><div class="ttname"><a href="#ab398f378e2ccf94866991786be29aff9">opat::swap_bytes</a></div><div class="ttdeci">T swap_bytes(T value)</div><div class="ttdoc">Swaps the byte order of a value.</div><div class="ttdef"><b>Definition</b> opatIO.h:720</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 </div><!-- contents -->

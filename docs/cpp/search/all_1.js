@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['byteend_0',['byteEnd',['../structopat_1_1_card_catalog_entry.html#af744e14e3255ad65644981508d9aa5ea',1,'opat::CardCatalogEntry::byteEnd'],['../structopat_1_1_table_index_entry.html#aff83e75769b074c782541d699a71794a',1,'opat::TableIndexEntry::byteEnd']]],
-  ['bytestart_1',['byteStart',['../structopat_1_1_card_catalog_entry.html#aec3ea7eb97e429fac72821871ea065ef',1,'opat::CardCatalogEntry::byteStart'],['../structopat_1_1_table_index_entry.html#a3744ebca2f6f0fde912d1051899434d1',1,'opat::TableIndexEntry::byteStart']]]
+  ['2_201_20tt_20opatheader_20tt_0',['2.1 &lt;tt&gt;opatHeader&lt;/tt&gt;',['../index.html#autotoc_md14',1,'']]],
+  ['2_202_20tt_20opatinspect_20tt_1',['2.2 &lt;tt&gt;opatInspect&lt;/tt&gt;',['../index.html#autotoc_md15',1,'']]],
+  ['2_203_20tt_20opatverify_20tt_2',['2.3 &lt;tt&gt;opatVerify&lt;/tt&gt;',['../index.html#autotoc_md16',1,'']]],
+  ['2_20command_20line_20interface_20cli_20usage_3',['2. Command-Line Interface (CLI) Usage',['../index.html#autotoc_md13',1,'']]],
+  ['2_20tt_20opatinspect_20tt_4',['2.2 &lt;tt&gt;opatInspect&lt;/tt&gt;',['../index.html#autotoc_md15',1,'']]]
 ];

@@ -10,7 +10,7 @@ Core Concepts
 * **OPAT Object:** The main object (``opatio.OPAT``) represents an entire OPAT file in memory. It holds the header, a catalog of data cards, and the data cards themselves.
 * **Index Vector:** A tuple of floating-point numbers that parameterizes a specific data set (e.g., ``(temperature, density)``). The number of elements in this tuple must match the ``numIndex`` value set in the OPAT header.
 * **Data Card:** A container within the OPAT file associated with a specific Index Vector. It holds one or more tables relevant to that specific parameter combination.
-* **Table:** A 2D array of data within a Data Card, identified by a string ``tag``. Each table has associated row and column axis values (e.g., ``logR``, ``logT``).
+* **Table:** A 2D or 3D array of data within a Data Card, identified by a string ``tag``. Each table has associated row and column axis values (e.g., ``logR``, ``logT``).
 
 Creating a New OPAT File
 ------------------------
@@ -50,13 +50,13 @@ Follow these steps to create an OPAT file from scratch:
 
        # Axis values for the table
        logR_values = np.array([-8.0, -7.5, -7.0]) # Example: log(R) where R = rho / T_6^3
-       frequency_values = np.array([1e14, 1e15, 1e16]) # Example: Frequency in Hz
+       logT_values = np.array([3.0, 5.0, 7.0])
 
        # The 2D data array (shape must match len(rowValues) x len(columnValues))
        opacity_data_1 = np.array([
-           [0.1, 0.5, 1.0], # Opacity at freq=1e14 for logR = -8.0, -7.5, -7.0
-           [0.2, 0.8, 1.5], # Opacity at freq=1e15 for logR = -8.0, -7.5, -7.0
-           [0.4, 1.2, 2.0]  # Opacity at freq=1e16 for logR = -8.0, -7.5, -7.0
+           [0.1, 0.5, 1.0],
+           [0.2, 0.8, 1.5],
+           [0.4, 1.2, 2.0]
        ])
 
 5.  **Add the Table to the OPAT object:**
@@ -68,10 +68,10 @@ Follow these steps to create an OPAT file from scratch:
            indexVector=index_vec_1,
            tag=tag_1,
            columnValues=logR_values,     # Data corresponding to columns
-           rowValues=frequency_values,   # Data corresponding to rows
+           rowValues=logT_values,        # Data corresponding to rows
            data=opacity_data_1,
            columnName="logR",           # Optional descriptive name for column axis
-           rowName="Frequency (Hz)"     # Optional descriptive name for row axis
+           rowName="logT"     # Optional descriptive name for row axis
        )
 
        # Add more tables for the same or different index vectors as needed
@@ -107,22 +107,14 @@ To read data from an OPAT file:
     .. code-block:: python
 
        import opatio
-       from opatio.index import FloatVectorIndex # Needed for accessing cards by index
 
 2.  **Use `read_opat`:**
 
     .. code-block:: python
 
        input_filename = "stellar_opacities.opat"
-       try:
-           loaded_opat = opatio.read_opat(input_filename)
-           print(f"Successfully loaded {input_filename}")
-       except FileNotFoundError:
-           print(f"Error: File not found at {input_filename}")
-           exit()
-       except Exception as e:
-           print(f"Error loading OPAT file: {e}")
-           exit()
+       loaded_opat = opatio.read_opat(input_filename)
+       print(f"Successfully loaded {input_filename}")
 
 3.  **Access Header Information:**
     Metadata is stored in the ``header`` attribute.
@@ -140,33 +132,18 @@ To read data from an OPAT file:
     .. code-block:: python
 
        # Define the index vector you want to retrieve data for
-       target_index_vec_tuple = (4.5, -3.0)
+       target_index_vec = (4.5, -3.0)
        target_tag = "rosseland_mean"
 
-       # Create the FloatVectorIndex key (using precision from the loaded header)
-       target_index_key = FloatVectorIndex(
-           vector=target_index_vec_tuple,
-           hashPrecision=loaded_opat.header.hashPrecision
-       )
+       target_card = loaded_opat[target_index_vec]
 
-       # Check if the card exists and access it
-       if target_index_key in loaded_opat.cards:
-           target_card = loaded_opat.cards[target_index_key]
-           print(f"\nFound data card for index {target_index_vec_tuple}")
+       target_table = target_card[target_tag]
 
-           # Access the specific table within the card by its tag
-           if target_tag in target_card.tables:
-               target_table = target_card[target_tag] # Access via __getitem__
-
-               # Access the table's components
-               print(f"Table Tag: {target_tag}")
-               print(f"Column Axis ({target_card.index[target_tag].columnName}): {target_table.columnValues}")
-               print(f"Row Axis ({target_card.index[target_tag].rowName}): {target_table.rowValues}")
-               print(f"Data Array (shape {target_table.data.shape}):\n{target_table.data}")
-           else:
-               print(f"Table with tag '{target_tag}' not found in this card.")
-       else:
-           print(f"Data card for index {target_index_vec_tuple} not found in the file.")
+       # Access the table's components
+       print(f"Table Tag: {target_tag}")
+       print(f"Column Axis ({target_card.index[target_tag].columnName}): {target_table.columnValues}")
+       print(f"Row Axis ({target_card.index[target_tag].rowName}): {target_table.rowValues}")
+       print(f"Data Array (shape {target_table.data.shape}):\n{target_table.data}")
 
 
 Modifying an OPAT File
@@ -209,17 +186,41 @@ The library includes a utility to convert OPAL Type I opacity files to the OPAT 
    opal_input_file = "path/to/your/opal_file.GN93"
    opat_output_file = "converted_opal.opat"
 
-   try:
-       OPALI_2_OPAT(opal_input_file, opat_output_file)
-       print(f"Converted {opal_input_file} to {opat_output_file}")
+   OPALI_2_OPAT(opal_input_file, opat_output_file)
+   print(f"Converted {opal_input_file} to {opat_output_file}")
 
-       # Optionally save an ASCII version for inspection
-       OPALI_2_OPAT(opal_input_file, opat_output_file, saveAsASCII=True)
-       print(f"Also saved ASCII debug file.")
+   # Optionally save an ASCII version for inspection
+   OPALI_2_OPAT(opal_input_file, opat_output_file, saveAsASCII=True)
+   print(f"Also saved ASCII debug file.")
 
-   except FileNotFoundError:
-       print(f"Error: Input OPAL file not found: {opal_input_file}")
-   except Exception as e:
-       print(f"Error during conversion: {e}")
 
 This provides a basic overview. Refer to the API Reference section for detailed information on specific classes and methods.
+
+Storing 3D Data
+----------------
+To store 3D data, you can use the `add_table` method with a 3D numpy array. The method will automatically handle the additional dimension.
+For example, if you have a 2D array of temperature and density and for each point you want to store a vector of interpolation coefficients
+you can do the following:
+
+.. code-block:: python
+
+   # Example data for a specific (logT, logR) combination
+   tag_1 = "rosseland_mean"
+   # Axis values for the table
+   logR_values = np.array([-8.0, -7.5, -7.0]) # Example: log(R) where R = rho / T_6^3
+   logT_values = np.array([3.0, 5.0, 7.0])
+
+   # The 3D data array (shape must match len(rowValues) x len(columnValues) x num_coefficients)
+   opacity_data_1 = np.random.rand(3, 3, 4)  # Random data for demonstration
+
+   opat.add_table(
+       tag=tag_1,
+       columnValues=logR_values,
+       rowValues=logT_values,
+       data=opacity_data_1,
+       columnName="logR",
+       rowName="logT"
+   )
+
+
+The shape will automatically be inferred from the data you provide. The `add_table` method will handle the additional dimension and store it correctly in the OPAT file.
