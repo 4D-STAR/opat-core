@@ -109,7 +109,7 @@ def load_data_card(b: bytes) -> DataCard:
     newCard = DataCard()
     headerUnpacked = struct.unpack("<4s I I Q Q 128s 100s", b[:256])
     header = CardHeader(
-        numTables = headerUnpacked[1],
+        numTables = 0,
         headerSize = headerUnpacked[2],
         indexOffset = headerUnpacked[3],
         cardSize = headerUnpacked[4],
@@ -117,7 +117,7 @@ def load_data_card(b: bytes) -> DataCard:
         reserved= headerUnpacked[6]
     )
     newCard.header = header.copy()
-    for indexEntry in range(header.numTables):
+    for indexEntry in range(headerUnpacked[1]):
         startByte = header.indexOffset + indexEntry*64
         indexBytes = b[startByte:startByte+64]
         unpackedIndexEntry = struct.unpack("<8s Q Q H H 8s 8s Q 12s", indexBytes)
