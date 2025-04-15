@@ -71,3 +71,5 @@ output/
 .boost_installed
 4DSSE_logs/
 .last_build_flags
+
+idea/
