@@ -34,15 +34,17 @@
 <span class="kn">import</span> <span class="nn">struct</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">opatio.misc.opatentity</span> <span class="kn">import</span> <span class="n">OPATEntitity</span>
+<span class="kn">from</span> <span class="nn">opatio.misc.opatentity</span> <span class="kn">import</span> <span class="n">OPATEntity</span>
+
 
 <div class="viewcode-block" id="CardHeader">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.CardHeader">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">CardHeader</span><span class="p">(</span><span class="n">OPATEntitity</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">CardHeader</span><span class="p">(</span><span class="n">OPATEntity</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents the header of a data card.</span>
 
@@ -51,17 +53,17 @@
 <span class="sd">    numTables : int</span>
 <span class="sd">        Number of tables in the data card.</span>
 <span class="sd">    indexOffset : int</span>
-<span class="sd">        Offset to the index section.</span>
+<span class="sd">        Offset to the index section in bytes.</span>
 <span class="sd">    cardSize : int</span>
-<span class="sd">        Size of the data card.</span>
+<span class="sd">        Total size of the data card in bytes.</span>
 <span class="sd">    comment : str</span>
-<span class="sd">        Comment section.</span>
+<span class="sd">        Comment section of the header.</span>
 <span class="sd">    reserved : bytes</span>
 <span class="sd">        Reserved for future use (default is 100 null bytes).</span>
 <span class="sd">    magicNumber : str</span>
 <span class="sd">        Magic number to validate the data card (default is &quot;CARD&quot;).</span>
 <span class="sd">    headerSize : int</span>
-<span class="sd">        Size of the data card header (default is 256 bytes).</span>
+<span class="sd">        Fixed size of the data card header (default is 256 bytes).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">numTables</span><span class="p">:</span> <span class="nb">int</span>
@@ -212,7 +214,7 @@
 <div class="viewcode-block" id="CardIndexEntry">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.CardIndexEntry">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">CardIndexEntry</span><span class="p">(</span><span class="n">OPATEntitity</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">CardIndexEntry</span><span class="p">(</span><span class="n">OPATEntity</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents an entry in the index of a data card.</span>
 
@@ -221,11 +223,9 @@
 <span class="sd">    tag : str</span>
 <span class="sd">        Tag to identify the table.</span>
 <span class="sd">    byteStart : int</span>
-<span class="sd">        Byte start position of the table. These are given relative to the start</span>
-<span class="sd">        of the card.</span>
+<span class="sd">        Byte start position of the table relative to the start of the card.</span>
 <span class="sd">    byteEnd : int</span>
-<span class="sd">        Byte end position of the table. These are given relative to the start of</span>
-<span class="sd">        the card.</span>
+<span class="sd">        Byte end position of the table relative to the start of the card.</span>
 <span class="sd">    numColumns : int</span>
 <span class="sd">        Number of columns in the table.</span>
 <span class="sd">    numRows : int</span>
@@ -234,8 +234,10 @@
 <span class="sd">        Name of the column.</span>
 <span class="sd">    rowName : str</span>
 <span class="sd">        Name of the row.</span>
+<span class="sd">    size : int</span>
+<span class="sd">        Length of the row entry (default is 1). Maximum is 2^64 - 1.</span>
 <span class="sd">    reserved : bytes</span>
-<span class="sd">        Reserved for future use (default is 20 null bytes).</span>
+<span class="sd">        Reserved for future use (default is 12 null bytes).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span>
@@ -245,7 +247,8 @@
     <span class="n">numRows</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">columnName</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">rowName</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">reserved</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="o">*</span><span class="mi">20</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">reserved</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="o">*</span><span class="mi">12</span>
 
     <span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -269,8 +272,10 @@
         <span class="n">nullPaddedTag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
         <span class="n">nullPaddedColumnName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
         <span class="n">nullPaddedRowName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">is_integer</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Due to an unknown error the size of the index entry is not an integer. The size is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">. This is a opatio bug and should be reported.&quot;</span><span class="p">)</span>
         <span class="n">indexBytes</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;&lt;8s Q Q H H 8s 8s 20s&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;&lt;8s Q Q H H 8s 8s Q 12s&quot;</span><span class="p">,</span>
             <span class="n">nullPaddedTag</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">byteStart</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">byteEnd</span><span class="p">,</span>
@@ -278,6 +283,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="p">,</span>
             <span class="n">nullPaddedColumnName</span><span class="p">,</span>
             <span class="n">nullPaddedRowName</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reserved</span>
         <span class="p">)</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexBytes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">64</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Card index entry must be 64 bytes. Due to an unknown error the card index entry has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">indexBytes</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span>
@@ -294,11 +300,11 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; index = CardIndexEntry(tag=&quot;Example&quot;, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=&quot;col&quot;, rowName=&quot;row&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; index = CardIndexEntry(tag=&quot;Example&quot;, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=&quot;col&quot;, rowName=&quot;row&quot;, size=1)</span>
 <span class="sd">        &gt;&gt;&gt; repr(index)</span>
-<span class="sd">        &#39;CardIndexEntry(Tag=Example, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=col, rowName=row)&#39;</span>
+<span class="sd">        &#39;CardIndexEntry(Tag=Example, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=col, rowName=row, size=1)&#39;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;CardIndexEntry(Tag=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">, byteStart=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteStart</span><span class="si">}</span><span class="s2">, byteEnd=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteEnd</span><span class="si">}</span><span class="s2">, numColumns=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numColumns</span><span class="si">}</span><span class="s2">, numRows=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="si">}</span><span class="s2">, columnName=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="si">}</span><span class="s2">, rowName=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;CardIndexEntry(Tag=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="si">}</span><span class="s2">, byteStart=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteStart</span><span class="si">}</span><span class="s2">, byteEnd=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteEnd</span><span class="si">}</span><span class="s2">, numColumns=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numColumns</span><span class="si">}</span><span class="s2">, numRows=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="si">}</span><span class="s2">, columnName=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="si">}</span><span class="s2">, rowName=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="si">}</span><span class="s2">, size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 <div class="viewcode-block" id="CardIndexEntry.ascii">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.CardIndexEntry.ascii">[docs]</a>
@@ -313,11 +319,11 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; index = CardIndexEntry(tag=&quot;Example&quot;, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=&quot;col&quot;, rowName=&quot;row&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; index = CardIndexEntry(tag=&quot;Example&quot;, byteStart=0, byteEnd=64, numColumns=4, numRows=4, columnName=&quot;col&quot;, rowName=&quot;row&quot;, size=1)</span>
 <span class="sd">        &gt;&gt;&gt; print(index.ascii())</span>
-<span class="sd">        Example  |        0 |       64 |        4 |        4 | col      | row</span>
+<span class="sd">        Example  |        0 |       64 |        4 |        4 | col      | row       | 1</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteStart</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteEnd</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numColumns</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tag</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteStart</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">byteEnd</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numColumns</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">:</span><span class="s2">8</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div>
 
 
 <div class="viewcode-block" id="CardIndexEntry.copy">
@@ -346,6 +352,7 @@
             <span class="n">numRows</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">numRows</span><span class="p">,</span>
             <span class="n">columnName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">columnName</span><span class="p">,</span>
             <span class="n">rowName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rowName</span><span class="p">,</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
             <span class="n">reserved</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reserved</span>
         <span class="p">)</span></div>
 </div>
@@ -354,19 +361,9 @@
 <div class="viewcode-block" id="OPATTable">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.OPATTable">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">OPATTable</span><span class="p">(</span><span class="n">OPATEntitity</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">OPATTable</span><span class="p">(</span><span class="n">OPATEntity</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Structure to hold the data of a single table. Recall the structure of an OPAT file</span>
-<span class="sd">    is a collection of data cards, each containing a header, an index, and a collection</span>
-<span class="sd">    of tables. Each table is represented by this class.</span>
-
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    - Generally, the user should not need to create an OPATTable directly. Instead,</span>
-<span class="sd">    opatio will use these internally. However, this class is provided for</span>
-<span class="sd">    completeness and for any advanced users who may want to create their own</span>
-<span class="sd">    tables.</span>
-
+<span class="sd">    Represents the data of a single table in an OPAT file.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -374,22 +371,81 @@
 <span class="sd">        Column values of the table.</span>
 <span class="sd">    rowValues : Iterable[float]</span>
 <span class="sd">        Row values of the table.</span>
-<span class="sd">    data : Iterable[Iterable[float]]</span>
-<span class="sd">        Data of the table.</span>
+<span class="sd">    data : npt.ArrayLike</span>
+<span class="sd">        Data of the table, stored as a 2D or 3D array.</span>
 
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">    &gt;&gt;&gt; table = OPATTable(columnValues=np.array([1.0, 2.0]), rowValues=np.array([3.0, 4.0]), data=[[5.0, 6.0], [7.0, 8.0]])</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - This class is primarily used internally by opatio. Advanced users may</span>
+<span class="sd">      create their own tables using this class if needed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">columnValues</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
-    <span class="n">rowValues</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
+    <span class="n">columnValues</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span>
+    <span class="n">rowValues</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span>
+    <span class="n">_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform post-initialization checks and set the size attribute based on the data&#39;s dimensions.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the data is not a 2D or 3D array.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+           <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data must be a 2D or 3D array! Currently it is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">D&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the size of the table, which is 1 for 2D data or the third dimension for 3D data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The size of the table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a specific element or slice from the table.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : tuple</span>
+<span class="sd">            A tuple of indices specifying the element or slice to retrieve.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The requested element or slice.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        TypeError</span>
+<span class="sd">            If the key is not a tuple.</span>
+<span class="sd">        KeyError</span>
+<span class="sd">            If the key is not a tuple of integers or has an invalid length.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;key must be a tuple! Currently it is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">key</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;key must be a tuple of integers! Currently it is </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;key must be a tuple of length 2 or 3! Currently it is </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="o">*</span><span class="n">key</span><span class="p">]</span>
 
 <div class="viewcode-block" id="OPATTable.sha256">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.OPATTable.sha256">[docs]</a>
-    <span class="k">def</span> <span class="nf">sha256</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">sha256</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;_Hash&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the SHA-256 checksum of the given data.</span>
 
@@ -408,14 +464,8 @@
 <span class="sd">        &gt;&gt;&gt; table = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])</span>
 <span class="sd">        &gt;&gt;&gt; table.sha256()</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;data must be castable to a numpy array! Currently it is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">tobytes</span><span class="p">())</span></div>
+        <span class="n">flatData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">flatData</span><span class="o">.</span><span class="n">tobytes</span><span class="p">())</span></div>
 
 
     <span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
@@ -470,6 +520,58 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">tableBytes</span>
 
+
+<div class="viewcode-block" id="OPATTable.compute_col_width">
+<a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.OPATTable.compute_col_width">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">compute_col_width</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">floatWidth</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute the total width of a cell for ASCII representation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        size : int</span>
+<span class="sd">            Number of floats in the cell.</span>
+<span class="sd">        floatWidth : int</span>
+<span class="sd">            Width of each float.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Total width of the cell.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Width per float plus the separator &quot;, &quot;</span>
+        <span class="n">floatWidth</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="mi">0</span><span class="si">:</span><span class="s2">7.</span><span class="si">{</span><span class="n">floatWidth</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">perFloat</span> <span class="o">=</span> <span class="n">floatWidth</span>
+        <span class="n">separatorWidth</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="c1"># Include 2 for the surrounding &lt;&gt;</span>
+        <span class="n">bracketWidth</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">*</span> <span class="n">perFloat</span> <span class="o">+</span> <span class="n">separatorWidth</span> <span class="o">+</span> <span class="n">bracketWidth</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OPATTable.format_centered">
+<a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.OPATTable.format_centered">[docs]</a>
+    <span class="k">def</span> <span class="nf">format_centered</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">floatWidth</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format a float value centered in a fixed-width field.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : float</span>
+<span class="sd">            The value to format.</span>
+<span class="sd">        floatWidth : int</span>
+<span class="sd">            The width of the float.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The formatted string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">totalWidth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_col_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">floatWidth</span><span class="p">)</span>
+        <span class="n">formatSpec</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;^</span><span class="si">{</span><span class="n">totalWidth</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">floatWidth</span><span class="si">}</span><span class="s2">f&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">:{</span><span class="n">formatSpec</span><span class="si">}}</span><span class="s2">&quot;</span></div>
+
+
 <div class="viewcode-block" id="OPATTable.ascii">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.OPATTable.ascii">[docs]</a>
     <span class="k">def</span> <span class="nf">ascii</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -489,13 +591,21 @@
         <span class="n">tableStr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">numRows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rowValues</span><span class="p">)</span>
         <span class="n">numColumns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnValues</span><span class="p">)</span>
-        <span class="n">colNameRow</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="si">:</span><span class="s2">4.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnValues</span><span class="p">])</span>
-        <span class="n">colNameRow</span> <span class="o">=</span> <span class="s2">&quot;     | &quot;</span> <span class="o">+</span> <span class="n">colNameRow</span>
+        <span class="c1"># colNameRow = &quot; | &quot;.join([f&quot;{col:4.4f}&quot; for col in self.columnValues])</span>
+        <span class="n">colNameRow</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">format_centered</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnValues</span><span class="p">])</span>
+        <span class="n">colNameRow</span> <span class="o">=</span> <span class="s2">&quot;        | &quot;</span> <span class="o">+</span> <span class="n">colNameRow</span>
         <span class="n">tableStr</span> <span class="o">+=</span> <span class="n">colNameRow</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">tableStr</span> <span class="o">+=</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">colNameRow</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numRows</span><span class="p">):</span>
-            <span class="n">row</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="si">:</span><span class="s2">4.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numColumns</span><span class="p">)])</span>
-            <span class="n">tableStr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">4.4f</span><span class="si">}</span><span class="s2"> | &quot;</span> <span class="o">+</span> <span class="n">row</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">cellValues</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numColumns</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cellValues</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">dataSequence</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cellValues</span><span class="p">]</span>
+                <span class="n">dataVectorFormated</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;&lt;</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&gt;&#39;</span> <span class="k">if</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dataSequence</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dataVectorFormated</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">cellValues</span><span class="p">]</span>
+
+            <span class="n">row</span> <span class="o">=</span> <span class="s2">&quot; | &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataVectorFormated</span><span class="p">)</span>
+            <span class="n">tableStr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">7.4f</span><span class="si">}</span><span class="s2"> | &quot;</span> <span class="o">+</span> <span class="n">row</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">tableStr</span></div>
 
 
@@ -523,45 +633,50 @@
             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">newTable</span></div>
-</div>
+
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the string representation of the OPAT table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The string representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outStr</span> <span class="o">=</span> <span class="s2">&quot;OPATTable(&quot;</span>
+        <span class="n">outStr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;columnValues: [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnValues</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">0.4f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">columnValues</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">0.4f</span><span class="si">}</span><span class="s2">], &quot;</span>
+        <span class="n">outStr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;rowValues: [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowValues</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">0.4f</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rowValues</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">0.4f</span><span class="si">}</span><span class="s2">], &quot;</span>
+        <span class="n">outStr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;vSize=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="n">outStr</span></div>
 
 
 <div class="viewcode-block" id="DataCard">
 <a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.DataCard">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">DataCard</span><span class="p">(</span><span class="n">OPATEntitity</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">DataCard</span><span class="p">(</span><span class="n">OPATEntity</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Represents a data card containing header, index, and tables.</span>
+<span class="sd">    Represents a data card containing a header, index, and tables.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
 <span class="sd">    header : CardHeader</span>
 <span class="sd">        Header of the data card.</span>
 <span class="sd">    index : Dict[str, CardIndexEntry]</span>
-<span class="sd">        Index of the data card.</span>
+<span class="sd">        Index of the data card, mapping tags to index entries.</span>
 <span class="sd">    tables : Dict[str, OPATTable]</span>
-<span class="sd">        Tables in the data card.</span>
+<span class="sd">        Tables in the data card, mapped by their tags.</span>
 
 <span class="sd">    Methods</span>
 <span class="sd">    -------</span>
 <span class="sd">    add_table(tag: str, table: OPATTable, columnName: str = &quot;columnValues&quot;, rowName: str = &quot;rowValues&quot;)</span>
 <span class="sd">        Add a table to the data card.</span>
-
 <span class="sd">    sha256() -&gt; bytes</span>
-<span class="sd">        Compute the SHA-256 hash of the data card. Note that this is the combination hash of</span>
-<span class="sd">        all the tables in the card including their data, column values, and row values.</span>
-
+<span class="sd">        Compute the SHA-256 hash of the data card, including all tables and their data.</span>
 <span class="sd">    ascii() -&gt; str</span>
 <span class="sd">        Get the ASCII representation of the data card.</span>
-
 <span class="sd">    copy() -&gt; DataCard</span>
-<span class="sd">        Create a copy of the data card.</span>
-
-<span class="sd">    Examples</span>
-<span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; card = DataCard()</span>
-<span class="sd">    &gt;&gt;&gt; table = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])</span>
-<span class="sd">    &gt;&gt;&gt; card.add_table(tag=&quot;Example&quot;, table=table)</span>
+<span class="sd">        Create a deep copy of the data card.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">header</span><span class="p">:</span> <span class="n">CardHeader</span>
@@ -570,7 +685,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize a DataCard instance.</span>
+<span class="sd">        Initialize a DataCard instance with default header, index, and tables.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">CardHeader</span><span class="p">(</span><span class="n">numTables</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">indexOffset</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">cardSize</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">{}</span>
@@ -628,7 +743,8 @@
             <span class="n">numColumns</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columnValues</span><span class="p">),</span>
             <span class="n">numRows</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">rowValues</span><span class="p">),</span>
             <span class="n">columnName</span><span class="o">=</span><span class="n">columnName</span><span class="p">,</span>
-            <span class="n">rowName</span><span class="o">=</span><span class="n">rowName</span>
+            <span class="n">rowName</span><span class="o">=</span><span class="n">rowName</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">size</span>
         <span class="p">)</span>
 
         <span class="c1"># Add the index entry to the data card</span>
@@ -673,7 +789,7 @@
 
     <span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert the data card to bytes.</span>
+<span class="sd">        Convert the entire data card to bytes, including header, tables, and index.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -824,6 +940,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage_guide.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ Utilities Usage Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">opatio</a></li>
 </ul>
 
 <div class="relations">

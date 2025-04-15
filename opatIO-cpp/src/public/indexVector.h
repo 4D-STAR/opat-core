@@ -156,12 +156,31 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const FloatIndexVector& vec);
 
 private:
+    /**
+     * @brief Sets up the internal representations of the vector and precision.
+     *
+     * This method initializes the internal vector representations (`m_vector` and `m_vectorInt`)
+     * based on the provided floating-point vector and hash precision. It converts the floating-point
+     * values into integer representations for consistent hashing.
+     *
+     * @param vec The vector of floating-point values to initialize with.
+     * @param hashPrescision The precision to use for hashing. Values are rounded to this precision.
+     * @throws std::invalid_argument if the input vector is empty.
+     * @throws std::invalid_argument if hashPrescision is not a positive integer or is >= 14.
+     *
+     * Example Usage:
+     * @code
+     * std::vector<double> vec = {1.2345, 2.3456, 3.4567};
+     * FloatIndexVector index;
+     * index.setupVecs(vec, 2); // Sets up the vector with precision of 2 decimal places
+     * @endcode
+     */
+    void setupVecs(const std::vector<double>& vec, int hashPrescision);
+
     std::vector<double> m_vector; ///< The vector of floating-point values.
     std::vector<uint64_t> m_vectorInt; ///< Internal representation of the vector for hashing.
     int m_hashPrescision; ///< The precision used for hashing.
     bool m_initialized = false; ///< Flag indicating whether the vector has been initialized.
-
-    void setupVecs(const std::vector<double>& vec, int hashPrescision);
 };
 
 /**

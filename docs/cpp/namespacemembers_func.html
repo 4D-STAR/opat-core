@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -103,7 +99,7 @@ $(function(){initNavTree('namespacemembers_func.html',''); initResizable(true); 
 
 <div class="contents">
 <div class="textblock">Here is a list of all namespace functions with links to the namespace documentation for each function:</div><ul>
-<li>hasMagic()&#160;:&#160;<a class="el" href="namespaceopat.html#a04f6b889a3dd1d8c8e19dc9efef906d3">opat</a></li>
+<li>hasMagic()&#160;:&#160;<a class="el" href="namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5">opat</a></li>
 <li>is_big_endian()&#160;:&#160;<a class="el" href="namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f">opat</a></li>
 <li>operator&lt;&lt;()&#160;:&#160;<a class="el" href="namespaceopat.html#a1b22cfeff0b9d337901e2ee479d6f4ca">opat</a></li>
 <li>readCardCatalog()&#160;:&#160;<a class="el" href="namespaceopat.html#aae8dd619feb63a21eeb547b18ff211f7">opat</a></li>
@@ -112,7 +108,7 @@ $(function(){initNavTree('namespacemembers_func.html',''); initResizable(true); 
 <li>readDataCardHeader()&#160;:&#160;<a class="el" href="namespaceopat.html#a51c9e2f3df352cd12e652ee590486c13">opat</a></li>
 <li>readDataCards()&#160;:&#160;<a class="el" href="namespaceopat.html#af7e996b8bece6a40e9b9c3fc123358cc">opat</a></li>
 <li>readHeader()&#160;:&#160;<a class="el" href="namespaceopat.html#adc760e1fb2ed66512490d28eca2286a4">opat</a></li>
-<li>readOPAT()&#160;:&#160;<a class="el" href="namespaceopat.html#a983bca6af4652f9ecb261543853ea614">opat</a></li>
+<li>readOPAT()&#160;:&#160;<a class="el" href="namespaceopat.html#aca57fce2c7ef3e4714709b3d9507d4b0">opat</a></li>
 <li>readOPATTable()&#160;:&#160;<a class="el" href="namespaceopat.html#a5c14cc47d910dba560a126cfceb175a6">opat</a></li>
 <li>readTableIndex()&#160;:&#160;<a class="el" href="namespaceopat.html#a19e2c4f97e7950dbcf76687884715af6">opat</a></li>
 <li>swap_bytes()&#160;:&#160;<a class="el" href="namespaceopat.html#ab398f378e2ccf94866991786be29aff9">opat</a></li>

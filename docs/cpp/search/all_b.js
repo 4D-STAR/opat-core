@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['n_5fc_0',['N_C',['../structopat_1_1_o_p_a_t_table.html#aac396a0a4f3ad0dfc36d8e32998901e2',1,'opat::OPATTable']]],
-  ['n_5fr_1',['N_R',['../structopat_1_1_o_p_a_t_table.html#a1608fea0f0b6d323946dcfaeed008165',1,'opat::OPATTable']]],
-  ['numcolumns_2',['numColumns',['../structopat_1_1_table_index_entry.html#aa86ba76b6c169e8401d363e4368cb676',1,'opat::TableIndexEntry']]],
-  ['numindex_3',['numIndex',['../structopat_1_1_header.html#a4bc413e5cd584943e115c7f8841163db',1,'opat::Header']]],
-  ['numrows_4',['numRows',['../structopat_1_1_table_index_entry.html#abe63fa8402cb60bf24243e7c53ca094f',1,'opat::TableIndexEntry']]],
-  ['numtables_5',['numTables',['../structopat_1_1_header.html#ab15563f44f56769b537e78b6690e4db3',1,'opat::Header::numTables'],['../structopat_1_1_card_header.html#a00bb593a438a623a98d023313544ed4a',1,'opat::CardHeader::numTables']]]
+  ['i_20o_20library_20documentation_0',['OPAT I/O Library Documentation',['../index.html',1,'']]],
+  ['in_20fortran_1',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
+  ['index_2',['index',['../structopat_1_1_card_catalog_entry.html#af8aecb21d3204fee012e94dc08396e02',1,'opat::CardCatalogEntry']]],
+  ['index_20and_20tag_3',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
+  ['indexoffset_4',['indexOffset',['../structopat_1_1_header.html#aadecf0335cc99ba23ad616912fc7937a',1,'opat::Header::indexOffset'],['../structopat_1_1_card_header.html#ae976b2c0c8568eebb61318389ba75429',1,'opat::CardHeader::indexOffset']]],
+  ['indexvector_2ecpp_5',['indexVector.cpp',['../index_vector_8cpp.html',1,'']]],
+  ['indexvector_2eh_6',['indexVector.h',['../index_vector_8h.html',1,'']]],
+  ['initialize_7',['initialize',['../class_float_index_vector.html#ad9b53b139b334938e15bba70d2c3c2db',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec, int hashPrescision)'],['../class_float_index_vector.html#a059e6d34015859136128c04add1d8392',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec)']]],
+  ['installation_8',['Installation',['../index.html#autotoc_md4',1,'']]],
+  ['interface_9',['Fortran Interface',['../md_docs_2static_2fortran.html',1,'']]],
+  ['interface_20cli_20usage_10',['2. Command-Line Interface (CLI) Usage',['../index.html#autotoc_md13',1,'']]],
+  ['is_5fbig_5fendian_11',['is_big_endian',['../namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f',1,'opat']]]
 ];

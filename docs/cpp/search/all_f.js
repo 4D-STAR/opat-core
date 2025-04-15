@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['sethashprecision_0',['setHashPrecision',['../class_float_index_vector.html#a76df52d228431173508ae1222e89eedb',1,'FloatIndexVector']]],
-  ['setvector_1',['setVector',['../class_float_index_vector.html#a5442d65a5e5f27d215de982d5ba135b0',1,'FloatIndexVector']]],
-  ['sha256_2',['sha256',['../structopat_1_1_card_catalog_entry.html#ab0cfd19f747f133d5f07bc492abceda2',1,'opat::CardCatalogEntry']]],
-  ['size_3',['size',['../structopat_1_1_o_p_a_t_table.html#a2eaf41c3dff4d6ecd14bafd610f8fb4e',1,'opat::OPATTable']]],
-  ['slice_4',['Slice',['../structopat_1_1_slice.html',1,'opat']]],
-  ['slice_5',['slice',['../structopat_1_1_o_p_a_t_table.html#a363aae804cc40c8aadb2fd753706ef1f',1,'opat::OPATTable']]],
-  ['sourceinfo_6',['sourceInfo',['../structopat_1_1_header.html#aab94d539484f61cba5f6481b615a0e9c',1,'opat::Header']]],
-  ['start_7',['start',['../structopat_1_1_slice.html#a4233fdec77a3085e43d8843eaf58b8f3',1,'opat::Slice']]],
-  ['std_8',['std',['../namespacestd.html',1,'']]],
-  ['swap_5fbytes_9',['swap_bytes',['../namespaceopat.html#ab398f378e2ccf94866991786be29aff9',1,'opat']]]
+  ['n_5fc_0',['N_C',['../structopat_1_1_o_p_a_t_table.html#aac396a0a4f3ad0dfc36d8e32998901e2',1,'opat::OPATTable']]],
+  ['n_5fr_1',['N_R',['../structopat_1_1_o_p_a_t_table.html#a1608fea0f0b6d323946dcfaeed008165',1,'opat::OPATTable']]],
+  ['note_2',['Note',['../index.html#autotoc_md2',1,'']]],
+  ['notes_3',['Additional Notes',['../index.html#autotoc_md18',1,'']]],
+  ['notes_3a_4',['Notes:',['../md_docs_2static_2fortran.html#autotoc_md23',1,'']]],
+  ['numcols_5',['numCols',['../struct_o_p_a_t_table___c.html#ae18d4c50f440ac4b5e8cc831343fe7cb',1,'OPATTable_C']]],
+  ['numcolumns_6',['numColumns',['../structopat_1_1_table_index_entry.html#aa86ba76b6c169e8401d363e4368cb676',1,'opat::TableIndexEntry']]],
+  ['numindex_7',['numIndex',['../structopat_1_1_header.html#a4bc413e5cd584943e115c7f8841163db',1,'opat::Header']]],
+  ['numrows_8',['numRows',['../struct_o_p_a_t_table___c.html#af45abb0725997929ce0a21e3d8a78e3d',1,'OPATTable_C::numRows'],['../structopat_1_1_table_index_entry.html#abe63fa8402cb60bf24243e7c53ca094f',1,'opat::TableIndexEntry::numRows']]],
+  ['numtables_9',['numTables',['../structopat_1_1_header.html#ab15563f44f56769b537e78b6690e4db3',1,'opat::Header::numTables'],['../structopat_1_1_card_header.html#a00bb593a438a623a98d023313544ed4a',1,'opat::CardHeader::numTables']]]
 ];

@@ -13,6 +13,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="opatio.misc.misc module" href="opatio.misc.misc.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -33,15 +34,15 @@
   <section id="module-opatio.misc.opatentity">
 <span id="opatio-misc-opatentity-module"></span><h1>opatio.misc.opatentity module<a class="headerlink" href="#module-opatio.misc.opatentity" title="Link to this heading">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="opatio.misc.opatentity.OPATEntitity">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opatio.misc.opatentity.</span></span><span class="sig-name descname"><span class="pre">OPATEntitity</span></span><a class="reference internal" href="_modules/opatio/misc/opatentity.html#OPATEntitity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opatio.misc.opatentity.OPATEntitity" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="opatio.misc.opatentity.OPATEntity">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">opatio.misc.opatentity.</span></span><span class="sig-name descname"><span class="pre">OPATEntity</span></span><a class="reference internal" href="_modules/opatio/misc/opatentity.html#OPATEntity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#opatio.misc.opatentity.OPATEntity" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a generic OPAT entity. This class serves as a base class for entities
 that need to define their size in bytes and provide a byte representation.</p>
 <p>Subclasses must implement the <cite>__bytes__</cite> method to define their specific
 byte representation.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyEntity</span><span class="p">(</span><span class="n">OPATEntitity</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyEntity</span><span class="p">(</span><span class="n">OPATEntity</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="gp">... </span>        <span class="k">return</span> <span class="sa">b</span><span class="s2">&quot;example&quot;</span>
 <span class="gp">...</span>
@@ -77,12 +78,27 @@ byte representation.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage_guide.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp.html">C++ Utilities Usage Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">opatio</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opatio.html">opatio package</a></li>
+</ul>
+</li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">opatio</a><ul>
+  <li><a href="opatio.html">opatio package</a><ul>
+  <li><a href="opatio.misc.html">opatio.misc package</a><ul>
+      <li>Previous: <a href="opatio.misc.misc.html" title="previous chapter">opatio.misc.misc module</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>

@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['index_0',['index',['../structopat_1_1_card_catalog_entry.html#af8aecb21d3204fee012e94dc08396e02',1,'opat::CardCatalogEntry']]],
-  ['indexoffset_1',['indexOffset',['../structopat_1_1_header.html#aadecf0335cc99ba23ad616912fc7937a',1,'opat::Header::indexOffset'],['../structopat_1_1_card_header.html#ae976b2c0c8568eebb61318389ba75429',1,'opat::CardHeader::indexOffset']]],
-  ['indexvector_2ecpp_2',['indexVector.cpp',['../index_vector_8cpp.html',1,'']]],
-  ['indexvector_2eh_3',['indexVector.h',['../index_vector_8h.html',1,'']]],
-  ['initialize_4',['initialize',['../class_float_index_vector.html#ad9b53b139b334938e15bba70d2c3c2db',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec, int hashPrescision)'],['../class_float_index_vector.html#a059e6d34015859136128c04add1d8392',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec)']]],
-  ['is_5fbig_5fendian_5',['is_big_endian',['../namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f',1,'opat']]]
+  ['fextern_2ecpp_0',['fextern.cpp',['../fextern_8cpp.html',1,'']]],
+  ['file_1',['Reading an OPAT File',['../index.html#autotoc_md8',1,'']]],
+  ['file_20in_20fortran_2',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
+  ['floatindexvector_3',['FloatIndexVector',['../class_float_index_vector.html',1,'FloatIndexVector'],['../class_float_index_vector.html#afe30e8c545430ae2ebe46e6bed07559d',1,'FloatIndexVector::FloatIndexVector()'],['../class_float_index_vector.html#a8b308f5dc8516870e36cf1398424e401',1,'FloatIndexVector::FloatIndexVector(const std::vector&lt; double &gt; &amp;vec)'],['../class_float_index_vector.html#a0eef9b323860668725cb977d35fc913a',1,'FloatIndexVector::FloatIndexVector(const std::vector&lt; double &gt; &amp;vec, int hashPrescision)'],['../class_float_index_vector.html#a22d1fad6aa955b5e3a886c18abd5e386',1,'FloatIndexVector::FloatIndexVector(const FloatIndexVector &amp;other)']]],
+  ['fortran_4',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
+  ['fortran_20interface_5',['Fortran Interface',['../md_docs_2static_2fortran.html',1,'']]],
+  ['fortran_2emd_6',['fortran.md',['../fortran_8md.html',1,'']]],
+  ['free_5fopat_5ffile_5fc_7',['free_opat_file_c',['../fextern_8cpp.html#a6a35f3d7b24b60bc256cbb8f08fbf8e0',1,'fextern.cpp']]]
 ];

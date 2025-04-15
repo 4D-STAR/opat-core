@@ -16,5 +16,6 @@ var annotated_dup =
       [ "hash< FloatIndexVector >", "structstd_1_1hash_3_01_float_index_vector_01_4.html", "structstd_1_1hash_3_01_float_index_vector_01_4" ]
     ] ],
     [ "FloatIndexVector", "class_float_index_vector.html", "class_float_index_vector" ],
-    [ "opatIOTest", "classopat_i_o_test.html", null ]
+    [ "opatIOTest", "classopat_i_o_test.html", null ],
+    [ "OPATTable_C", "struct_o_p_a_t_table___c.html", "struct_o_p_a_t_table___c" ]
 ];

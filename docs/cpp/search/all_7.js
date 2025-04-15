@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['hash_0',['hash',['../class_float_index_vector.html#a5891920046506d61727f613ce7006cbf',1,'FloatIndexVector']]],
-  ['hash_3c_20floatindexvector_20_3e_1',['hash&lt; FloatIndexVector &gt;',['../structstd_1_1hash_3_01_float_index_vector_01_4.html',1,'std']]],
-  ['hashprescision_2',['hashPrescision',['../structopat_1_1_header.html#a408d0b0b32505dedc814e4429589c8c3',1,'opat::Header']]],
-  ['hasmagic_3',['hasMagic',['../namespaceopat.html#a04f6b889a3dd1d8c8e19dc9efef906d3',1,'opat']]],
-  ['header_4',['Header',['../structopat_1_1_header.html',1,'opat']]],
-  ['header_5',['header',['../structopat_1_1_data_card.html#a4891fd7af82e6011f3c4a2e7a90c8f55',1,'opat::DataCard::header'],['../structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245',1,'opat::OPAT::header']]],
-  ['headersize_6',['headerSize',['../structopat_1_1_header.html#a44cfbf60583227214152ed915c9a20f1',1,'opat::Header::headerSize'],['../structopat_1_1_card_header.html#a06582c39112273b35ada34c9cb3c0ab0',1,'opat::CardHeader::headerSize']]]
+  ['end_0',['end',['../structopat_1_1_slice.html#aa4feb1ca6facc5e9d02b1644e915d178',1,'opat::Slice']]],
+  ['errorcode_1',['errorCode',['../struct_o_p_a_t_table___c.html#ac6220b34acc8985958d33a0460ada0ec',1,'OPATTable_C']]],
+  ['errormessage_2',['errorMessage',['../struct_o_p_a_t_table___c.html#a1f32a54eb38b16e56fe05ea21a5a06c8',1,'OPATTable_C']]],
+  ['example_20code_3a_3',['Example Code:',['../md_docs_2static_2fortran.html#autotoc_md22',1,'']]],
+  ['example_3a_20reading_20an_20opat_20file_20in_20fortran_4',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
+  ['example_5ffilename_5',['EXAMPLE_FILENAME',['../opat_i_o_test_8cpp.html#a2f358f231bffa8eaaa670ec1db93a470',1,'opatIOTest.cpp']]]
 ];

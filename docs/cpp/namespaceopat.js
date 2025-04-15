@@ -10,7 +10,7 @@ var namespaceopat =
     [ "Slice", "structopat_1_1_slice.html", "structopat_1_1_slice" ],
     [ "TableIndex", "structopat_1_1_table_index.html", "structopat_1_1_table_index" ],
     [ "TableIndexEntry", "structopat_1_1_table_index_entry.html", "structopat_1_1_table_index_entry" ],
-    [ "hasMagic", "namespaceopat.html#a04f6b889a3dd1d8c8e19dc9efef906d3", null ],
+    [ "hasMagic", "namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5", null ],
     [ "is_big_endian", "namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f", null ],
     [ "operator<<", "namespaceopat.html#adae37c549fd00861a56e1219621a98ab", null ],
     [ "operator<<", "namespaceopat.html#acb2a02f224d9b1cc513f589a86cad12c", null ],
@@ -28,7 +28,7 @@ var namespaceopat =
     [ "readDataCardHeader", "namespaceopat.html#a51c9e2f3df352cd12e652ee590486c13", null ],
     [ "readDataCards", "namespaceopat.html#af7e996b8bece6a40e9b9c3fc123358cc", null ],
     [ "readHeader", "namespaceopat.html#adc760e1fb2ed66512490d28eca2286a4", null ],
-    [ "readOPAT", "namespaceopat.html#a983bca6af4652f9ecb261543853ea614", null ],
+    [ "readOPAT", "namespaceopat.html#aca57fce2c7ef3e4714709b3d9507d4b0", null ],
     [ "readOPATTable", "namespaceopat.html#a5c14cc47d910dba560a126cfceb175a6", null ],
     [ "readTableIndex", "namespaceopat.html#a19e2c4f97e7950dbcf76687884715af6", null ],
     [ "swap_bytes", "namespaceopat.html#ab398f378e2ccf94866991786be29aff9", null ]

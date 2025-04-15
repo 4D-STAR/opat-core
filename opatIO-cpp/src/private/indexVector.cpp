@@ -8,7 +8,23 @@
 #include "indexVector.h"
 #include "xxhash64.h"
 
-
+/**
+ * @brief Rounds a given integer to the nearest multiple of 10.
+ * 
+ * This function takes an integer value, validates it, and rounds it to the nearest
+ * multiple of 10. Negative values are not allowed and will throw an exception.
+ * 
+ * @param value The integer value to be rounded.
+ * @return int The value rounded to the nearest multiple of 10.
+ * 
+ * @throws std::invalid_argument If the input value is negative.
+ * 
+ * @note Example usage:
+ * @code
+ * int roundedValue = round_to_nearest_multiple_of_power_of_10(23); // Returns 20
+ * int roundedValue2 = round_to_nearest_multiple_of_power_of_10(27); // Returns 30
+ * @endcode
+ */
 int round_to_nearest_multiple_of_power_of_10(int value) {
     if (value == 0.0) return 0;
     if (value < 0) {

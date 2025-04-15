@@ -30,9 +30,9 @@
           <div class="body" role="main">
             
   <h1>Source code for opatio.misc.opatentity</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="OPATEntitity">
-<a class="viewcode-back" href="../../../opatio.misc.opatentity.html#opatio.misc.opatentity.OPATEntitity">[docs]</a>
-<span></span><span class="k">class</span> <span class="nc">OPATEntitity</span><span class="p">:</span>
+<div class="viewcode-block" id="OPATEntity">
+<a class="viewcode-back" href="../../../opatio.misc.opatentity.html#opatio.misc.opatentity.OPATEntity">[docs]</a>
+<span></span><span class="k">class</span> <span class="nc">OPATEntity</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a generic OPAT entity. This class serves as a base class for entities</span>
 <span class="sd">    that need to define their size in bytes and provide a byte representation.</span>
@@ -42,7 +42,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; class MyEntity(OPATEntitity):</span>
+<span class="sd">    &gt;&gt;&gt; class MyEntity(OPATEntity):</span>
 <span class="sd">    ...     def __bytes__(self):</span>
 <span class="sd">    ...         return b&quot;example&quot;</span>
 <span class="sd">    ...</span>
@@ -64,7 +64,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; class MyEntity(OPATEntitity):</span>
+<span class="sd">        &gt;&gt;&gt; class MyEntity(OPATEntity):</span>
 <span class="sd">        ...     def __bytes__(self):</span>
 <span class="sd">        ...         return b&quot;example&quot;</span>
 <span class="sd">        ...</span>
@@ -90,7 +90,7 @@
 
 <span class="sd">        Examples</span>
 <span class="sd">        --------</span>
-<span class="sd">        &gt;&gt;&gt; class MyEntity(OPATEntitity):</span>
+<span class="sd">        &gt;&gt;&gt; class MyEntity(OPATEntity):</span>
 <span class="sd">        ...     def __bytes__(self):</span>
 <span class="sd">        ...         return b&quot;example&quot;</span>
 <span class="sd">        ...</span>
@@ -122,6 +122,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage_guide.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ Utilities Usage Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">opatio</a></li>
 </ul>
 
 <div class="relations">

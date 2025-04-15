@@ -18,12 +18,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-  $(function() { init_search(); });
-/* @license-end */
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -35,18 +32,6 @@
    <div id="projectname">opatIO-cpp<span id="projectnumber">&#160;0.0.1a</span>
    </div>
   </td>
-    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
-          </span>
-        </div>
-</td>
  </tr>
  </tbody>
 </table>
@@ -63,6 +48,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 $(function() { codefold.init(0); });
 /* @license-end */
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -121,9 +117,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aad792db70df5106256e9cc96ad878c42" id="r_aad792db70df5106256e9cc96ad878c42"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad792db70df5106256e9cc96ad878c42">get</a> (const <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> &amp;index) const</td></tr>
 <tr class="memdesc:aad792db70df5106256e9cc96ad878c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by index.  <br /></td></tr>
 <tr class="separator:aad792db70df5106256e9cc96ad878c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a366c44e15d70b3e0042c8322897ea39f" id="r_a366c44e15d70b3e0042c8322897ea39f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a366c44e15d70b3e0042c8322897ea39f">get</a> (const std::vector&lt; double &gt; &amp;index) const</td></tr>
+<tr class="separator:a366c44e15d70b3e0042c8322897ea39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa9173a42b4ec4cbc01c3f298e1d0d19" id="r_afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa9173a42b4ec4cbc01c3f298e1d0d19">operator[]</a> (const <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> &amp;index) const</td></tr>
 <tr class="memdesc:afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by index.  <br /></td></tr>
 <tr class="separator:afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a973cd27c04f868564c1a075e13e72c9e" id="r_a973cd27c04f868564c1a075e13e72c9e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a973cd27c04f868564c1a075e13e72c9e">operator[]</a> (const std::vector&lt; double &gt; &amp;index) const</td></tr>
+<tr class="separator:a973cd27c04f868564c1a075e13e72c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -146,9 +146,11 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure to hold the entire <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
 <p>The <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure contains the file header, card catalog, and all DataCards. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2private_2fextern_8cpp-example.html#_a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/private/fextern.cpp</a>.</dd>
+</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aad792db70df5106256e9cc96ad878c42" name="aad792db70df5106256e9cc96ad878c42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad792db70df5106256e9cc96ad878c42">&#9670;&#160;</a></span>get()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aad792db70df5106256e9cc96ad878c42">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,8 +181,33 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a366c44e15d70b3e0042c8322897ea39f" name="a366c44e15d70b3e0042c8322897ea39f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a366c44e15d70b3e0042c8322897ea39f">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp; opat::OPAT::get </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afa9173a42b4ec4cbc01c3f298e1d0d19" name="afa9173a42b4ec4cbc01c3f298e1d0d19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa9173a42b4ec4cbc01c3f298e1d0d19">&#9670;&#160;</a></span>operator[]()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afa9173a42b4ec4cbc01c3f298e1d0d19">&#9670;&#160;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,6 +235,31 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a973cd27c04f868564c1a075e13e72c9e" name="a973cd27c04f868564c1a075e13e72c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a973cd27c04f868564c1a075e13e72c9e">&#9670;&#160;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp; opat::OPAT::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; double &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>index</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

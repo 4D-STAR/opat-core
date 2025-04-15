@@ -23,7 +23,7 @@
  * @file opatIO.h
  * @brief Header file for the OPAT I/O library, providing structures and functions for reading and manipulating OPAT files.
  *
- * This file defines the core data structures and functions used for handling OPAT files. 
+ * This file defines the core data structures and functions used for handling OPAT files in C++.
  * The OPAT format is designed for efficient storage and retrieval of multidimensional data tables,
  * with metadata and indexing for fast access.
  *
@@ -38,11 +38,9 @@
  * 
  * int main() {
  *     std::string filename = "example.opat";
- *     if (opat::hasMagic(filename)) {
- *         opat::OPAT file = opat::readOPAT(filename);
- *         const auto& table = file.get({1.0, 2.0, 3.0}).get("table_tag");
- *         table.print();
- *     }
+ *     opat::OPAT file = opat::readOPAT(filename);
+ *     const auto& table = file.get({1.0, 2.0, 3.0}).get("table_tag");
+ *     table.print();
  *     return 0;
  * }
  * @endcode
@@ -67,7 +65,7 @@ namespace opat {
 /**
  * @brief Structure to hold the header information of an OPAT file.
  *
- * The header contains metadata about the file, such as its version, creation date, and offsets to key sections.
+ * The header contains metadata about the file, such as its version, creation date, and offsets to the card catalog and start of the data section.
  * It is packed to ensure compactness and alignment with the binary file format.
  */
 #pragma pack(1)
@@ -190,7 +188,7 @@ struct TableIndexEntry {
 /**
  * @brief Structure to hold the index of tables within a DataCard.
  *
- * The TableIndex maps table tags to their corresponding TableIndexEntry, enabling fast lookups.
+ * The TableIndex maps table tags to their corresponding TableIndexEntry, enabling fast lookups within one datacard.
  */
 struct TableIndex {
     std::unordered_map<std::string, TableIndexEntry> tableIndex; ///< Map of table tags to index entries.
@@ -224,6 +222,17 @@ struct TableIndex {
  * @brief Structure to represent a slice of data.
  *
  * A Slice defines a range of rows or columns to extract from a table.
+ *
+ * @note This Slice does not support defining step sizes, just ranges.
+ *
+ * @code
+ * // Assume you have a opat file loaded into the variable opat
+ * Slice rowSlice(6, 12);
+ * Slice colSlice(1, 3);
+ *
+ * FloatIndexVector index({0.35, 0.004});
+ * opat::OPATTable table = opat[index]["data"].slice(rowSlice, colSlice);
+ * @endcode
  */
 struct Slice {
     uint32_t start; ///< Start index of the slice.
@@ -258,18 +267,35 @@ struct OPATTable {
      * @return A pair containing the number of rows and columns.
      */
     std::pair<double, double> size() const { return std::make_pair(N_R, N_C); }
+
+    /**
+     * @brief Retrieves the vector size of each cell in the table.
+     * 
+     * The vector size represents the number of elements stored in each cell of the table.
+     * 
+     * @return The vector size of each cell.
+     */
     int vsize() const { return m_vsize; }
 
-    friend std::ostream& operator<<(std::ostream& os, const OPATTable& table);
-
+    /**
+     * @brief Accesses the first value in the table's data array.
+     * 
+     * This operator provides a convenient way to retrieve the first value in the table's data array.
+     * It is useful for quick access to the initial element of the table.
+     * 
+     * @return A constant reference to the first value in the data array.
+     * @throws std::runtime_error if the data array is not initialized.
+     */
     const double& operator()() const;
 
     /**
      * @brief Accesses a table value by row and column.
      * @param row The row index.
      * @param column The column index.
-     * @return A opat table representing that vector
+     * @return A opat table representing that vector.
      * @throws std::out_of_range if the row or column index is out of bounds.
+     *
+     * @note The return type of this method will always be a OPATTable even if there is only one value stored in the cell. Use the () operator to get that value as a double or use .get(row, col, 0) to get the primitive numeric representation.
      */
     OPATTable operator()(uint32_t row, uint32_t column) const;
 
@@ -277,7 +303,7 @@ struct OPATTable {
      * @brief Accesses a table value by row and column.
      * @param row The row index.
      * @param column The column index.
-     * @param zdepth The vector index to retriev
+     * @param zdepth The vector index to retrieve
      * @return A constant reference to the value at the specified row and column.
      * @throws std::out_of_range if the row or column index is out of bounds.
      */
@@ -296,8 +322,10 @@ struct OPATTable {
      * @brief Retrieves a table value by row and column.
      * @param row The row index.
      * @param column The column index.
-     * @return A constant reference to the value at the specified row and column.
+     * @return A OPATTable representing that vector.
      * @throws std::out_of_range if the row or column index is out of bounds.
+     *
+     * @note The return type of this method will always be a OPATTable even if there is only one value stored in the cell. Use the () operator to get that value as a double or use .get(row, col, 0) to get the primitive numeric representation.
      */
     OPATTable getData(uint32_t row, uint32_t column) const;
 
@@ -305,7 +333,7 @@ struct OPATTable {
      * @brief Retrieves a table value by row and column.
      * @param row The row index.
      * @param column The column index.
-     * @param zdepth The vector index to retriev
+     * @param zdepth The vector index to retrieve
      * @return A constant reference to the value at the specified row and column.
      * @throws std::out_of_range if the row or column index is out of bounds.
      */
@@ -342,6 +370,8 @@ struct OPATTable {
     /**
      * @brief Retrieves the raw data of the table.
      * @return A pointer to the raw data array.
+     *
+     * @note Using this method opens you up to memory leaks, and it should generally not be used.
      */
     const double* getRawData() const;
 
@@ -462,102 +492,229 @@ struct OPAT {
 
 /**
  * @brief Reads an OPAT file and returns its contents as an OPAT structure.
+ * 
+ * This function validates the file's magic number, reads the header, card catalog, 
+ * and all data cards, and constructs an OPAT object representing the file's contents.
+ * 
  * @param filename Path to the OPAT file.
  * @return An OPAT structure containing the file's data.
- * @throws std::runtime_error if the file cannot be read or is invalid.
+ * @throws std::runtime_error if the file cannot be opened, is invalid, or has an incorrect magic number.
+ * 
+ * @code
+ * OPAT file = opat::readOPAT("example.opat");
+ * std::cout << file.header << std::endl;
+ * @endcode
  */
 OPAT readOPAT(const std::string& filename);
 
 /**
  * @brief Reads the header of an OPAT file.
+ * 
+ * This function reads the header structure from the file and performs byte-swapping 
+ * if the system is big-endian.
+ * 
  * @param file Input file stream positioned at the start of the header.
  * @return A Header structure containing the file's metadata.
+ * @throws std::runtime_error if the header cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::Header header = opat::readHeader(file);
+ * header.print();
+ * @endcode
  */
 Header readHeader(std::ifstream &file);
 
 /**
  * @brief Reads a CardCatalogEntry from the file.
+ * 
+ * This function reads a single entry from the card catalog, including its index, 
+ * byte range, and SHA-256 hash. It also performs byte-swapping for compatibility 
+ * with big-endian systems.
+ * 
  * @param file Input file stream.
  * @param offset Offset to the entry in the file.
  * @param numIndex Number of indices in the entry.
  * @param hashPrecision Precision of the hash used for validation.
  * @return A CardCatalogEntry structure.
+ * @throws std::runtime_error if the entry cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::CardCatalogEntry entry = opat::readCardCatalogEntry(file, 128, 3, 8);
+ * std::cout << entry << std::endl;
+ * @endcode
  */
 CardCatalogEntry readCardCatalogEntry(std::ifstream &file, uint64_t offset, uint16_t numIndex, uint8_t hashPrecision);
 
 /**
  * @brief Reads the CardCatalog from the file.
+ * 
+ * This function reads all entries in the card catalog, using the header information 
+ * to determine the number of entries and their locations.
+ * 
  * @param file Input file stream.
  * @param header The header of the OPAT file.
  * @return A CardCatalog structure.
+ * @throws std::runtime_error if the card catalog cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::Header header = opat::readHeader(file);
+ * opat::CardCatalog catalog = opat::readCardCatalog(file, header);
+ * std::cout << catalog << std::endl;
+ * @endcode
  */
 CardCatalog readCardCatalog(std::ifstream &file, const Header &header);
 
 /**
  * @brief Reads all DataCards from the file.
+ * 
+ * This function reads all DataCards in the OPAT file, using the card catalog to locate 
+ * each card and its associated data.
+ * 
  * @param file Input file stream.
  * @param header The header of the OPAT file.
  * @param cardCatalog The CardCatalog of the OPAT file.
  * @return A map of index vectors to DataCards.
+ * @throws std::runtime_error if any DataCard cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::Header header = opat::readHeader(file);
+ * opat::CardCatalog catalog = opat::readCardCatalog(file, header);
+ * auto cards = opat::readDataCards(file, header, catalog);
+ * @endcode
  */
 std::unordered_map<FloatIndexVector, DataCard> readDataCards(std::ifstream &file, const Header &header, const CardCatalog &cardCatalog);
 
 /**
  * @brief Reads a single DataCard from the file.
+ * 
+ * This function reads the header, table index, and table data for a single DataCard.
+ * 
  * @param file Input file stream.
  * @param entry The CardCatalogEntry for the DataCard.
  * @return A DataCard structure.
+ * @throws std::runtime_error if the DataCard cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
+ * opat::DataCard card = opat::readDataCard(file, entry);
+ * @endcode
  */
 DataCard readDataCard(std::ifstream &file, const CardCatalogEntry &entry);
 
 /**
  * @brief Reads the header of a DataCard from the file.
+ * 
+ * This function reads the header structure of a DataCard and performs byte-swapping 
+ * for compatibility with big-endian systems.
+ * 
  * @param file Input file stream.
  * @param entry The CardCatalogEntry for the DataCard.
  * @return A CardHeader structure.
+ * @throws std::runtime_error if the DataCard header cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
+ * opat::CardHeader header = opat::readDataCardHeader(file, entry);
+ * @endcode
  */
 CardHeader readDataCardHeader(std::ifstream &file, const CardCatalogEntry &entry);
 
 /**
  * @brief Reads the TableIndex from a DataCard.
+ * 
+ * This function reads the table index of a DataCard, which maps table tags to their 
+ * metadata and locations within the card.
+ * 
  * @param file Input file stream.
  * @param entry The CardCatalogEntry for the DataCard.
  * @param header The CardHeader of the DataCard.
  * @return A TableIndex structure.
+ * @throws std::runtime_error if the TableIndex cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
+ * opat::CardHeader header = opat::readDataCardHeader(file, entry);
+ * opat::TableIndex index = opat::readTableIndex(file, entry, header);
+ * @endcode
  */
 TableIndex readTableIndex(std::ifstream &file, const CardCatalogEntry &entry, const CardHeader &header);
 
 /**
  * @brief Reads an OPATTable from the file.
+ * 
+ * This function reads the row values, column values, and data for a single table 
+ * within a DataCard.
+ * 
  * @param file Input file stream.
  * @param cardEntry The CardCatalogEntry for the DataCard.
  * @param tableEntry The TableIndexEntry for the table.
  * @return An OPATTable structure.
+ * @throws std::runtime_error if the table cannot be read or is incomplete.
+ * 
+ * @code
+ * std::ifstream file("example.opat", std::ios::binary);
+ * opat::CardCatalogEntry cardEntry = ...; // Retrieved from the catalog
+ * opat::TableIndexEntry tableEntry = ...; // Retrieved from the table index
+ * opat::OPATTable table = opat::readOPATTable(file, cardEntry, tableEntry);
+ * @endcode
  */
 OPATTable readOPATTable(std::ifstream &file, const CardCatalogEntry &cardEntry, const TableIndexEntry &tableEntry);
 
 /**
  * @brief Checks if a file has the correct magic number for an OPAT file.
+ * 
+ * This function reads the first four bytes of the file and compares them to the 
+ * expected "OPAT" magic number.
+ * 
  * @param filename Path to the file.
  * @return True if the file has the correct magic number, false otherwise.
+ * 
+ * @code
+ * bool isValid = opat::hasMagic("example.opat");
+ * if (isValid) {
+ *     std::cout << "Valid OPAT file!" << std::endl;
+ * }
+ * @endcode
  */
 bool hasMagic(const std::string& filename);
 
 /**
  * @brief Determines if the system is big-endian.
+ * 
+ * This utility function checks the system's endianness by examining the byte order 
+ * of a test value.
+ * 
  * @return True if the system is big-endian, false otherwise.
+ * 
+ * @code
+ * if (opat::is_big_endian()) {
+ *     std::cout << "System is big-endian." << std::endl;
+ * }
+ * @endcode
  */
 bool is_big_endian();
 
 /**
  * @brief Swaps the byte order of a value.
  * 
- * This function is useful for handling endianness when reading binary files.
- * It ensures compatibility across systems with different byte orders.
+ * This function is useful for handling endianness when reading binary files. It 
+ * ensures compatibility across systems with different byte orders.
  * 
  * @tparam T The type of the value (must be trivially copyable).
  * @param value The value to swap.
  * @return The value with its byte order reversed.
+ * 
+ * @code
+ * uint16_t value = 0x1234;
+ * uint16_t swapped = opat::swap_bytes(value);
+ * @endcode
  */
 template <typename T>
 T swap_bytes(T value) {
@@ -574,3 +731,4 @@ T swap_bytes(T value) {
 } // namespace opat
 
 #endif
+
