@@ -456,8 +456,8 @@ class OPATTable(OPATEntity):
 
         tableBytes = struct.pack(
             f"<{len(rV)}d{len(cV)}d{len(data)}d",
-            *cV,
             *rV,
+            *cV,
             *data
         )
         return tableBytes

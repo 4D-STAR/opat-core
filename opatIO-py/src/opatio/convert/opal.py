@@ -1,5 +1,6 @@
 import numpy as np
 import re
+from opatio import OPAT
 import os
 
 def get_OPAL_I_log_R() -> np.ndarray:
@@ -91,6 +92,36 @@ def parse_OPAL_I(path: str) -> np.ndarray:
 
     return get_OPAL_I_log_R(), get_OPAL_I_log_T(), p
 
+def load_opat1_as_opat(path: str) -> OPAT:
+    compFind = re.compile(r"TABLE #\s*(\d+)\s+\d+\s+X=(\d\.\d+)\s+Y=(\d\.\d+)\s+Z=(\d\.\d+).+\n")
+    with open(path, 'r') as f:
+        contents = f.read()
+    compMap = dict()
+    matches = re.finditer(compFind, contents)
+    for match in matches:
+        e = match.groups()
+        compMap[int(e[0]) - 1] = (float(e[1]), float(e[2]), float(e[3]))
+    logR, logT, I = parse_OPAL_I(path)
+    # Create the OPAT object
+    opat = OPAT()
+    opat.set_comment(f"Converted from OPAL I {path}")
+    opat.set_source(path)
+
+    for table, (tabID, (X, Y, Z)) in zip(I, compMap.items()):
+        tab2Add = table.copy()
+        tab2Add[tab2Add == 9.999] = np.nan
+        opat.add_table(
+            (X, Z),
+            "data",
+            logR,
+            logT,
+            tab2Add,
+            columnName="logR",
+            rowName="logT",
+        )
+    return opat
+
+
 def OPALI_2_OPAT(inPath: str, outPath: str, saveAsASCII: bool = False) -> None:
     """
     Convert OPAL type I files to OPAT format.
@@ -113,34 +144,7 @@ def OPALI_2_OPAT(inPath: str, outPath: str, saveAsASCII: bool = False) -> None:
     >>> OPALI_2_OPAT("path/to/opal_file.txt", "path/to/output.opat")
     >>> OPALI_2_OPAT("path/to/opal_file.txt", "path/to/output.opat", saveAsASCII=True)
     """
-    compFind = re.compile(r"TABLE #\s*(\d+)\s+\d+\s+X=(\d\.\d+)\s+Y=(\d\.\d+)\s+Z=(\d\.\d+).+\n")
-    with open(inPath, 'r') as f:
-        contents = f.read()
-    compMap = dict()
-    matches = re.finditer(compFind, contents)
-    for match in matches:
-        e = match.groups()
-        compMap[int(e[0]) - 1] = (float(e[1]), float(e[2]), float(e[3]))
-    logR, logT, I = parse_OPAL_I(inPath)
-    # Create the OPAT object
-    from opatio import OPAT
-    opat = OPAT()
-    opat.set_comment(f"Converted from OPAL I {inPath}")
-    opat.set_source(inPath)
-
-    for table, (tabID, (X, Y, Z)) in zip(I, compMap.items()):
-        tab2Add = table.copy()
-        tab2Add[tab2Add == 9.999] = np.nan
-        opat.add_table(
-            (X, Z),
-            "data",
-            logR,
-            logT,
-            tab2Add,
-            columnName="logR",
-            rowName="logT",
-        )
-
+    opat = load_opat1_as_opat(inPath)
     # Save the OPAT file
     opat.save(outPath)
 
