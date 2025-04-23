@@ -9,7 +9,7 @@ The full binary specification of the OPAT file can be found in the OPAT file for
 >> numCards: 10
 >> headerSize (bytes): 256
 >> Card Catalog Offset (bytes): 22440
->> Creation Date: Apr 14, 2025
+>> Creation Date: Apr 23, 2025
 >> Source Info: test_source
 >> Comment: test_comment
 >> numIndex: 2
@@ -19,7 +19,7 @@ The full binary specification of the OPAT file can be found in the OPAT file for
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 4
+>> Number of Tables: 2
 >> Header Size: 256
 >> Index Offset: 3696
 >> Card Size: 3824
@@ -58,7 +58,7 @@ square   |     1976 |     3696 |        5 |       10 | TC2      | TR2      |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -83,7 +83,7 @@ data     |      256 |     1976 |        5 |       10 | TC 1     | TR 1     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -108,7 +108,7 @@ data     |      256 |     1976 |        5 |       10 | TC 2     | TR 2     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -133,7 +133,7 @@ data     |      256 |     1976 |        5 |       10 | TC 3     | TR 3     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -158,7 +158,7 @@ data     |      256 |     1976 |        5 |       10 | TC 4     | TR 4     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -183,7 +183,7 @@ data     |      256 |     1976 |        5 |       10 | TC 5     | TR 5     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -208,7 +208,7 @@ data     |      256 |     1976 |        5 |       10 | TC 6     | TR 6     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -233,7 +233,7 @@ data     |      256 |     1976 |        5 |       10 | TC 7     | TR 7     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040
@@ -258,7 +258,7 @@ data     |      256 |     1976 |        5 |       10 | TC 8     | TR 8     |    
 ======== START Data Card ========
 ========== Card Header ==========
 >> Magic Number: CARD
->> Number of Tables: 2
+>> Number of Tables: 1
 >> Header Size: 256
 >> Index Offset: 1976
 >> Card Size: 2040

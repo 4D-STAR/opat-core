@@ -1,6 +1,5 @@
 from opatio import OPAT
 from opatio.card.datacard import OPATTable
-from opatio.card.datacard import OPATCell
 import numpy as np
 
 np.random.seed(42)
