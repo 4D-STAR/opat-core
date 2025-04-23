@@ -129,13 +129,13 @@ def OPALI_2_OPAT(inPath: str, outPath: str, saveAsASCII: bool = False) -> None:
     opat.set_source(inPath)
 
     for table, (tabID, (X, Y, Z)) in zip(I, compMap.items()):
-        tab2Add = table.T.copy()
+        tab2Add = table.copy()
         tab2Add[tab2Add == 9.999] = np.nan
         opat.add_table(
             (X, Z),
             "data",
-            logT,
             logR,
+            logT,
             tab2Add,
             columnName="logR",
             rowName="logT",
