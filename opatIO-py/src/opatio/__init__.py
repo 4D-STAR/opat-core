@@ -118,4 +118,4 @@ Examples
 from .base import OPAT
 from .load import read_opat
 
-__version__ = "0.2.6"
+__version__ = "0.2.7"
