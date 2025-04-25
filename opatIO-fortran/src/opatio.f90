@@ -212,7 +212,8 @@ CONTAINS ! --- Module Procedures ---
 
         IF (.not. found_null) THEN
              length = buffer_size
-             PRINT *, "Warning(C_F_STRCPY): Null terminator not found within buffer limit (", buffer_size, "). String might be truncated."
+             PRINT *, "Warning(C_F_STRCPY): Null terminator not found within buffer limit (", buffer_size, "). &
+  &           String might be truncated."
         END IF
 
         IF (length > 0) THEN

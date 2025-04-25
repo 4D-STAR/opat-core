@@ -394,6 +394,8 @@ struct OPATTable {
      * @brief Prints the table to the standard output.
      */
     void print() const;
+
+    friend std::ostream& operator<<(std::ostream& os, const OPATTable& table);
 };
 
 /**
