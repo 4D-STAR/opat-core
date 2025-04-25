@@ -65,6 +65,6 @@ int main(int argc, char* argv[]) {
         }
     } else {
         // No file path was provided in the command-line arguments
-        std::cout << "No file path provided..." << std::endl;
+        std::cout << "No file path provided (Note that you must provide file paths as a flag, i.e. opatVerify -f <path/to/file>)..." << std::endl;
     }
 }
