@@ -65,6 +65,6 @@ int main(int argc, char* argv[]) {
         }
     } else {
         // Display a message if no file path was provided.
-        std::cout << "No file path provided..." << std::endl;
+        std::cout << "No file path provided (Note that you must provide file paths as a flag, i.e. opatHeader -f <path/to/file>)..." << std::endl;
     }
 }
