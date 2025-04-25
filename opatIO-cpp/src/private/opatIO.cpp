@@ -26,11 +26,10 @@
 #include <ostream>
 #include <stdexcept>
 #include <algorithm>
-#include <sys/types.h>
 #include <unordered_map>
-#include <cmath>
 #include <cstdint>
 #include <memory>
+#include <cstring>
 #include "picosha2.h"
 
 namespace opat {
@@ -222,7 +221,7 @@ namespace opat {
         file.read(reinterpret_cast<char*>(columnValues.get()), tableEntry.numColumns * sizeof(double));
         file.read(reinterpret_cast<char*>(data.get()), tableEntry.numRows * tableEntry.numColumns * tableEntry.size *sizeof(double));
 
-        if (file.gcount() != tableEntry.numRows * tableEntry.numColumns * tableEntry.size * sizeof(double)) {
+        if (static_cast<uint64_t>(file.gcount()) != tableEntry.numRows * tableEntry.numColumns * tableEntry.size * sizeof(double)) {
             throw std::runtime_error("Error reading OPAT table from file");
         }
 
