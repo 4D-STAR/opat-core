@@ -57,6 +57,7 @@
 #include <utility>
 #include <cstdint>
 #include <unordered_map>
+#include <limits>
 
 #include "indexVector.h"
 
@@ -246,6 +247,7 @@ struct Slice {
      */
     friend std::ostream& operator<<(std::ostream& os, const Slice& slice);
 };
+
 
 /**
  * @brief Structure to hold the data of an OPAT table.
@@ -447,6 +449,14 @@ struct DataCard {
      * @throws std::out_of_range if the tag is not found.
      */
     const OPATTable& operator[](const std::string_view tag) const;
+
+    std::vector<std::string> getKeys() const;
+};
+
+struct Bounds {
+    double min = std::numeric_limits<double>::max();
+    double max = std::numeric_limits<double>::min();
+    friend std::ostream& operator<<(std::ostream& os, const Bounds& bounds);
 };
 
 /**
@@ -490,6 +500,8 @@ struct OPAT {
     const DataCard& operator[](const std::vector<double>& index) const {
         return get(FloatIndexVector(index));
     }
+
+    std::vector<Bounds> getBounds() const;
 };
 
 /**

@@ -133,3 +133,14 @@ TEST_F(opatIOTest, getValue) {
     const double& value = opat[index]["data"](5, 35, 0);
     EXPECT_DOUBLE_EQ(value, -0.402); // Replace -1 with the expected value
 }
+
+TEST_F(opatIOTest, getBounds) {
+    opat::OPAT opat = opat::readOPAT(EXAMPLE_FILENAME);
+    FloatIndexVector index({0.35, 0.004});
+    const auto bounds = opat.getBounds();
+    EXPECT_EQ(bounds.size(), 2);
+    EXPECT_DOUBLE_EQ(bounds.at(0).min, 0);
+    EXPECT_DOUBLE_EQ(bounds.at(0).max, 1);
+    EXPECT_DOUBLE_EQ(bounds.at(1).min, 0);
+    EXPECT_DOUBLE_EQ(bounds.at(1).max, 0.1);
+}

@@ -217,6 +217,23 @@ size_t FloatIndexVector::hash() const {
     return static_cast<size_t>(hash);
 }
 
+int FloatIndexVector::size() const {
+    if (!m_initialized) {
+        throw std::runtime_error("FloatIndexVector is not initialized.");
+    }
+    return m_vector.size();
+}
+
+double FloatIndexVector::operator[](const size_t index) const {
+    if (!m_initialized) {
+        throw std::runtime_error("FloatIndexVector is not initialized.");
+    }
+    if (index >= m_vector.size()) {
+        throw std::invalid_argument("index out of bounds.");
+    }
+    return m_vector[index];
+}
+
 std::ostream& operator<<(std::ostream& os, const FloatIndexVector& iv) {
     os << "FloatIndexVector (" << iv.m_initialized << "): [";
     for (size_t i = 0; i < iv.m_vector.size(); ++i) {

@@ -1,5 +1,4 @@
-#ifndef OPATIO_INDEXVECTOR_H
-#define OPATIO_INDEXVECTOR_H
+#pragma once
 
 #include <stdexcept>
 #include <vector>
@@ -153,6 +152,15 @@ public:
         m_vectorInt.reserve(size);
     }
 
+    /**
+     * @brief Get the size of the index vector
+     * @return size The dimension / size of the index vector
+     */
+    int size() const;
+
+    // Overload the [] operator
+    double operator[](const size_t index) const;
+
     friend std::ostream& operator<<(std::ostream& os, const FloatIndexVector& vec);
 
 private:
@@ -203,5 +211,3 @@ namespace std {
         }
     };
 }
-
-#endif // OPATIO_INDEXVECTOR_H

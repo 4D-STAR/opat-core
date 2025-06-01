@@ -54,6 +54,22 @@ namespace opat {
         return std::string(magic, 4) == "OPAT"; // Check if it matches "OPAT"
     }
 
+    std::vector<Bounds> OPAT::getBounds() const {
+        std::vector<Bounds> bounds(header.numIndex);
+
+        for (auto const& [iv, card] : cards) {
+            for (int dim = 0; dim < header.numIndex; ++dim) {
+                if (iv[dim] > bounds.at(dim).max) {
+                    bounds.at(dim).max = iv[dim];
+                }
+                if (iv[dim] < bounds.at(dim).min) {
+                    bounds.at(dim).min = iv[dim];
+                }
+            }
+        }
+        return bounds;
+    }
+
     // Reads an OPAT file and constructs an OPAT object
     OPAT readOPAT(const std::string& filename) {
         // Verify the file has the correct magic number
@@ -280,6 +296,15 @@ namespace opat {
     }
     const OPATTable& DataCard::operator[](const std::string_view tag) const {
         return get(std::string(tag));
+    }
+
+    std::vector<std::string> DataCard::getKeys() const {
+        std::vector<std::string> keys;
+        keys.reserve(tableData.size());
+        for (const auto& it : tableData) {
+            keys.push_back(it.first);
+        }
+        return keys;
     }
 
     const TableIndexEntry& TableIndex::get(const std::string& tag) const {
@@ -552,6 +577,11 @@ OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
 
     std::ostream& operator<<(std::ostream& os, const Slice& slice) {
         os << "Slice(Start: " << slice.start << ", End: " << slice.end << ")";
+        return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Bounds& bounds) {
+        os << "Bounds(" << bounds.min << ", " << bounds.max << ")";
         return os;
     }
 } // namespace opat
