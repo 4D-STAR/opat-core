@@ -1,0 +1,12 @@
+--- qhull/CMakeLists.txt.bak	2025-05-30 10:14:18
++++ qhull/CMakeLists.txt	2025-05-30 10:15:05
+@@ -756,7 +756,4 @@
+ install(DIRECTORY html/              DESTINATION ${DOC_INSTALL_DIR}/html)
+ install(FILES src/Changes.txt        DESTINATION ${DOC_INSTALL_DIR}/src)
+ 
+-add_custom_target(uninstall
+-    COMMENT "uninstall Qhull by deleting files in install_manifest.txt"
+-    COMMAND cat install_manifest.txt | tr -d \"\\r\" | xargs -r rm
+-)
++message("opat-core patch applied to disable uninstall directive which is broken in meson")
+\ No newline at end of file
