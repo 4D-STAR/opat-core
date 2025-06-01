@@ -3,8 +3,10 @@ qhull_cmake_options.add_cmake_defines({
     'CMAKE_POLICY_VERSION_MINIMUM': '3.5',
     'BUILD_SHARED_LIBS': 'ON',
     'BUILD_APPLICATIONS': 'OFF',
+    'CMAKE_CXX_STANDARD': '14',
 })
 qhull_cmake_options.set_override_option('warning_level', '0')
+qhull_cmake_options.set_override_option('cpp_std', 'c++14')
 qhull_sp = cmake.subproject('qhull', options: qhull_cmake_options)
 
 
