@@ -32,7 +32,7 @@ TEST_F(tableLatticeTest, get) {
     const opat::OPAT opatObj = opat::readOPAT(EXAMPLE_FILENAME);
     opat::lattice::TableLattice lattice(opatObj);
     FloatIndexVector targetVector({0.54421, 0.077585});
-    lattice.dumpDriangulationToAscii("points.dat", "simplices.dat");
+    lattice.dumpTriangulationToAscii("points.dat", "simplices.dat");
     EXPECT_NO_THROW(opat::DataCard interpolated = lattice.get(targetVector));
     FloatIndexVector targetVector2({0.54421, 0.77585});
     EXPECT_THROW(lattice.get(targetVector2), std::out_of_range);

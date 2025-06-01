@@ -80,7 +80,7 @@ struct Header {
     char sourceInfo[64];     ///< Source information (e.g., software version or author).
     char comment[128];       ///< User-defined comment section.
     uint16_t numIndex;       ///< Size of the index vector per table.
-    uint8_t hashPrescision;  ///< Precision of the hash used for table validation.
+    uint8_t hashPrecision;  ///< Precision of the hash used for table validation.
     char reserved[23];       ///< Reserved for future use.
 
     /**
@@ -208,7 +208,7 @@ struct TableIndex {
      * @return A constant reference to the TableIndexEntry.
      * @throws std::out_of_range if the tag is not found.
      */
-    const TableIndexEntry& get(const std::string& tag) const;
+    [[nodiscard]] const TableIndexEntry& get(const std::string& tag) const;
 
     /**
      * @brief Accesses a TableIndexEntry by tag.
@@ -227,7 +227,7 @@ struct TableIndex {
  * @note This Slice does not support defining step sizes, just ranges.
  *
  * @code
- * // Assume you have a opat file loaded into the variable opat
+ * // Assume you have an opat file loaded into the variable opat
  * Slice rowSlice(6, 12);
  * Slice colSlice(1, 3);
  *
@@ -268,7 +268,7 @@ struct OPATTable {
      * @brief Returns the size of the table as a pair of rows and columns.
      * @return A pair containing the number of rows and columns.
      */
-    std::pair<double, double> size() const { return std::make_pair(N_R, N_C); }
+    [[nodiscard]] std::pair<double, double> size() const { return std::make_pair(N_R, N_C); }
 
     /**
      * @brief Retrieves the vector size of each cell in the table.
@@ -277,7 +277,7 @@ struct OPATTable {
      * 
      * @return The vector size of each cell.
      */
-    int vsize() const { return m_vsize; }
+    [[nodiscard]] int vsize() const { return static_cast<int>(m_vsize); }
 
     /**
      * @brief Accesses the first value in the table's data array.
@@ -329,7 +329,7 @@ struct OPATTable {
      *
      * @note The return type of this method will always be a OPATTable even if there is only one value stored in the cell. Use the () operator to get that value as a double or use .get(row, col, 0) to get the primitive numeric representation.
      */
-    OPATTable getData(uint32_t row, uint32_t column) const;
+    [[nodiscard]] OPATTable getData(uint32_t row, uint32_t column) const;
 
     /**
      * @brief Retrieves a table value by row and column.
@@ -339,7 +339,7 @@ struct OPATTable {
      * @return A constant reference to the value at the specified row and column.
      * @throws std::out_of_range if the row or column index is out of bounds.
      */
-    double getData(uint32_t row, uint32_t column, uint64_t zdepth) const;
+    [[nodiscard]] double getData(uint32_t row, uint32_t column, uint64_t zdepth) const;
 
     /**
      * @brief Extracts a single row from the table.
@@ -347,7 +347,7 @@ struct OPATTable {
      * @return An OPATTable containing the specified row.
      * @throws std::out_of_range if the row index is out of bounds.
      */
-    OPATTable getRow(uint32_t row) const;
+    [[nodiscard]] OPATTable getRow(uint32_t row) const;
 
     /**
      * @brief Extracts a single column from the table.
@@ -355,19 +355,19 @@ struct OPATTable {
      * @return An OPATTable containing the specified column.
      * @throws std::out_of_range if the column index is out of bounds.
      */
-    OPATTable getColumn(uint32_t column) const;
+    [[nodiscard]] OPATTable getColumn(uint32_t column) const;
 
     /**
      * @brief Retrieves all row values of the table.
      * @return An OPATTable containing the row values.
      */
-    OPATTable getRowValues() const;
+    [[nodiscard]] OPATTable getRowValues() const;
 
     /**
      * @brief Retrieves all column values of the table.
      * @return An OPATTable containing the column values.
      */
-    OPATTable getColumnValues() const;
+    [[nodiscard]] OPATTable getColumnValues() const;
 
     /**
      * @brief Retrieves the raw data of the table.
@@ -375,7 +375,7 @@ struct OPATTable {
      *
      * @note Using this method opens you up to memory leaks, and it should generally not be used.
      */
-    const double* getRawData() const;
+    [[nodiscard]] const double* getRawData() const;
 
     /**
      * @brief Extracts a slice of the table.
@@ -384,13 +384,13 @@ struct OPATTable {
      * @return An OPATTable containing the specified slice.
      * @throws std::out_of_range if the slice indices are out of bounds.
      */
-    OPATTable slice(const Slice& rowSlice, const Slice& colSlice) const;
+    [[nodiscard]] OPATTable slice(const Slice& rowSlice, const Slice& colSlice) const;
 
     /**
      * @brief Converts the table to an ASCII representation.
      * @return A string containing the ASCII representation of the table.
      */
-    std::string ascii() const;
+    [[nodiscard]] std::string ascii() const;
 
     /**
      * @brief Prints the table to the standard output.
@@ -424,7 +424,7 @@ struct DataCard {
      * @return A constant reference to the OPATTable.
      * @throws std::out_of_range if the tag is not found.
      */
-    const OPATTable& get(const std::string& tag) const;
+    [[nodiscard]] const OPATTable& get(const std::string& tag) const;
 
     /**
      * @brief Accesses a table from the DataCard by tag.
@@ -448,14 +448,47 @@ struct DataCard {
      * @return A constant reference to the OPATTable.
      * @throws std::out_of_range if the tag is not found.
      */
-    const OPATTable& operator[](const std::string_view tag) const;
+    const OPATTable& operator[](std::string_view tag) const;
 
-    std::vector<std::string> getKeys() const;
+    /**
+     * @brief Retrieves a list of all table tags (keys) present in this DataCard.
+     * @return A vector of strings, where each string is a table tag.
+     * @example
+     * @code
+     * // Assuming 'data_card' is an initialized opat::DataCard object
+     * std::vector<std::string> table_keys = data_card.getKeys();
+     * for (const std::string& key : table_keys) {
+     *     std::cout << "Table found: " << key << std::endl;
+     *     const opat::OPATTable& table = data_card[key];
+     *     // Process the table
+     * }
+     * @endcode
+     */
+    [[nodiscard]] std::vector<std::string> getKeys() const;
 };
 
+/**
+ * @brief Structure to hold the minimum and maximum values for a dimension.
+ *
+ * This is typically used to represent the bounds of index vectors in an OPAT file.
+ *
+ * @example
+ * @code
+ * opat::Bounds dim_bounds;
+ * dim_bounds.min = 0.0;
+ * dim_bounds.max = 10.0;
+ * std::cout << "Dimension bounds: " << dim_bounds << std::endl; // Output: Bounds(0, 10)
+ * @endcode
+ */
 struct Bounds {
-    double min = std::numeric_limits<double>::max();
-    double max = std::numeric_limits<double>::min();
+    double min = std::numeric_limits<double>::max(); ///< The minimum value.
+    double max = std::numeric_limits<double>::min(); ///< The maximum value.
+    /**
+     * @brief Stream insertion operator for printing the Bounds.
+     * @param os Output stream.
+     * @param bounds Bounds to print.
+     * @return Reference to the output stream.
+     */
     friend std::ostream& operator<<(std::ostream& os, const Bounds& bounds);
 };
 
@@ -483,9 +516,27 @@ struct OPAT {
      * @return A constant reference to the DataCard.
      * @throws std::out_of_range if the index is not found.
      */
-    const DataCard& get(const FloatIndexVector& index) const;
+    [[nodiscard]] const DataCard& get(const FloatIndexVector& index) const;
 
-    const DataCard& get(const std::vector<double>& index) const {
+    /**
+     * @brief Retrieves a DataCard from the OPAT structure by a standard vector of doubles.
+     * This is a convenience overload that constructs a FloatIndexVector internally.
+     * @param index The std::vector<double> representing the index of the DataCard to retrieve.
+     * @return A constant reference to the DataCard.
+     * @throws std::out_of_range if the index is not found.
+     * @example
+     * @code
+     * // Assuming 'opat_file' is an initialized opat::OPAT object
+     * std::vector<double> my_index = {1.0, 2.5};
+     * try {
+     *     const opat::DataCard& card = opat_file.get(my_index);
+     *     // Use the card
+     * } catch (const std::out_of_range& e) {
+     *     std::cerr << "DataCard not found: " << e.what() << std::endl;
+     * }
+     * @endcode
+     */
+    [[nodiscard]] const DataCard& get(const std::vector<double>& index) const {
         return get(FloatIndexVector(index));
     }
 
@@ -497,11 +548,43 @@ struct OPAT {
      */
     const DataCard& operator[](const FloatIndexVector& index) const;
 
+    /**
+     * @brief Accesses a DataCard from the OPAT structure by a standard vector of doubles.
+     * This is a convenience overload that constructs a FloatIndexVector internally.
+     * @param index The std::vector<double> representing the index of the DataCard to access.
+     * @return A constant reference to the DataCard.
+     * @throws std::out_of_range if the index is not found.
+     * @example
+     * @code
+     * // Assuming 'opat_file' is an initialized opat::OPAT object
+     * std::vector<double> my_index = {1.0, 2.5};
+     * try {
+     *     const opat::DataCard& card = opat_file[my_index];
+     *     // Use the card
+     * } catch (const std::out_of_range& e) {
+     *     std::cerr << "DataCard not found: " << e.what() << std::endl;
+     * }
+     * @endcode
+     */
     const DataCard& operator[](const std::vector<double>& index) const {
         return get(FloatIndexVector(index));
     }
 
-    std::vector<Bounds> getBounds() const;
+    /**
+     * @brief Calculates and returns the bounds (min and max values) for each dimension of the index vectors in the OPAT file.
+     * @return A vector of Bounds structs, where each struct corresponds to a dimension of the index vectors.
+     * The size of the returned vector will be equal to `header.numIndex`.
+     * @example
+     * @code
+     * // Assuming 'opat_file' is an initialized opat::OPAT object
+     * std::vector<opat::Bounds> all_bounds = opat_file.getBounds();
+     * for (size_t i = 0; i < all_bounds.size(); ++i) {
+     *     std::cout << "Dimension " << i << ": Min = " << all_bounds[i].min
+     *               << ", Max = " << all_bounds[i].max << std::endl;
+     * }
+     * @endcode
+     */
+    [[nodiscard]] std::vector<Bounds> getBounds() const;
 };
 
 /**
@@ -734,8 +817,8 @@ template <typename T>
 T swap_bytes(T value) {
     static_assert(std::is_trivially_copyable_v<T>, "swap_bytes only supports trivial types.");
     T result;
-    uint8_t* src = reinterpret_cast<uint8_t*>(&value);
-    uint8_t* dest = reinterpret_cast<uint8_t*>(&result);
+    auto src = reinterpret_cast<uint8_t*>(&value);
+    auto* dest = reinterpret_cast<uint8_t*>(&result);
     for (size_t i = 0; i < sizeof(T); i++) {
         dest[i] = src[sizeof(T) - 1 - i];
     }
@@ -745,4 +828,3 @@ T swap_bytes(T value) {
 } // namespace opat
 
 #endif
-

@@ -216,7 +216,7 @@ namespace opat::lattice {
         m_interpolationType = interpolationType;
     }
 
-    void TableLattice::dumpDriangulationToAscii(const std::string &points_file, const std::string &simplices_file) const {
+    void TableLattice::dumpTriangulationToAscii(const std::string &points_file, const std::string &simplices_file) const {
         {
             // 1) Emit the point cloud
             std::ofstream pts(points_file);
