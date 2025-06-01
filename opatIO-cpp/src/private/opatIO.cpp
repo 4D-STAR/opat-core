@@ -30,6 +30,8 @@
 #include <cstdint>
 #include <memory>
 #include <cstring>
+#include <ranges>
+
 #include "picosha2.h"
 
 namespace opat {
@@ -52,6 +54,22 @@ namespace opat {
         file.close();
 
         return std::string(magic, 4) == "OPAT"; // Check if it matches "OPAT"
+    }
+
+    std::vector<Bounds> OPAT::getBounds() const {
+        std::vector<Bounds> bounds(header.numIndex);
+
+        for (const auto &iv: cards | std::views::keys) {
+            for (int dim = 0; dim < header.numIndex; ++dim) {
+                if (iv[dim] > bounds.at(dim).max) {
+                    bounds.at(dim).max = iv[dim];
+                }
+                if (iv[dim] < bounds.at(dim).min) {
+                    bounds.at(dim).min = iv[dim];
+                }
+            }
+        }
+        return bounds;
     }
 
     // Reads an OPAT file and constructs an OPAT object
@@ -135,7 +153,7 @@ namespace opat {
 
         for (uint32_t i = 0; i < header.numTables; i++) {
             uint64_t offset = header.indexOffset + (i * entrySize); // Calculate offset for each entry
-            CardCatalogEntry entry = readCardCatalogEntry(file, offset, header.numIndex, header.hashPrescision);
+            CardCatalogEntry entry = readCardCatalogEntry(file, offset, header.numIndex, header.hashPrecision);
             cardCatalog.tableIndex.emplace(entry.index, entry); // Add entry to the catalog
         }
         return cardCatalog;
@@ -243,7 +261,7 @@ namespace opat {
         std::cout << "  NumTables: " << numTables << "\n";
         std::cout << "  IndexOffset: " << indexOffset << "\n";
         std::cout << "  NumIndex: " << numIndex << "\n";
-        std::cout << "  HashPrecision: " << static_cast<int>(hashPrescision) << "\n";
+        std::cout << "  HashPrecision: " << static_cast<int>(hashPrecision) << "\n";
         std::cout << "  Comment: " << comment << "\n";
         std::cout << "  Source: " << sourceInfo << "\n";
         std::cout << "  Creation Date: " << creationDate << std::endl;
@@ -280,6 +298,15 @@ namespace opat {
     }
     const OPATTable& DataCard::operator[](const std::string_view tag) const {
         return get(std::string(tag));
+    }
+
+    std::vector<std::string> DataCard::getKeys() const {
+        std::vector<std::string> keys;
+        keys.reserve(tableData.size());
+        for (const auto &key: tableData | std::views::keys) {
+            keys.push_back(key);
+        }
+        return keys;
     }
 
     const TableIndexEntry& TableIndex::get(const std::string& tag) const {
@@ -368,10 +395,10 @@ namespace opat {
         columnData.columnValues = std::make_unique<double[]>(1);
         columnData.columnValues[0] = columnValues[column];
 
-        for (uint32_t i = 0; i < N_R; ++i) {
+        for (uint64_t i = 0; i < N_R; ++i) {
             columnData.rowValues[i] = rowValues[i];
             for (uint64_t j = 0; j < m_vsize; ++j) {
-                int currentIndex = i * m_vsize + j;
+                const uint64_t currentIndex = i * m_vsize + j;
                 columnData.data[currentIndex] = getData(i, column, j);
             }
         }
@@ -450,7 +477,7 @@ OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
             for (uint32_t i = rowSlice.start; i < rowSlice.end; ++i) {
                 for (uint32_t j = colSlice.start; j < colSlice.end; ++j) {
                     for (uint64_t k = 0; k < m_vsize; ++k) {
-                        int slicedIndex = m_vsize * (slicedTable.N_C * (i - rowSlice.start) + (j - colSlice.start)) + k;
+                        const uint64_t slicedIndex = m_vsize * (slicedTable.N_C * (i - rowSlice.start) + (j - colSlice.start)) + k;
                         slicedTable.data[slicedIndex] = getData(i, j, k);
                     }
                 }
@@ -484,7 +511,7 @@ OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
         << ", NumTables: " << header.numTables
         << ", IndexOffset: " << header.indexOffset
         << ", NumIndex: " << header.numIndex
-        << ", HashPrecision: " << static_cast<int>(header.hashPrescision) << ")";
+        << ", HashPrecision: " << static_cast<int>(header.hashPrecision) << ")";
         return os;
     }
     std::ostream& operator<<(std::ostream& os, const CardHeader& header) {
@@ -529,8 +556,8 @@ OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
     }
 
     std::ostream& operator<<(std::ostream& os, const TableIndex& index) {
-        for (const auto& entry : index.tableIndex) {
-            os << entry.second << "\n";
+        for (const auto &val: index.tableIndex | std::views::values) {
+            os << val << "\n";
         }
         return os;
     }
@@ -552,6 +579,11 @@ OPATTable OPATTable::slice(const Slice& rowSlice, const Slice& colSlice) const {
 
     std::ostream& operator<<(std::ostream& os, const Slice& slice) {
         os << "Slice(Start: " << slice.start << ", End: " << slice.end << ")";
+        return os;
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Bounds& bounds) {
+        os << "Bounds(" << bounds.min << ", " << bounds.max << ")";
         return os;
     }
 } // namespace opat

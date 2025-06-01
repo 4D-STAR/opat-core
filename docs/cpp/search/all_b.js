@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['i_20o_20library_20documentation_0',['OPAT I/O Library Documentation',['../index.html',1,'']]],
-  ['in_20fortran_1',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
-  ['index_2',['index',['../structopat_1_1_card_catalog_entry.html#af8aecb21d3204fee012e94dc08396e02',1,'opat::CardCatalogEntry']]],
-  ['index_20and_20tag_3',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
-  ['indexoffset_4',['indexOffset',['../structopat_1_1_header.html#aadecf0335cc99ba23ad616912fc7937a',1,'opat::Header::indexOffset'],['../structopat_1_1_card_header.html#ae976b2c0c8568eebb61318389ba75429',1,'opat::CardHeader::indexOffset']]],
-  ['indexvector_2ecpp_5',['indexVector.cpp',['../index_vector_8cpp.html',1,'']]],
-  ['indexvector_2eh_6',['indexVector.h',['../index_vector_8h.html',1,'']]],
-  ['initialize_7',['initialize',['../class_float_index_vector.html#ad9b53b139b334938e15bba70d2c3c2db',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec, int hashPrescision)'],['../class_float_index_vector.html#a059e6d34015859136128c04add1d8392',1,'FloatIndexVector::initialize(const std::vector&lt; double &gt; &amp;vec)']]],
-  ['installation_8',['Installation',['../index.html#autotoc_md4',1,'']]],
-  ['interface_9',['Fortran Interface',['../md_docs_2static_2fortran.html',1,'']]],
-  ['interface_20cli_20usage_10',['2. Command-Line Interface (CLI) Usage',['../index.html#autotoc_md13',1,'']]],
-  ['is_5fbig_5fendian_11',['is_big_endian',['../namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f',1,'opat']]]
+  ['hash_0',['hash',['../class_float_index_vector.html#a5891920046506d61727f613ce7006cbf',1,'FloatIndexVector']]],
+  ['hash_3c_20floatindexvector_20_3e_1',['hash&lt; FloatIndexVector &gt;',['../structstd_1_1hash_3_01_float_index_vector_01_4.html',1,'std']]],
+  ['hashprecision_2',['hashPrecision',['../structopat_1_1_header.html#a894e8ea162bdc64adfac8eba34b1fd2f',1,'opat::Header']]],
+  ['hasmagic_3',['hasMagic',['../namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5',1,'opat']]],
+  ['header_4',['Header',['../structopat_1_1_header.html',1,'opat']]],
+  ['header_5',['header',['../structopat_1_1_data_card.html#a4891fd7af82e6011f3c4a2e7a90c8f55',1,'opat::DataCard::header'],['../structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245',1,'opat::OPAT::header']]],
+  ['headersize_6',['headerSize',['../structopat_1_1_header.html#a44cfbf60583227214152ed915c9a20f1',1,'opat::Header::headerSize'],['../structopat_1_1_card_header.html#a06582c39112273b35ada34c9cb3c0ab0',1,'opat::CardHeader::headerSize']]],
+  ['hypercubecorner_7',['HypercubeCorner',['../structopat_1_1lattice_1_1_hypercube_corner.html',1,'opat::lattice']]]
 ];

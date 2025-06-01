@@ -61,6 +61,7 @@ tags
 
 subprojects/googletest-1.15.2/
 subprojects/packagecache/
+subprojects/qhull
 
 .vscode/
 

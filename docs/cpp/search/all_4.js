@@ -1,6 +1,12 @@
 var searchData=
 [
-  ['by_20index_20and_20tag_0',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
-  ['byteend_1',['byteEnd',['../structopat_1_1_card_catalog_entry.html#af744e14e3255ad65644981508d9aa5ea',1,'opat::CardCatalogEntry::byteEnd'],['../structopat_1_1_table_index_entry.html#aff83e75769b074c782541d699a71794a',1,'opat::TableIndexEntry::byteEnd']]],
-  ['bytestart_2',['byteStart',['../structopat_1_1_card_catalog_entry.html#aec3ea7eb97e429fac72821871ea065ef',1,'opat::CardCatalogEntry::byteStart'],['../structopat_1_1_table_index_entry.html#a3744ebca2f6f0fde912d1051899434d1',1,'opat::TableIndexEntry::byteStart']]]
+  ['a_20table_0',['Slicing a Table',['../index.html#autotoc_md10',1,'']]],
+  ['a_20table_20by_20index_20and_20tag_1',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
+  ['accessing_20a_20table_20by_20index_20and_20tag_2',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
+  ['additional_20notes_3',['Additional Notes',['../index.html#autotoc_md18',1,'']]],
+  ['an_20opat_20file_4',['Reading an OPAT File',['../index.html#autotoc_md8',1,'']]],
+  ['an_20opat_20file_20in_20fortran_5',['Example: Reading an OPAT File in Fortran',['../md_docs_2static_2fortran.html#autotoc_md20',1,'']]],
+  ['and_20tag_6',['Accessing a Table by Index and Tag',['../index.html#autotoc_md9',1,'']]],
+  ['api_20usage_7',['1. Programmatic (API) Usage',['../index.html#autotoc_md7',1,'']]],
+  ['ascii_8',['ascii',['../structopat_1_1_o_p_a_t_table.html#a3c9b47cc40f1294a1500bf0cdc9f639f',1,'opat::OPATTable']]]
 ];

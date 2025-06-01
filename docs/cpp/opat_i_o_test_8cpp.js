@@ -3,6 +3,7 @@ var opat_i_o_test_8cpp =
     [ "opatIOTest", "classopat_i_o_test.html", null ],
     [ "TEST_F", "opat_i_o_test_8cpp.html#a23f583c8d95a8e6f21187fa140285ce1", null ],
     [ "TEST_F", "opat_i_o_test_8cpp.html#ac3a79e8bac7362518c4495f4b9136a99", null ],
+    [ "TEST_F", "opat_i_o_test_8cpp.html#a9083e64ee74b6932c334495cf544c821", null ],
     [ "TEST_F", "opat_i_o_test_8cpp.html#ab4375c01d76aabdf28760b1135a42a7b", null ],
     [ "TEST_F", "opat_i_o_test_8cpp.html#a817da364c3fc1f1e028bfa48cb591ee4", null ],
     [ "TEST_F", "opat_i_o_test_8cpp.html#ac70e4b3d6f03d8a67847645a8d9ade8e", null ],

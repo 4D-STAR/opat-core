@@ -99,14 +99,23 @@ $(function(){initNavTree('namespaceopat.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">opat Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopat_1_1lattice.html">lattice</a></td></tr>
+<tr class="memdesc:namespaceopat_1_1lattice"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for table lattice interpolation of <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> files. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1_bounds.html">Bounds</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1_card_catalog.html">CardCatalog</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold the catalog of tables in a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>.  <a href="structopat_1_1_card_catalog.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,6 +202,8 @@ Functions</h2></td></tr>
 <tr class="separator:acbd69d3beb3850a80b0cc3fdb49e23ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae258d791b8b0ae759277966463464b83" id="r_ae258d791b8b0ae759277966463464b83"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae258d791b8b0ae759277966463464b83">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structopat_1_1_slice.html">Slice</a> &amp;slice)</td></tr>
 <tr class="separator:ae258d791b8b0ae759277966463464b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71cbfadb28d14f6f9de11a57a18afe13" id="r_a71cbfadb28d14f6f9de11a57a18afe13"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a71cbfadb28d14f6f9de11a57a18afe13">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structopat_1_1_bounds.html">Bounds</a> &amp;bounds)</td></tr>
+<tr class="separator:a71cbfadb28d14f6f9de11a57a18afe13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab398f378e2ccf94866991786be29aff9" id="r_ab398f378e2ccf94866991786be29aff9"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:ab398f378e2ccf94866991786be29aff9"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab398f378e2ccf94866991786be29aff9">swap_bytes</a> (T value)</td></tr>
 <tr class="memdesc:ab398f378e2ccf94866991786be29aff9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the byte order of a value.  <br /></td></tr>
@@ -227,8 +238,10 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordflow">if</span> (isValid) {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Valid OPAT file!&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespaceopat_html_a37f0f5a1aa68e3c6ad509e31a7d33bb5"><div class="ttname"><a href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">opat::hasMagic</a></div><div class="ttdeci">bool hasMagic(const std::string &amp;filename)</div><div class="ttdoc">Checks if a file has the correct magic number for an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:45</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a37f0f5a1aa68e3c6ad509e31a7d33bb5"><div class="ttname"><a href="#a37f0f5a1aa68e3c6ad509e31a7d33bb5">opat::hasMagic</a></div><div class="ttdeci">bool hasMagic(const std::string &amp;filename)</div><div class="ttdoc">Checks if a file has the correct magic number for an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:46</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a92">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a9f654ea75d3883a807eec5b610b4b65f" name="a9f654ea75d3883a807eec5b610b4b65f"></a>
@@ -252,12 +265,43 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="#a9f654ea75d3883a807eec5b610b4b65f">opat::is_big_endian</a>()) {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;System is big-endian.&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespaceopat_html_a9f654ea75d3883a807eec5b610b4b65f"><div class="ttname"><a href="#a9f654ea75d3883a807eec5b610b4b65f">opat::is_big_endian</a></div><div class="ttdeci">bool is_big_endian()</div><div class="ttdoc">Determines if the system is big-endian.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:39</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a9f654ea75d3883a807eec5b610b4b65f"><div class="ttname"><a href="#a9f654ea75d3883a807eec5b610b4b65f">opat::is_big_endian</a></div><div class="ttdeci">bool is_big_endian()</div><div class="ttdoc">Determines if the system is big-endian.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:40</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a93">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
+</div>
+</div>
+<a id="a71cbfadb28d14f6f9de11a57a18afe13" name="a71cbfadb28d14f6f9de11a57a18afe13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71cbfadb28d14f6f9de11a57a18afe13">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; opat::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;</td>          <td class="paramname"><span class="paramname"><em>os</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structopat_1_1_bounds.html">Bounds</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bounds</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>Output stream. </td></tr>
+    <tr><td class="paramname">bounds</td><td><a class="el" href="structopat_1_1_bounds.html">Bounds</a> to print. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to the output stream. </dd></dl>
+
 </div>
 </div>
 <a id="adae37c549fd00861a56e1219621a98ab" name="adae37c549fd00861a56e1219621a98ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adae37c549fd00861a56e1219621a98ab">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adae37c549fd00861a56e1219621a98ab">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +330,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acb2a02f224d9b1cc513f589a86cad12c" name="acb2a02f224d9b1cc513f589a86cad12c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb2a02f224d9b1cc513f589a86cad12c">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb2a02f224d9b1cc513f589a86cad12c">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +359,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a45042da883d2eefd32ed84f9e8fd92f6" name="a45042da883d2eefd32ed84f9e8fd92f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45042da883d2eefd32ed84f9e8fd92f6">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45042da883d2eefd32ed84f9e8fd92f6">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,7 +388,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a59633c9a364dc5dd42b4219bdba84e5d" name="a59633c9a364dc5dd42b4219bdba84e5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59633c9a364dc5dd42b4219bdba84e5d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59633c9a364dc5dd42b4219bdba84e5d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -373,7 +417,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a1b22cfeff0b9d337901e2ee479d6f4ca" name="a1b22cfeff0b9d337901e2ee479d6f4ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b22cfeff0b9d337901e2ee479d6f4ca">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b22cfeff0b9d337901e2ee479d6f4ca">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[6/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -402,7 +446,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="acbd69d3beb3850a80b0cc3fdb49e23ad" name="acbd69d3beb3850a80b0cc3fdb49e23ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbd69d3beb3850a80b0cc3fdb49e23ad">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[6/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd69d3beb3850a80b0cc3fdb49e23ad">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[7/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -431,7 +475,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8d4dc38642d87e1c51755978b7cb4712" name="a8d4dc38642d87e1c51755978b7cb4712"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d4dc38642d87e1c51755978b7cb4712">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[7/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d4dc38642d87e1c51755978b7cb4712">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[8/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,7 +496,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ae258d791b8b0ae759277966463464b83" name="ae258d791b8b0ae759277966463464b83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae258d791b8b0ae759277966463464b83">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[8/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae258d791b8b0ae759277966463464b83">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[9/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,7 +525,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8dd08160033ea5eb6e6ed168cc76d384" name="a8dd08160033ea5eb6e6ed168cc76d384"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dd08160033ea5eb6e6ed168cc76d384">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[9/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd08160033ea5eb6e6ed168cc76d384">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[10/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -510,7 +554,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a2c0f3535e67696dc007bc98d45aa54f1" name="a2c0f3535e67696dc007bc98d45aa54f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c0f3535e67696dc007bc98d45aa54f1">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[10/10]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c0f3535e67696dc007bc98d45aa54f1">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[11/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -577,11 +621,13 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog.html">opat::CardCatalog</a> catalog = <a class="code hl_function" href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a>(file, header);</div>
 <div class="line">std::cout &lt;&lt; catalog &lt;&lt; std::endl;</div>
-<div class="ttc" id="anamespaceopat_html_aae8dd619feb63a21eeb547b18ff211f7"><div class="ttname"><a href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a></div><div class="ttdeci">CardCatalog readCardCatalog(std::ifstream &amp;file, const Header &amp;header)</div><div class="ttdoc">Reads the CardCatalog from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:132</div></div>
-<div class="ttc" id="anamespaceopat_html_adc760e1fb2ed66512490d28eca2286a4"><div class="ttname"><a href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a></div><div class="ttdeci">Header readHeader(std::ifstream &amp;file)</div><div class="ttdoc">Reads the header of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:92</div></div>
-<div class="ttc" id="astructopat_1_1_card_catalog_html"><div class="ttname"><a href="structopat_1_1_card_catalog.html">opat::CardCatalog</a></div><div class="ttdoc">Structure to hold the catalog of tables in a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:149</div></div>
-<div class="ttc" id="astructopat_1_1_header_html"><div class="ttname"><a href="structopat_1_1_header.html">opat::Header</a></div><div class="ttdoc">Structure to hold the header information of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:72</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_aae8dd619feb63a21eeb547b18ff211f7"><div class="ttname"><a href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a></div><div class="ttdeci">CardCatalog readCardCatalog(std::ifstream &amp;file, const Header &amp;header)</div><div class="ttdoc">Reads the CardCatalog from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:149</div></div>
+<div class="ttc" id="anamespaceopat_html_adc760e1fb2ed66512490d28eca2286a4"><div class="ttname"><a href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a></div><div class="ttdeci">Header readHeader(std::ifstream &amp;file)</div><div class="ttdoc">Reads the header of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:109</div></div>
+<div class="ttc" id="astructopat_1_1_card_catalog_html"><div class="ttname"><a href="structopat_1_1_card_catalog.html">opat::CardCatalog</a></div><div class="ttdoc">Structure to hold the catalog of tables in a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:150</div></div>
+<div class="ttc" id="astructopat_1_1_header_html"><div class="ttname"><a href="structopat_1_1_header.html">opat::Header</a></div><div class="ttdoc">Structure to hold the header information of an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:73</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a86">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a7a85681cd3a2478a85784ed27e0fa1e4" name="a7a85681cd3a2478a85784ed27e0fa1e4"></a>
@@ -634,9 +680,11 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = <a class="code hl_function" href="#a7a85681cd3a2478a85784ed27e0fa1e4">opat::readCardCatalogEntry</a>(file, 128, 3, 8);</div>
 <div class="line">std::cout &lt;&lt; entry &lt;&lt; std::endl;</div>
-<div class="ttc" id="anamespaceopat_html_a7a85681cd3a2478a85784ed27e0fa1e4"><div class="ttname"><a href="#a7a85681cd3a2478a85784ed27e0fa1e4">opat::readCardCatalogEntry</a></div><div class="ttdeci">CardCatalogEntry readCardCatalogEntry(std::ifstream &amp;file, uint64_t offset, uint16_t numIndex, uint8_t hashPrecision)</div><div class="ttdoc">Reads a CardCatalogEntry from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:110</div></div>
-<div class="ttc" id="astructopat_1_1_card_catalog_entry_html"><div class="ttname"><a href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a></div><div class="ttdoc">Structure to hold the index information of a table in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:129</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a7a85681cd3a2478a85784ed27e0fa1e4"><div class="ttname"><a href="#a7a85681cd3a2478a85784ed27e0fa1e4">opat::readCardCatalogEntry</a></div><div class="ttdeci">CardCatalogEntry readCardCatalogEntry(std::ifstream &amp;file, uint64_t offset, uint16_t numIndex, uint8_t hashPrecision)</div><div class="ttdoc">Reads a CardCatalogEntry from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:127</div></div>
+<div class="ttc" id="astructopat_1_1_card_catalog_entry_html"><div class="ttname"><a href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a></div><div class="ttdoc">Structure to hold the index information of a table in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:130</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a85">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="aca17137bb6bb97713a09ef475ce6c736" name="aca17137bb6bb97713a09ef475ce6c736"></a>
@@ -677,9 +725,11 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_data_card.html">opat::DataCard</a> card = <a class="code hl_function" href="#aca17137bb6bb97713a09ef475ce6c736">opat::readDataCard</a>(file, entry);</div>
-<div class="ttc" id="anamespaceopat_html_aca17137bb6bb97713a09ef475ce6c736"><div class="ttname"><a href="#aca17137bb6bb97713a09ef475ce6c736">opat::readDataCard</a></div><div class="ttdeci">DataCard readDataCard(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads a single DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:156</div></div>
-<div class="ttc" id="astructopat_1_1_data_card_html"><div class="ttname"><a href="structopat_1_1_data_card.html">opat::DataCard</a></div><div class="ttdoc">Structure to hold a DataCard, which contains multiple tables.</div><div class="ttdef"><b>Definition</b> opatIO.h:404</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_aca17137bb6bb97713a09ef475ce6c736"><div class="ttname"><a href="#aca17137bb6bb97713a09ef475ce6c736">opat::readDataCard</a></div><div class="ttdeci">DataCard readDataCard(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads a single DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:173</div></div>
+<div class="ttc" id="astructopat_1_1_data_card_html"><div class="ttname"><a href="structopat_1_1_data_card.html">opat::DataCard</a></div><div class="ttdoc">Structure to hold a DataCard, which contains multiple tables.</div><div class="ttdef"><b>Definition</b> opatIO.h:408</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a88">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a51c9e2f3df352cd12e652ee590486c13" name="a51c9e2f3df352cd12e652ee590486c13"></a>
@@ -720,9 +770,11 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_header.html">opat::CardHeader</a> header = <a class="code hl_function" href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a>(file, entry);</div>
-<div class="ttc" id="anamespaceopat_html_a51c9e2f3df352cd12e652ee590486c13"><div class="ttname"><a href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a></div><div class="ttdeci">CardHeader readDataCardHeader(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads the header of a DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:175</div></div>
-<div class="ttc" id="astructopat_1_1_card_header_html"><div class="ttname"><a href="structopat_1_1_card_header.html">opat::CardHeader</a></div><div class="ttdoc">Structure to hold the header information of a DataCard in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:104</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a51c9e2f3df352cd12e652ee590486c13"><div class="ttname"><a href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a></div><div class="ttdeci">CardHeader readDataCardHeader(std::ifstream &amp;file, const CardCatalogEntry &amp;entry)</div><div class="ttdoc">Reads the header of a DataCard from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:192</div></div>
+<div class="ttc" id="astructopat_1_1_card_header_html"><div class="ttname"><a href="structopat_1_1_card_header.html">opat::CardHeader</a></div><div class="ttdoc">Structure to hold the header information of a DataCard in an OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:105</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a89">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="af7e996b8bece6a40e9b9c3fc123358cc" name="af7e996b8bece6a40e9b9c3fc123358cc"></a>
@@ -770,8 +822,10 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog.html">opat::CardCatalog</a> catalog = <a class="code hl_function" href="#aae8dd619feb63a21eeb547b18ff211f7">opat::readCardCatalog</a>(file, header);</div>
 <div class="line"><span class="keyword">auto</span> cards = <a class="code hl_function" href="#af7e996b8bece6a40e9b9c3fc123358cc">opat::readDataCards</a>(file, header, catalog);</div>
-<div class="ttc" id="anamespaceopat_html_af7e996b8bece6a40e9b9c3fc123358cc"><div class="ttname"><a href="#af7e996b8bece6a40e9b9c3fc123358cc">opat::readDataCards</a></div><div class="ttdeci">std::unordered_map&lt; FloatIndexVector, DataCard &gt; readDataCards(std::ifstream &amp;file, const Header &amp;header, const CardCatalog &amp;cardCatalog)</div><div class="ttdoc">Reads all DataCards from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:146</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_af7e996b8bece6a40e9b9c3fc123358cc"><div class="ttname"><a href="#af7e996b8bece6a40e9b9c3fc123358cc">opat::readDataCards</a></div><div class="ttdeci">std::unordered_map&lt; FloatIndexVector, DataCard &gt; readDataCards(std::ifstream &amp;file, const Header &amp;header, const CardCatalog &amp;cardCatalog)</div><div class="ttdoc">Reads all DataCards from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:163</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a87">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="adc760e1fb2ed66512490d28eca2286a4" name="adc760e1fb2ed66512490d28eca2286a4"></a>
@@ -807,8 +861,10 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">std::ifstream file(<span class="stringliteral">&quot;example.opat&quot;</span>, std::ios::binary);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_header.html">opat::Header</a> header = <a class="code hl_function" href="#adc760e1fb2ed66512490d28eca2286a4">opat::readHeader</a>(file);</div>
 <div class="line">header.<a class="code hl_function" href="structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236">print</a>();</div>
-<div class="ttc" id="astructopat_1_1_header_html_af80325e25e93dfd6f3dc5938550a3236"><div class="ttname"><a href="structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236">opat::Header::print</a></div><div class="ttdeci">void print() const</div><div class="ttdoc">Prints the header information to the console.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:240</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="astructopat_1_1_header_html_af80325e25e93dfd6f3dc5938550a3236"><div class="ttname"><a href="structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236">opat::Header::print</a></div><div class="ttdeci">void print() const</div><div class="ttdoc">Prints the header information to the console.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:257</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a84">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="aca57fce2c7ef3e4714709b3d9507d4b0" name="aca57fce2c7ef3e4714709b3d9507d4b0"></a>
@@ -843,10 +899,12 @@ Functions</h2></td></tr>
 </dl>
 <div class="fragment"><div class="line"><a class="code hl_struct" href="structopat_1_1_o_p_a_t.html">OPAT</a> file = <a class="code hl_function" href="#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a>(<span class="stringliteral">&quot;example.opat&quot;</span>);</div>
 <div class="line">std::cout &lt;&lt; file.<a class="code hl_variable" href="structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245">header</a> &lt;&lt; std::endl;</div>
-<div class="ttc" id="anamespaceopat_html_aca57fce2c7ef3e4714709b3d9507d4b0"><div class="ttname"><a href="#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a></div><div class="ttdeci">OPAT readOPAT(const std::string &amp;filename)</div><div class="ttdoc">Reads an OPAT file and returns its contents as an OPAT structure.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:59</div></div>
-<div class="ttc" id="astructopat_1_1_o_p_a_t_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></div><div class="ttdoc">Structure to hold the entire OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:455</div></div>
-<div class="ttc" id="astructopat_1_1_o_p_a_t_html_a0c7a30f0a06bb0892f8b166378c80245"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245">opat::OPAT::header</a></div><div class="ttdeci">Header header</div><div class="ttdoc">Header of the OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:456</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_aca57fce2c7ef3e4714709b3d9507d4b0"><div class="ttname"><a href="#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a></div><div class="ttdeci">OPAT readOPAT(const std::string &amp;filename)</div><div class="ttdoc">Reads an OPAT file and returns its contents as an OPAT structure.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:76</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></div><div class="ttdoc">Structure to hold the entire OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:500</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_html_a0c7a30f0a06bb0892f8b166378c80245"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html#a0c7a30f0a06bb0892f8b166378c80245">opat::OPAT::header</a></div><div class="ttdeci">Header header</div><div class="ttdoc">Header of the OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:501</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a83">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a5c14cc47d910dba560a126cfceb175a6" name="a5c14cc47d910dba560a126cfceb175a6"></a>
@@ -894,10 +952,12 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> cardEntry = ...; <span class="comment">// Retrieved from the catalog</span></div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_table_index_entry.html">opat::TableIndexEntry</a> tableEntry = ...; <span class="comment">// Retrieved from the table index</span></div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a> table = <a class="code hl_function" href="#a5c14cc47d910dba560a126cfceb175a6">opat::readOPATTable</a>(file, cardEntry, tableEntry);</div>
-<div class="ttc" id="anamespaceopat_html_a5c14cc47d910dba560a126cfceb175a6"><div class="ttname"><a href="#a5c14cc47d910dba560a126cfceb175a6">opat::readOPATTable</a></div><div class="ttdeci">OPATTable readOPATTable(std::ifstream &amp;file, const CardCatalogEntry &amp;cardEntry, const TableIndexEntry &amp;tableEntry)</div><div class="ttdoc">Reads an OPATTable from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:214</div></div>
-<div class="ttc" id="astructopat_1_1_o_p_a_t_table_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a></div><div class="ttdoc">Structure to hold the data of an OPAT table.</div><div class="ttdef"><b>Definition</b> opatIO.h:256</div></div>
-<div class="ttc" id="astructopat_1_1_table_index_entry_html"><div class="ttname"><a href="structopat_1_1_table_index_entry.html">opat::TableIndexEntry</a></div><div class="ttdoc">Structure to hold the index information of a table within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:167</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a5c14cc47d910dba560a126cfceb175a6"><div class="ttname"><a href="#a5c14cc47d910dba560a126cfceb175a6">opat::readOPATTable</a></div><div class="ttdeci">OPATTable readOPATTable(std::ifstream &amp;file, const CardCatalogEntry &amp;cardEntry, const TableIndexEntry &amp;tableEntry)</div><div class="ttdoc">Reads an OPATTable from the file.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:231</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_table_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a></div><div class="ttdoc">Structure to hold the data of an OPAT table.</div><div class="ttdef"><b>Definition</b> opatIO.h:258</div></div>
+<div class="ttc" id="astructopat_1_1_table_index_entry_html"><div class="ttname"><a href="structopat_1_1_table_index_entry.html">opat::TableIndexEntry</a></div><div class="ttdoc">Structure to hold the index information of a table within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:168</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a91">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a19e2c4f97e7950dbcf76687884715af6" name="a19e2c4f97e7950dbcf76687884715af6"></a>
@@ -945,9 +1005,11 @@ Functions</h2></td></tr>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_catalog_entry.html">opat::CardCatalogEntry</a> entry = ...; <span class="comment">// Retrieved from the catalog</span></div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_card_header.html">opat::CardHeader</a> header = <a class="code hl_function" href="#a51c9e2f3df352cd12e652ee590486c13">opat::readDataCardHeader</a>(file, entry);</div>
 <div class="line"><a class="code hl_struct" href="structopat_1_1_table_index.html">opat::TableIndex</a> index = <a class="code hl_function" href="#a19e2c4f97e7950dbcf76687884715af6">opat::readTableIndex</a>(file, entry, header);</div>
-<div class="ttc" id="anamespaceopat_html_a19e2c4f97e7950dbcf76687884715af6"><div class="ttname"><a href="#a19e2c4f97e7950dbcf76687884715af6">opat::readTableIndex</a></div><div class="ttdeci">TableIndex readTableIndex(std::ifstream &amp;file, const CardCatalogEntry &amp;entry, const CardHeader &amp;header)</div><div class="ttdoc">Reads the TableIndex from a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:192</div></div>
-<div class="ttc" id="astructopat_1_1_table_index_html"><div class="ttname"><a href="structopat_1_1_table_index.html">opat::TableIndex</a></div><div class="ttdoc">Structure to hold the index of tables within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:193</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_a19e2c4f97e7950dbcf76687884715af6"><div class="ttname"><a href="#a19e2c4f97e7950dbcf76687884715af6">opat::readTableIndex</a></div><div class="ttdeci">TableIndex readTableIndex(std::ifstream &amp;file, const CardCatalogEntry &amp;entry, const CardHeader &amp;header)</div><div class="ttdoc">Reads the TableIndex from a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:209</div></div>
+<div class="ttc" id="astructopat_1_1_table_index_html"><div class="ttname"><a href="structopat_1_1_table_index.html">opat::TableIndex</a></div><div class="ttdoc">Structure to hold the index of tables within a DataCard.</div><div class="ttdef"><b>Definition</b> opatIO.h:194</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a90">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="ab398f378e2ccf94866991786be29aff9" name="ab398f378e2ccf94866991786be29aff9"></a>
@@ -984,8 +1046,10 @@ template&lt;typename T&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>The value with its byte order reversed.</dd></dl>
 <div class="fragment"><div class="line">uint16_t value = 0x1234;</div>
 <div class="line">uint16_t swapped = <a class="code hl_function" href="#ab398f378e2ccf94866991786be29aff9">opat::swap_bytes</a>(value);</div>
-<div class="ttc" id="anamespaceopat_html_ab398f378e2ccf94866991786be29aff9"><div class="ttname"><a href="#ab398f378e2ccf94866991786be29aff9">opat::swap_bytes</a></div><div class="ttdeci">T swap_bytes(T value)</div><div class="ttdoc">Swaps the byte order of a value.</div><div class="ttdef"><b>Definition</b> opatIO.h:720</div></div>
-</div><!-- fragment --> 
+<div class="ttc" id="anamespaceopat_html_ab398f378e2ccf94866991786be29aff9"><div class="ttname"><a href="#ab398f378e2ccf94866991786be29aff9">opat::swap_bytes</a></div><div class="ttdeci">T swap_bytes(T value)</div><div class="ttdoc">Swaps the byte order of a value.</div><div class="ttdef"><b>Definition</b> opatIO.h:817</div></div>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a94">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->

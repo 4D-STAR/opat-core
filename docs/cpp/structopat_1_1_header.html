@@ -147,9 +147,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4bc413e5cd584943e115c7f8841163db" id="r_a4bc413e5cd584943e115c7f8841163db"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bc413e5cd584943e115c7f8841163db">numIndex</a></td></tr>
 <tr class="memdesc:a4bc413e5cd584943e115c7f8841163db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of the index vector per table.  <br /></td></tr>
 <tr class="separator:a4bc413e5cd584943e115c7f8841163db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a408d0b0b32505dedc814e4429589c8c3" id="r_a408d0b0b32505dedc814e4429589c8c3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a408d0b0b32505dedc814e4429589c8c3">hashPrescision</a></td></tr>
-<tr class="memdesc:a408d0b0b32505dedc814e4429589c8c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precision of the hash used for table validation.  <br /></td></tr>
-<tr class="separator:a408d0b0b32505dedc814e4429589c8c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a894e8ea162bdc64adfac8eba34b1fd2f" id="r_a894e8ea162bdc64adfac8eba34b1fd2f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a894e8ea162bdc64adfac8eba34b1fd2f">hashPrecision</a></td></tr>
+<tr class="memdesc:a894e8ea162bdc64adfac8eba34b1fd2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Precision of the hash used for table validation.  <br /></td></tr>
+<tr class="separator:a894e8ea162bdc64adfac8eba34b1fd2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d9bb874c1582f92a08493bbcacbae37" id="r_a2d9bb874c1582f92a08493bbcacbae37"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d9bb874c1582f92a08493bbcacbae37">reserved</a> [23]</td></tr>
 <tr class="memdesc:a2d9bb874c1582f92a08493bbcacbae37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved for future use.  <br /></td></tr>
 <tr class="separator:a2d9bb874c1582f92a08493bbcacbae37"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +163,8 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure to hold the header information of an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
 <p>The header contains metadata about the file, such as its version, creation date, and offsets to the card catalog and start of the data section. It is packed to ensure compactness and alignment with the binary file format. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#_a0">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af80325e25e93dfd6f3dc5938550a3236" name="af80325e25e93dfd6f3dc5938550a3236"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af80325e25e93dfd6f3dc5938550a3236">&#9670;&#160;</a></span>print()</h2>
@@ -180,6 +182,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Prints the header information to the console. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a13">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -220,6 +224,8 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the output stream. </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a12">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -237,6 +243,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>User-defined comment section. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a8">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -253,22 +261,26 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creation date of the file (e.g., "YYYY-MM-DD HH:MM"). </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a6">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
-<a id="a408d0b0b32505dedc814e4429589c8c3" name="a408d0b0b32505dedc814e4429589c8c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a408d0b0b32505dedc814e4429589c8c3">&#9670;&#160;</a></span>hashPrescision</h2>
+<a id="a894e8ea162bdc64adfac8eba34b1fd2f" name="a894e8ea162bdc64adfac8eba34b1fd2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a894e8ea162bdc64adfac8eba34b1fd2f">&#9670;&#160;</a></span>hashPrecision</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t opat::Header::hashPrescision</td>
+          <td class="memname">uint8_t opat::Header::hashPrecision</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Precision of the hash used for table validation. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a10">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -285,6 +297,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Size of the header in bytes. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a4">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -301,6 +315,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Offset to the index section. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a5">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -317,6 +333,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Magic number to identify the file type. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a1">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -333,6 +351,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Size of the index vector per table. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -349,6 +369,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Number of tables in the file. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a3">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -365,6 +387,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reserved for future use. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a11">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -381,6 +405,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Source information (e.g., software version or author). </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a7">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>
@@ -397,6 +423,8 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Version of the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file format. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a2">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
+</dl>
 
 </div>
 </div>

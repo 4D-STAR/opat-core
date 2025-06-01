@@ -1,5 +1,4 @@
-#ifndef OPATIO_INDEXVECTOR_H
-#define OPATIO_INDEXVECTOR_H
+#pragma once
 
 #include <stdexcept>
 #include <vector>
@@ -55,11 +54,11 @@ public:
     /**
      * @brief Constructor with vector and precision initialization.
      * @param vec The vector of floating-point values to initialize with.
-     * @param hashPrescision The precision to use for hashing.
+     * @param hashPrecision The precision to use for hashing.
      * @throws std::invalid_argument if the input vector is empty.
      * @throws std::invalid_argument if hashPrescision is not a positive integer or is >= 14.
      */
-    FloatIndexVector(const std::vector<double>& vec, int hashPrescision);
+    FloatIndexVector(const std::vector<double>& vec, int hashPrecision);
 
     /**
      * @brief Copy constructor.
@@ -91,11 +90,11 @@ public:
 
     /**
      * @brief Sets the hash precision.
-     * @param hashPrescision The precision to use for hashing.
+     * @param hashPrecision The precision to use for hashing.
      * @throws std::runtime_error if the object is already initialized.
      * @throws std::invalid_argument if hashPrescision is not a positive integer or is >= 14.
      */
-    void setHashPrecision(int hashPrescision);
+    void setHashPrecision(int hashPrecision);
 
     /**
      * @brief Gets the current hash precision.
@@ -122,12 +121,12 @@ public:
     /**
      * @brief Initializes the vector with precision.
      * @param vec The vector of floating-point values to initialize with.
-     * @param hashPrescision The precision to use for hashing.
+     * @param hashPrecision The precision to use for hashing.
      * @throws std::runtime_error if the object is already initialized.
      * @throws std::invalid_argument if the input vector is empty.
      * @throws std::invalid_argument if hashPrescision is not a positive integer or is >= 14.
      */
-    void initialize(const std::vector<double>& vec, int hashPrescision);
+    void initialize(const std::vector<double>& vec, int hashPrecision);
 
     /**
      * @brief Initializes the vector without precision.
@@ -153,6 +152,26 @@ public:
         m_vectorInt.reserve(size);
     }
 
+    /**
+     * @brief Get the size of the index vector
+     * @return size The dimension / size of the index vector
+     */
+    int size() const;
+
+    /**
+     * @brief Access element at a specific index.
+     * @param index The index of the element to access.
+     * @return The value at the specified index.
+     * @throws std::out_of_range if the index is out of bounds.
+     */
+    double operator[](const size_t index) const;
+
+    /**
+     * @brief Overloads the << operator for ostream to print FloatIndexVector.
+     * @param os The output stream.
+     * @param vec The FloatIndexVector to print.
+     * @return Reference to the output stream.
+     */
     friend std::ostream& operator<<(std::ostream& os, const FloatIndexVector& vec);
 
 private:
@@ -164,7 +183,7 @@ private:
      * values into integer representations for consistent hashing.
      *
      * @param vec The vector of floating-point values to initialize with.
-     * @param hashPrescision The precision to use for hashing. Values are rounded to this precision.
+     * @param hashPrecision The precision to use for hashing. Values are rounded to this precision.
      * @throws std::invalid_argument if the input vector is empty.
      * @throws std::invalid_argument if hashPrescision is not a positive integer or is >= 14.
      *
@@ -175,12 +194,12 @@ private:
      * index.setupVecs(vec, 2); // Sets up the vector with precision of 2 decimal places
      * @endcode
      */
-    void setupVecs(const std::vector<double>& vec, int hashPrescision);
+    void setupVecs(const std::vector<double>& vec, int hashPrecision);
 
     std::vector<double> m_vector; ///< The vector of floating-point values.
-    std::vector<uint64_t> m_vectorInt; ///< Internal representation of the vector for hashing.
-    int m_hashPrescision; ///< The precision used for hashing.
-    bool m_initialized = false; ///< Flag indicating whether the vector has been initialized.
+    std::vector<uint64_t> m_vectorInt; ///< Internal representation of the vector for hashing, storing scaled integer values.
+    int m_hashPrescision; ///< The precision (number of decimal places) used for rounding and hashing.
+    bool m_initialized = false; ///< Flag indicating whether the vector and precision have been initialized.
 };
 
 /**
@@ -203,5 +222,3 @@ namespace std {
         }
     };
 }
-
-#endif // OPATIO_INDEXVECTOR_H

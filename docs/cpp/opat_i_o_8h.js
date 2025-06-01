@@ -9,6 +9,7 @@ var opat_i_o_8h =
     [ "opat::Slice", "structopat_1_1_slice.html", "structopat_1_1_slice" ],
     [ "opat::OPATTable", "structopat_1_1_o_p_a_t_table.html", "structopat_1_1_o_p_a_t_table" ],
     [ "opat::DataCard", "structopat_1_1_data_card.html", "structopat_1_1_data_card" ],
+    [ "opat::Bounds", "structopat_1_1_bounds.html", "structopat_1_1_bounds" ],
     [ "opat::OPAT", "structopat_1_1_o_p_a_t.html", "structopat_1_1_o_p_a_t" ],
     [ "opat::hasMagic", "namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5", null ],
     [ "opat::is_big_endian", "namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f", null ],

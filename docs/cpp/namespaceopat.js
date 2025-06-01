@@ -1,5 +1,7 @@
 var namespaceopat =
 [
+    [ "lattice", "namespaceopat_1_1lattice.html", "namespaceopat_1_1lattice" ],
+    [ "Bounds", "structopat_1_1_bounds.html", "structopat_1_1_bounds" ],
     [ "CardCatalog", "structopat_1_1_card_catalog.html", "structopat_1_1_card_catalog" ],
     [ "CardCatalogEntry", "structopat_1_1_card_catalog_entry.html", "structopat_1_1_card_catalog_entry" ],
     [ "CardHeader", "structopat_1_1_card_header.html", "structopat_1_1_card_header" ],
@@ -12,6 +14,7 @@ var namespaceopat =
     [ "TableIndexEntry", "structopat_1_1_table_index_entry.html", "structopat_1_1_table_index_entry" ],
     [ "hasMagic", "namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5", null ],
     [ "is_big_endian", "namespaceopat.html#a9f654ea75d3883a807eec5b610b4b65f", null ],
+    [ "operator<<", "namespaceopat.html#a71cbfadb28d14f6f9de11a57a18afe13", null ],
     [ "operator<<", "namespaceopat.html#adae37c549fd00861a56e1219621a98ab", null ],
     [ "operator<<", "namespaceopat.html#acb2a02f224d9b1cc513f589a86cad12c", null ],
     [ "operator<<", "namespaceopat.html#a45042da883d2eefd32ed84f9e8fd92f6", null ],

@@ -50,20 +50,20 @@ FloatIndexVector::FloatIndexVector(const std::vector<double>& vec) : m_hashPresc
 
 // Constructor: Initializes the object with a given vector and custom hash precision.
 // Throws exceptions for invalid hash precision or empty input vector.
-FloatIndexVector::FloatIndexVector(const std::vector<double>& vec, int hashPrescision) : m_hashPrescision(hashPrescision) {
-    setupVecs(vec, hashPrescision);
+FloatIndexVector::FloatIndexVector(const std::vector<double>& vec, int hashPrecision) : m_hashPrescision(hashPrecision) {
+    setupVecs(vec, hashPrecision);
     m_initialized = true;
 }
 
-void FloatIndexVector::setupVecs(const std::vector<double>& vec, int hashPrescision) {
+void FloatIndexVector::setupVecs(const std::vector<double>& vec, int hashPrecision) {
     if (m_initialized) {
         throw std::runtime_error("Cannot set vector after initialization.");
     }
-    if (hashPrescision <= 0) {
-        throw std::invalid_argument("hashPrescision must be a positive integer.");
+    if (hashPrecision <= 0) {
+        throw std::invalid_argument("hashPrecision must be a positive integer.");
     }
-    if (hashPrescision >= 14) {
-        throw std::invalid_argument("hashPrescision must be less than 14.");
+    if (hashPrecision >= 14) {
+        throw std::invalid_argument("hashPrecision must be less than 14.");
     }
     if (vec.empty()) {
         throw std::invalid_argument("Input vector cannot be empty.");
@@ -139,17 +139,17 @@ bool FloatIndexVector::operator!=(const FloatIndexVector& other) const {
 
 // Sets the hash precision before initialization.
 // Throws an exception if the object is already initialized or if the precision is invalid.
-void FloatIndexVector::setHashPrecision(int hashPrescision) {
+void FloatIndexVector::setHashPrecision(int hashPrecision) {
     if (m_initialized) {
         throw std::runtime_error("Cannot set hash precision after initialization.");
     }
-    if (hashPrescision <= 0) {
-        throw std::invalid_argument("hashPrescision must be a positive integer.");
+    if (hashPrecision <= 0) {
+        throw std::invalid_argument("hashPrecision must be a positive integer.");
     }
-    if (hashPrescision >= 14) {
-        throw std::invalid_argument("hashPrescision must be less than 14.");
+    if (hashPrecision >= 14) {
+        throw std::invalid_argument("hashPrecision must be less than 14.");
     }
-    m_hashPrescision = hashPrescision;
+    m_hashPrescision = hashPrecision;
 }
 
 // Retrieves the current hash precision.
@@ -163,11 +163,11 @@ int FloatIndexVector::getHashPrecision() const {
 
 // Initializes the object with a vector and custom hash precision.
 // Throws an exception if the object is already initialized.
-void FloatIndexVector::initialize(const std::vector<double>& vec, int hashPrescision) {
+void FloatIndexVector::initialize(const std::vector<double>& vec, int hashPrecision) {
     if (m_initialized) {
         throw std::runtime_error("FloatIndexVector is already initialized.");
     }
-    setHashPrecision(hashPrescision);
+    setHashPrecision(hashPrecision);
     setVector(vec);
 
     m_initialized = true;
@@ -215,6 +215,23 @@ size_t FloatIndexVector::hash() const {
     size_t sizeInBytes = m_vectorInt.size() * sizeof(uint64_t);
     uint64_t hash = XXHash64::hash(data, sizeInBytes, 0);
     return static_cast<size_t>(hash);
+}
+
+int FloatIndexVector::size() const {
+    if (!m_initialized) {
+        throw std::runtime_error("FloatIndexVector is not initialized.");
+    }
+    return static_cast<int>(m_vector.size());
+}
+
+double FloatIndexVector::operator[](const size_t index) const {
+    if (!m_initialized) {
+        throw std::runtime_error("FloatIndexVector is not initialized.");
+    }
+    if (index >= m_vector.size()) {
+        throw std::invalid_argument("index out of bounds.");
+    }
+    return m_vector[index];
 }
 
 std::ostream& operator<<(std::ostream& os, const FloatIndexVector& iv) {
