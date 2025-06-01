@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="500mm"
+   height="500mm"
+   viewBox="0 0 500 500"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="opatCoreLogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.30498717"
+     inkscape:cx="896.75902"
+     inkscape:cy="1159.0651"
+     inkscape:window-width="1728"
+     inkscape:window-height="968"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:241.751px;font-family:Federation;-inkscape-font-specification:'Federation Medium';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#4c7cbc;stroke:#000000;stroke-width:0.282677"
+       x="1.3967837"
+       y="293.29565"
+       id="text1"
+       transform="scale(0.91744258,1.0899865)"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="stroke-width:0.282677"
+         x="1.3967837"
+         y="293.29565">OPAT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-weight:500;font-size:114.684px;font-family:Federation;-inkscape-font-specification:'Federation Medium';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#518294;stroke:#000000;stroke-width:0.178799;fill-opacity:1"
+       x="263.86884"
+       y="368.19766"
+       id="text2"
+       transform="scale(0.92276656,1.0836977)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-size:114.684px;stroke-width:0.178799;fill:#518294;fill-opacity:1"
+         x="263.86884"
+         y="368.19766">core</tspan></text>
+  </g>
+</svg>

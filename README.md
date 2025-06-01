@@ -1,3 +1,7 @@
+<p style="display: flex; justify-content: center;">
+  <img src="assets/logo/opatCoreLogo.png" width="300" alt="Logo">
+</p>
+
 # OpatIO Core Libraries
 ![PyPI - Version](https://img.shields.io/pypi/v/opatio)
 ![GitHub License](https://img.shields.io/github/license/4D-STAR/opat-core)
