@@ -16,6 +16,7 @@ var structopat_1_1_o_p_a_t_table =
     [ "size", "structopat_1_1_o_p_a_t_table.html#a2eaf41c3dff4d6ecd14bafd610f8fb4e", null ],
     [ "slice", "structopat_1_1_o_p_a_t_table.html#a363aae804cc40c8aadb2fd753706ef1f", null ],
     [ "vsize", "structopat_1_1_o_p_a_t_table.html#af1decd49333fb50399cda232f5393d42", null ],
+    [ "operator<<", "structopat_1_1_o_p_a_t_table.html#a17dc3e3d6997190d9ca940af48e76da1", null ],
     [ "columnValues", "structopat_1_1_o_p_a_t_table.html#a637a98bdc1c45f0b6875f4cc3a6e8476", null ],
     [ "data", "structopat_1_1_o_p_a_t_table.html#ac9c9b4a9962807f0e7acdad81ff0db17", null ],
     [ "m_vsize", "structopat_1_1_o_p_a_t_table.html#abe6db012bdd1442b720caf14bbc983a3", null ],

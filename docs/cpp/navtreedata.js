@@ -38,7 +38,9 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -67,7 +69,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2private_2fextern_8cpp-example.html",
-"structopat_1_1_o_p_a_t_table.html#a9f30d01501a31313e1c9ea1448436b7a"
+"structopat_1_1_header.html#ab15563f44f56769b537e78b6690e4db3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
