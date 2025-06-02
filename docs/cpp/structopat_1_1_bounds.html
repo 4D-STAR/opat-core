@@ -106,6 +106,9 @@ $(function(){initNavTree('structopat_1_1_bounds.html',''); initResizable(true); 
 </div><!--header-->
 <div class="contents">
 
+<p>Structure to hold the minimum and maximum values for a dimension.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="opat_i_o_8h_source.html">opatIO.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -120,13 +123,20 @@ Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a2acccc010fd785a9ed30d69933e6d223" id="r_a2acccc010fd785a9ed30d69933e6d223"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2acccc010fd785a9ed30d69933e6d223">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="structopat_1_1_bounds.html">Bounds</a> &amp;bounds)</td></tr>
-<tr class="memdesc:a2acccc010fd785a9ed30d69933e6d223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream insertion operator for printing the <a class="el" href="structopat_1_1_bounds.html">Bounds</a>.  <br /></td></tr>
+<tr class="memdesc:a2acccc010fd785a9ed30d69933e6d223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream insertion operator for printing the <a class="el" href="structopat_1_1_bounds.html" title="Structure to hold the minimum and maximum values for a dimension.">Bounds</a>.  <br /></td></tr>
 <tr class="separator:a2acccc010fd785a9ed30d69933e6d223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#_a8">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
-</div><h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<div class="textblock"><p>Structure to hold the minimum and maximum values for a dimension. </p>
+<p>This is typically used to represent the bounds of index vectors in an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.</p>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><a class="code hl_struct" href="structopat_1_1_bounds.html">opat::Bounds</a> dim_bounds;</div>
+<div class="line">dim_bounds.<a class="code hl_variable" href="#ae39b8e6f2c339ae270d6e08fcef162ce">min</a> = 0.0;</div>
+<div class="line">dim_bounds.<a class="code hl_variable" href="#a7078446c60fa18396fddd028583eb389">max</a> = 10.0;</div>
+<div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Dimension bounds: &quot;</span> &lt;&lt; dim_bounds &lt;&lt; std::endl; <span class="comment">// Output: Bounds(0, 10)</span></div>
+<div class="ttc" id="astructopat_1_1_bounds_html"><div class="ttname"><a href="structopat_1_1_bounds.html">opat::Bounds</a></div><div class="ttdoc">Structure to hold the minimum and maximum values for a dimension.</div><div class="ttdef"><b>Definition</b> opatIO.h:485</div></div>
+<div class="ttc" id="astructopat_1_1_bounds_html_a7078446c60fa18396fddd028583eb389"><div class="ttname"><a href="#a7078446c60fa18396fddd028583eb389">opat::Bounds::max</a></div><div class="ttdeci">double max</div><div class="ttdoc">The maximum value.</div><div class="ttdef"><b>Definition</b> opatIO.h:487</div></div>
+<div class="ttc" id="astructopat_1_1_bounds_html_ae39b8e6f2c339ae270d6e08fcef162ce"><div class="ttname"><a href="#ae39b8e6f2c339ae270d6e08fcef162ce">opat::Bounds::min</a></div><div class="ttdeci">double min</div><div class="ttdoc">The minimum value.</div><div class="ttdef"><b>Definition</b> opatIO.h:486</div></div>
+</div><!-- fragment --> </div><h2 class="groupheader">Friends And Related Symbol Documentation</h2>
 <a id="a2acccc010fd785a9ed30d69933e6d223" name="a2acccc010fd785a9ed30d69933e6d223"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2acccc010fd785a9ed30d69933e6d223">&#9670;&#160;</a></span>operator&lt;&lt;</h2>
 
@@ -154,17 +164,15 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Stream insertion operator for printing the <a class="el" href="structopat_1_1_bounds.html">Bounds</a>. </p>
+<p>Stream insertion operator for printing the <a class="el" href="structopat_1_1_bounds.html" title="Structure to hold the minimum and maximum values for a dimension.">Bounds</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">os</td><td>Output stream. </td></tr>
-    <tr><td class="paramname">bounds</td><td><a class="el" href="structopat_1_1_bounds.html">Bounds</a> to print. </td></tr>
+    <tr><td class="paramname">bounds</td><td><a class="el" href="structopat_1_1_bounds.html" title="Structure to hold the minimum and maximum values for a dimension.">Bounds</a> to print. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the output stream. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a75">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -182,8 +190,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The maximum value. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a74">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -200,8 +206,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>The minimum value. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a73">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>

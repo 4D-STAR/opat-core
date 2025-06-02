@@ -15,7 +15,12 @@ var class_float_index_vector =
     [ "operator[]", "class_float_index_vector.html#aff8f08345c69391f2b2cbf14f91160e5", null ],
     [ "reserve", "class_float_index_vector.html#a77872ceb4ec291b9dd0cb263c780bc76", null ],
     [ "setHashPrecision", "class_float_index_vector.html#a8086c8056766f74fcfb613305de744ff", null ],
+    [ "setupVecs", "class_float_index_vector.html#a07d49135dcec947d64d2c438fa02fc3e", null ],
     [ "setVector", "class_float_index_vector.html#a5442d65a5e5f27d215de982d5ba135b0", null ],
     [ "size", "class_float_index_vector.html#a876097496de8a8ceaf87b3dd74228c8c", null ],
-    [ "operator<<", "class_float_index_vector.html#a00a8b3cfc0bb391926a066868651fa2f", null ]
+    [ "operator<<", "class_float_index_vector.html#a00a8b3cfc0bb391926a066868651fa2f", null ],
+    [ "m_hashPrescision", "class_float_index_vector.html#acf5d9e4a99820ec03c4910d3c704b6f6", null ],
+    [ "m_initialized", "class_float_index_vector.html#a9f4277b6fd876bb366cc84e3dc7f14f3", null ],
+    [ "m_vector", "class_float_index_vector.html#a52ec37e0d5550f490857b249de684a98", null ],
+    [ "m_vectorInt", "class_float_index_vector.html#a658ee7e702a2e1da0e995a936d092ab8", null ]
 ];

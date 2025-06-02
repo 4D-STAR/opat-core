@@ -282,8 +282,7 @@ namespace opat {
     }
 
     const OPATTable& DataCard::get(const std::string& tag) const {
-        auto it = tableData.find(tag);
-        if (it != tableData.end()) {
+        if (const auto it = tableData.find(tag); it != tableData.end()) {
             return it->second;
         } else {
             throw std::runtime_error("Table not found for the given tag.");

@@ -2,8 +2,7 @@ var annotated_dup =
 [
     [ "opat", "namespaceopat.html", [
       [ "lattice", "namespaceopat_1_1lattice.html", [
-        [ "ContainingSimplex", "structopat_1_1lattice_1_1_containing_simplex.html", "structopat_1_1lattice_1_1_containing_simplex" ],
-        [ "HypercubeCorner", "structopat_1_1lattice_1_1_hypercube_corner.html", "structopat_1_1lattice_1_1_hypercube_corner" ],
+        [ "Simplex", "structopat_1_1lattice_1_1_simplex.html", "structopat_1_1lattice_1_1_simplex" ],
         [ "TableLattice", "classopat_1_1lattice_1_1_table_lattice.html", "classopat_1_1lattice_1_1_table_lattice" ]
       ] ],
       [ "Bounds", "structopat_1_1_bounds.html", "structopat_1_1_bounds" ],

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['hash_0',['hash',['../class_float_index_vector.html#a5891920046506d61727f613ce7006cbf',1,'FloatIndexVector']]],
-  ['hasmagic_1',['hasMagic',['../namespaceopat.html#a37f0f5a1aa68e3c6ad509e31a7d33bb5',1,'opat']]]
+  ['findcontainingsimplex_0',['findContainingSimplex',['../classopat_1_1lattice_1_1_table_lattice.html#a5ae2fd862721a8c8c4c6e73aeb2ca99f',1,'opat::lattice::TableLattice']]],
+  ['floatindexvector_1',['FloatIndexVector',['../class_float_index_vector.html#afe30e8c545430ae2ebe46e6bed07559d',1,'FloatIndexVector::FloatIndexVector()'],['../class_float_index_vector.html#a8b308f5dc8516870e36cf1398424e401',1,'FloatIndexVector::FloatIndexVector(const std::vector&lt; double &gt; &amp;vec)'],['../class_float_index_vector.html#a8fb2d4dfcd7cda5cffe6be0ee0066882',1,'FloatIndexVector::FloatIndexVector(const std::vector&lt; double &gt; &amp;vec, int hashPrecision)'],['../class_float_index_vector.html#a22d1fad6aa955b5e3a886c18abd5e386',1,'FloatIndexVector::FloatIndexVector(const FloatIndexVector &amp;other)']]],
+  ['free_5fopat_5ffile_5fc_2',['free_opat_file_c',['../fextern_8cpp.html#a6a35f3d7b24b60bc256cbb8f08fbf8e0',1,'fextern.cpp']]]
 ];

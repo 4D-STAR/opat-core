@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['print_0',['print',['../structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236',1,'opat::Header::print()'],['../structopat_1_1_o_p_a_t_table.html#a02c70d52d5af937f2575eee6c92733a7',1,'opat::OPATTable::print()']]]
+  ['load_5fopat_5ffile_5fc_0',['load_opat_file_c',['../fextern_8cpp.html#a827537614d8e31600c939e6adde4a85e',1,'fextern.cpp']]]
 ];

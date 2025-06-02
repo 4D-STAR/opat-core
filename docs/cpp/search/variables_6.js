@@ -1,7 +1,20 @@
 var searchData=
 [
-  ['m_5fvsize_0',['m_vsize',['../structopat_1_1_o_p_a_t_table.html#abe6db012bdd1442b720caf14bbc983a3',1,'opat::OPATTable']]],
-  ['magic_1',['magic',['../structopat_1_1_header.html#a4444ae5119b819db58a25aa289f7b155',1,'opat::Header::magic'],['../structopat_1_1_card_header.html#ad7b411c39fd2af6ed41b130fc889c741',1,'opat::CardHeader::magic']]],
-  ['max_2',['max',['../structopat_1_1_bounds.html#a7078446c60fa18396fddd028583eb389',1,'opat::Bounds']]],
-  ['min_3',['min',['../structopat_1_1_bounds.html#ae39b8e6f2c339ae270d6e08fcef162ce',1,'opat::Bounds']]]
+  ['m_5faxisvalues_0',['m_axisValues',['../classopat_1_1lattice_1_1_table_lattice.html#a751efc496be39e19e6b861c110394b3d',1,'opat::lattice::TableLattice']]],
+  ['m_5fhashprescision_1',['m_hashPrescision',['../class_float_index_vector.html#acf5d9e4a99820ec03c4910d3c704b6f6',1,'FloatIndexVector']]],
+  ['m_5findexvectors_2',['m_indexVectors',['../classopat_1_1lattice_1_1_table_lattice.html#a38150adf44ff2b4d169d3f733bcc2fa7',1,'opat::lattice::TableLattice']]],
+  ['m_5findexvectorsize_3',['m_indexVectorSize',['../classopat_1_1lattice_1_1_table_lattice.html#a4b9a29ae55f676a9dbde363e0ebf1e58',1,'opat::lattice::TableLattice']]],
+  ['m_5finitialized_4',['m_initialized',['../class_float_index_vector.html#a9f4277b6fd876bb366cc84e3dc7f14f3',1,'FloatIndexVector']]],
+  ['m_5finterpolationtype_5',['m_interpolationType',['../classopat_1_1lattice_1_1_table_lattice.html#a3d2b5500096577a779ddee895cf283f6',1,'opat::lattice::TableLattice']]],
+  ['m_5flastfoundsimplex_6',['m_lastFoundSimplex',['../classopat_1_1lattice_1_1_table_lattice.html#aa3cecd333a28a005c370a991dba79fdc',1,'opat::lattice::TableLattice']]],
+  ['m_5fnumcorners_7',['m_numCorners',['../classopat_1_1lattice_1_1_table_lattice.html#a84f1b9a40c628d8dcd445090233f06f1',1,'opat::lattice::TableLattice']]],
+  ['m_5fopat_8',['m_opat',['../classopat_1_1lattice_1_1_table_lattice.html#a1e61aec5bc56743b260a4f91a240df6a',1,'opat::lattice::TableLattice']]],
+  ['m_5fsimplexadjacency_9',['m_simplexAdjacency',['../classopat_1_1lattice_1_1_table_lattice.html#ac0e532863278e169f5518075d996fd3a',1,'opat::lattice::TableLattice']]],
+  ['m_5fsimplices_10',['m_simplices',['../classopat_1_1lattice_1_1_table_lattice.html#aad73eb1691d71b3ab29442c01e3800e5',1,'opat::lattice::TableLattice']]],
+  ['m_5fvector_11',['m_vector',['../class_float_index_vector.html#a52ec37e0d5550f490857b249de684a98',1,'FloatIndexVector']]],
+  ['m_5fvectorint_12',['m_vectorInt',['../class_float_index_vector.html#a658ee7e702a2e1da0e995a936d092ab8',1,'FloatIndexVector']]],
+  ['m_5fvsize_13',['m_vsize',['../structopat_1_1_o_p_a_t_table.html#abe6db012bdd1442b720caf14bbc983a3',1,'opat::OPATTable']]],
+  ['magic_14',['magic',['../structopat_1_1_header.html#a4444ae5119b819db58a25aa289f7b155',1,'opat::Header::magic'],['../structopat_1_1_card_header.html#ad7b411c39fd2af6ed41b130fc889c741',1,'opat::CardHeader::magic']]],
+  ['max_15',['max',['../structopat_1_1_bounds.html#a7078446c60fa18396fddd028583eb389',1,'opat::Bounds']]],
+  ['min_16',['min',['../structopat_1_1_bounds.html#ae39b8e6f2c339ae270d6e08fcef162ce',1,'opat::Bounds']]]
 ];

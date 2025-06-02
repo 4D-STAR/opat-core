@@ -106,13 +106,15 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_b" name="index_b"></a>- b -</h3><ul>
-<li>barycentricWeights&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_containing_simplex.html#a4ba5feda56b42576fe8531e4de58681b">opat::lattice::ContainingSimplex</a></li>
+<li>barycentricWeights&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_simplex.html#a7f837e136209bc0a87db0509693dc3a6">opat::lattice::Simplex</a></li>
+<li>buildDelaunay()&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a31dd715de3b0af74f0d937f65d8b586b">opat::lattice::TableLattice</a></li>
 <li>byteEnd&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog_entry.html#af744e14e3255ad65644981508d9aa5ea">opat::CardCatalogEntry</a>, <a class="el" href="structopat_1_1_table_index_entry.html#aff83e75769b074c782541d699a71794a">opat::TableIndexEntry</a></li>
 <li>byteStart&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog_entry.html#aec3ea7eb97e429fac72821871ea065ef">opat::CardCatalogEntry</a>, <a class="el" href="structopat_1_1_table_index_entry.html#a3744ebca2f6f0fde912d1051899434d1">opat::TableIndexEntry</a></li>
 </ul>
 
 
 <h3><a id="index_c" name="index_c"></a>- c -</h3><ul>
+<li>calculateBarycentricWeights()&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#ac8f568c58bdfa5e6e179957dfe6564a6">opat::lattice::TableLattice</a></li>
 <li>cardCatalog&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t.html#a4569724196143af959d17be809bbf532">opat::OPAT</a></li>
 <li>cards&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t.html#a310301d3f675bf5250c34c1970d4abba">opat::OPAT</a></li>
 <li>cardSize&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#a61d6c0bd609f3918e9fd47152050794e">opat::CardHeader</a></li>
@@ -139,6 +141,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_f" name="index_f"></a>- f -</h3><ul>
+<li>findContainingSimplex()&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a5ae2fd862721a8c8c4c6e73aeb2ca99f">opat::lattice::TableLattice</a></li>
 <li>FloatIndexVector()&#160;:&#160;<a class="el" href="class_float_index_vector.html#afe30e8c545430ae2ebe46e6bed07559d">FloatIndexVector</a></li>
 </ul>
 
@@ -168,14 +171,27 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
-<li>ID&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_containing_simplex.html#a0f3c2fd08ce4440b42e871400c105ee1">opat::lattice::ContainingSimplex</a>, <a class="el" href="structopat_1_1lattice_1_1_hypercube_corner.html#af1571d838f72d6c799e60df514569865">opat::lattice::HypercubeCorner</a></li>
+<li>ID&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_simplex.html#a9596e93be7276897a8a79e81426176fe">opat::lattice::Simplex</a></li>
 <li>index&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog_entry.html#af8aecb21d3204fee012e94dc08396e02">opat::CardCatalogEntry</a></li>
 <li>indexOffset&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#ae976b2c0c8568eebb61318389ba75429">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#aadecf0335cc99ba23ad616912fc7937a">opat::Header</a></li>
-<li>initialize()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a9497c08817209b298183239b25946260">FloatIndexVector</a></li>
+<li>initialize()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a9497c08817209b298183239b25946260">FloatIndexVector</a>, <a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a1be0b0b123b4e25db09e55c58f3b8ba8">opat::lattice::TableLattice</a></li>
 </ul>
 
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
+<li>m_axisValues&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a751efc496be39e19e6b861c110394b3d">opat::lattice::TableLattice</a></li>
+<li>m_hashPrescision&#160;:&#160;<a class="el" href="class_float_index_vector.html#acf5d9e4a99820ec03c4910d3c704b6f6">FloatIndexVector</a></li>
+<li>m_indexVectors&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a38150adf44ff2b4d169d3f733bcc2fa7">opat::lattice::TableLattice</a></li>
+<li>m_indexVectorSize&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a4b9a29ae55f676a9dbde363e0ebf1e58">opat::lattice::TableLattice</a></li>
+<li>m_initialized&#160;:&#160;<a class="el" href="class_float_index_vector.html#a9f4277b6fd876bb366cc84e3dc7f14f3">FloatIndexVector</a></li>
+<li>m_interpolationType&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a3d2b5500096577a779ddee895cf283f6">opat::lattice::TableLattice</a></li>
+<li>m_lastFoundSimplex&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#aa3cecd333a28a005c370a991dba79fdc">opat::lattice::TableLattice</a></li>
+<li>m_numCorners&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a84f1b9a40c628d8dcd445090233f06f1">opat::lattice::TableLattice</a></li>
+<li>m_opat&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a1e61aec5bc56743b260a4f91a240df6a">opat::lattice::TableLattice</a></li>
+<li>m_simplexAdjacency&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#ac0e532863278e169f5518075d996fd3a">opat::lattice::TableLattice</a></li>
+<li>m_simplices&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#aad73eb1691d71b3ab29442c01e3800e5">opat::lattice::TableLattice</a></li>
+<li>m_vector&#160;:&#160;<a class="el" href="class_float_index_vector.html#a52ec37e0d5550f490857b249de684a98">FloatIndexVector</a></li>
+<li>m_vectorInt&#160;:&#160;<a class="el" href="class_float_index_vector.html#a658ee7e702a2e1da0e995a936d092ab8">FloatIndexVector</a></li>
 <li>m_vsize&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#abe6db012bdd1442b720caf14bbc983a3">opat::OPATTable</a></li>
 <li>magic&#160;:&#160;<a class="el" href="structopat_1_1_card_header.html#ad7b411c39fd2af6ed41b130fc889c741">opat::CardHeader</a>, <a class="el" href="structopat_1_1_header.html#a4444ae5119b819db58a25aa289f7b155">opat::Header</a></li>
 <li>max&#160;:&#160;<a class="el" href="structopat_1_1_bounds.html#a7078446c60fa18396fddd028583eb389">opat::Bounds</a></li>
@@ -201,7 +217,6 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>operator=()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a1f58758c9418d57f3c9241af5344371e">FloatIndexVector</a>, <a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#ac0ea07a6a60e687458754b128f8781c9">opat::lattice::TableLattice</a></li>
 <li>operator==()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a77ec3f9781325d06286d01f63e24a552">FloatIndexVector</a></li>
 <li>operator[]()&#160;:&#160;<a class="el" href="class_float_index_vector.html#aff8f08345c69391f2b2cbf14f91160e5">FloatIndexVector</a>, <a class="el" href="structopat_1_1_data_card.html#aaa82e4231a84f02fd1ca0aeddcc48ef2">opat::DataCard</a>, <a class="el" href="structopat_1_1_o_p_a_t.html#afa9173a42b4ec4cbc01c3f298e1d0d19">opat::OPAT</a>, <a class="el" href="structopat_1_1_table_index.html#acd7dd4cbee87626267bf8c4a336370fa">opat::TableIndex</a></li>
-<li>ordering&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_hypercube_corner.html#ae9bee9ebd4d274fab7d9edc02018f5bb">opat::lattice::HypercubeCorner</a></li>
 </ul>
 
 
@@ -222,6 +237,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>setHashPrecision()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a8086c8056766f74fcfb613305de744ff">FloatIndexVector</a></li>
 <li>setInterpolationType()&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a93966812707e3168773fcd1eb559c928">opat::lattice::TableLattice</a></li>
+<li>setupVecs()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a07d49135dcec947d64d2c438fa02fc3e">FloatIndexVector</a></li>
 <li>setVector()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a5442d65a5e5f27d215de982d5ba135b0">FloatIndexVector</a></li>
 <li>sha256&#160;:&#160;<a class="el" href="structopat_1_1_card_catalog_entry.html#ab0cfd19f747f133d5f07bc492abceda2">opat::CardCatalogEntry</a></li>
 <li>size()&#160;:&#160;<a class="el" href="class_float_index_vector.html#a876097496de8a8ceaf87b3dd74228c8c">FloatIndexVector</a>, <a class="el" href="structopat_1_1_o_p_a_t_table.html#a2eaf41c3dff4d6ecd14bafd610f8fb4e">opat::OPATTable</a>, <a class="el" href="structopat_1_1_table_index_entry.html#aabd66bbf14fb0be375f22b8398bf89b3">opat::TableIndexEntry</a></li>
@@ -240,13 +256,9 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_v" name="index_v"></a>- v -</h3><ul>
+<li>validateIndexVector()&#160;:&#160;<a class="el" href="classopat_1_1lattice_1_1_table_lattice.html#a1d6765e24c4ccdd50e714ca6ed4296cc">opat::lattice::TableLattice</a></li>
 <li>version&#160;:&#160;<a class="el" href="structopat_1_1_header.html#a9a7100813f45aa1690ec2b75154cc409">opat::Header</a></li>
 <li>vsize()&#160;:&#160;<a class="el" href="structopat_1_1_o_p_a_t_table.html#af1decd49333fb50399cda232f5393d42">opat::OPATTable</a></li>
-</ul>
-
-
-<h3><a id="index_w" name="index_w"></a>- w -</h3><ul>
-<li>weight&#160;:&#160;<a class="el" href="structopat_1_1lattice_1_1_hypercube_corner.html#a49c6363c2fde17d99c336e3b4ad20258">opat::lattice::HypercubeCorner</a></li>
 </ul>
 
 

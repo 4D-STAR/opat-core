@@ -151,6 +151,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>, which contains multiple tables.  <a href="structopat_1_1_data_card.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1_bounds.html">opat::Bounds</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold the minimum and maximum values for a dimension.  <a href="structopat_1_1_bounds.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold the entire <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.  <a href="structopat_1_1_o_p_a_t.html#details">More...</a><br /></td></tr>
@@ -209,7 +210,7 @@ Functions</h2></td></tr>
 <li><b>Flexibility</b>: Support for multiple tables and metadata.</li>
 <li><b>Performance</b>: Use of unordered maps for fast lookups.</li>
 </ul>
-<p>Usage Example: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="opat_i_o_8h.html">opatIO.h</a>&quot;</span></div>
+<p><b>Example</b>: </p><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="opat_i_o_8h.html">opatIO.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    std::string filename = <span class="stringliteral">&quot;example.opat&quot;</span>;</div>
@@ -220,7 +221,7 @@ Functions</h2></td></tr>
 <div class="line">}</div>
 <div class="ttc" id="anamespaceopat_html_aca57fce2c7ef3e4714709b3d9507d4b0"><div class="ttname"><a href="namespaceopat.html#aca57fce2c7ef3e4714709b3d9507d4b0">opat::readOPAT</a></div><div class="ttdeci">OPAT readOPAT(const std::string &amp;filename)</div><div class="ttdoc">Reads an OPAT file and returns its contents as an OPAT structure.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:76</div></div>
 <div class="ttc" id="aopat_i_o_8h_html"><div class="ttname"><a href="opat_i_o_8h.html">opatIO.h</a></div><div class="ttdoc">Header file for the OPAT I/O library, providing structures and functions for reading and manipulating...</div></div>
-<div class="ttc" id="astructopat_1_1_o_p_a_t_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></div><div class="ttdoc">Structure to hold the entire OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:500</div></div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html">opat::OPAT</a></div><div class="ttdoc">Structure to hold the entire OPAT file.</div><div class="ttdef"><b>Definition</b> opatIO.h:502</div></div>
 <div class="ttc" id="astructopat_1_1_o_p_a_t_html_aad792db70df5106256e9cc96ad878c42"><div class="ttname"><a href="structopat_1_1_o_p_a_t.html#aad792db70df5106256e9cc96ad878c42">opat::OPAT::get</a></div><div class="ttdeci">const DataCard &amp; get(const FloatIndexVector &amp;index) const</div><div class="ttdoc">Retrieves a DataCard from the OPAT structure by index.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:271</div></div>
 </div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- doc-content -->

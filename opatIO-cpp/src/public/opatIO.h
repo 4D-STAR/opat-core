@@ -32,7 +32,7 @@
  * - **Flexibility**: Support for multiple tables and metadata.
  * - **Performance**: Use of unordered maps for fast lookups.
  *
- * Usage Example:
+ * **Example**:
  * @code
  * #include "opatIO.h"
  * 
@@ -226,6 +226,7 @@ struct TableIndex {
  *
  * @note This Slice does not support defining step sizes, just ranges.
  *
+ * **Example:**
  * @code
  * // Assume you have an opat file loaded into the variable opat
  * Slice rowSlice(6, 12);
@@ -453,7 +454,8 @@ struct DataCard {
     /**
      * @brief Retrieves a list of all table tags (keys) present in this DataCard.
      * @return A vector of strings, where each string is a table tag.
-     * @example
+     *
+     * **Example:**
      * @code
      * // Assuming 'data_card' is an initialized opat::DataCard object
      * std::vector<std::string> table_keys = data_card.getKeys();
@@ -472,7 +474,7 @@ struct DataCard {
  *
  * This is typically used to represent the bounds of index vectors in an OPAT file.
  *
- * @example
+ * **Example:**
  * @code
  * opat::Bounds dim_bounds;
  * dim_bounds.min = 0.0;
@@ -524,16 +526,13 @@ struct OPAT {
      * @param index The std::vector<double> representing the index of the DataCard to retrieve.
      * @return A constant reference to the DataCard.
      * @throws std::out_of_range if the index is not found.
-     * @example
+     *
+     * **Example:**
      * @code
      * // Assuming 'opat_file' is an initialized opat::OPAT object
      * std::vector<double> my_index = {1.0, 2.5};
-     * try {
-     *     const opat::DataCard& card = opat_file.get(my_index);
-     *     // Use the card
-     * } catch (const std::out_of_range& e) {
-     *     std::cerr << "DataCard not found: " << e.what() << std::endl;
-     * }
+     * const opat::DataCard& card = opat_file.get(my_index);
+     * // Use the card
      * @endcode
      */
     [[nodiscard]] const DataCard& get(const std::vector<double>& index) const {
@@ -554,16 +553,13 @@ struct OPAT {
      * @param index The std::vector<double> representing the index of the DataCard to access.
      * @return A constant reference to the DataCard.
      * @throws std::out_of_range if the index is not found.
-     * @example
+     *
+     * **Example:**
      * @code
      * // Assuming 'opat_file' is an initialized opat::OPAT object
      * std::vector<double> my_index = {1.0, 2.5};
-     * try {
-     *     const opat::DataCard& card = opat_file[my_index];
-     *     // Use the card
-     * } catch (const std::out_of_range& e) {
-     *     std::cerr << "DataCard not found: " << e.what() << std::endl;
-     * }
+     * const opat::DataCard& card = opat_file[my_index];
+     * // Use the card
      * @endcode
      */
     const DataCard& operator[](const std::vector<double>& index) const {
@@ -574,7 +570,8 @@ struct OPAT {
      * @brief Calculates and returns the bounds (min and max values) for each dimension of the index vectors in the OPAT file.
      * @return A vector of Bounds structs, where each struct corresponds to a dimension of the index vectors.
      * The size of the returned vector will be equal to `header.numIndex`.
-     * @example
+     *
+     * **Example:**
      * @code
      * // Assuming 'opat_file' is an initialized opat::OPAT object
      * std::vector<opat::Bounds> all_bounds = opat_file.getBounds();
@@ -597,6 +594,7 @@ struct OPAT {
  * @return An OPAT structure containing the file's data.
  * @throws std::runtime_error if the file cannot be opened, is invalid, or has an incorrect magic number.
  * 
+ * **Example:**
  * @code
  * OPAT file = opat::readOPAT("example.opat");
  * std::cout << file.header << std::endl;
@@ -614,6 +612,7 @@ OPAT readOPAT(const std::string& filename);
  * @return A Header structure containing the file's metadata.
  * @throws std::runtime_error if the header cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::Header header = opat::readHeader(file);
@@ -636,6 +635,7 @@ Header readHeader(std::ifstream &file);
  * @return A CardCatalogEntry structure.
  * @throws std::runtime_error if the entry cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::CardCatalogEntry entry = opat::readCardCatalogEntry(file, 128, 3, 8);
@@ -655,6 +655,7 @@ CardCatalogEntry readCardCatalogEntry(std::ifstream &file, uint64_t offset, uint
  * @return A CardCatalog structure.
  * @throws std::runtime_error if the card catalog cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::Header header = opat::readHeader(file);
@@ -676,6 +677,7 @@ CardCatalog readCardCatalog(std::ifstream &file, const Header &header);
  * @return A map of index vectors to DataCards.
  * @throws std::runtime_error if any DataCard cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::Header header = opat::readHeader(file);
@@ -695,6 +697,7 @@ std::unordered_map<FloatIndexVector, DataCard> readDataCards(std::ifstream &file
  * @return A DataCard structure.
  * @throws std::runtime_error if the DataCard cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
@@ -714,6 +717,7 @@ DataCard readDataCard(std::ifstream &file, const CardCatalogEntry &entry);
  * @return A CardHeader structure.
  * @throws std::runtime_error if the DataCard header cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
@@ -734,6 +738,7 @@ CardHeader readDataCardHeader(std::ifstream &file, const CardCatalogEntry &entry
  * @return A TableIndex structure.
  * @throws std::runtime_error if the TableIndex cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::CardCatalogEntry entry = ...; // Retrieved from the catalog
@@ -755,6 +760,7 @@ TableIndex readTableIndex(std::ifstream &file, const CardCatalogEntry &entry, co
  * @return An OPATTable structure.
  * @throws std::runtime_error if the table cannot be read or is incomplete.
  * 
+ * **Example:**
  * @code
  * std::ifstream file("example.opat", std::ios::binary);
  * opat::CardCatalogEntry cardEntry = ...; // Retrieved from the catalog
@@ -773,6 +779,7 @@ OPATTable readOPATTable(std::ifstream &file, const CardCatalogEntry &cardEntry, 
  * @param filename Path to the file.
  * @return True if the file has the correct magic number, false otherwise.
  * 
+ * **Example:**
  * @code
  * bool isValid = opat::hasMagic("example.opat");
  * if (isValid) {
@@ -790,6 +797,7 @@ bool hasMagic(const std::string& filename);
  * 
  * @return True if the system is big-endian, false otherwise.
  * 
+ * **Example:**
  * @code
  * if (opat::is_big_endian()) {
  *     std::cout << "System is big-endian." << std::endl;
@@ -808,6 +816,7 @@ bool is_big_endian();
  * @param value The value to swap.
  * @return The value with its byte order reversed.
  * 
+ * **Example:**
  * @code
  * uint16_t value = 0x1234;
  * uint16_t swapped = opat::swap_bytes(value);
