@@ -112,12 +112,11 @@ $(function(){initNavTree('namespaceopat_1_1lattice.html',''); initResizable(true
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_containing_simplex.html">ContainingSimplex</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_hypercube_corner.html">HypercubeCorner</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a corner of a hypercube in the index space.  <a href="structopat_1_1lattice_1_1_hypercube_corner.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_simplex.html">Simplex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a simplex containing a point, along with barycentric weights.  <a href="structopat_1_1lattice_1_1_simplex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopat_1_1lattice_1_1_table_lattice.html">TableLattice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a lattice structure for interpolating data from an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> object.  <a href="classopat_1_1lattice_1_1_table_lattice.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -133,7 +132,7 @@ Typedefs</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a8e39ea4a5ca7b998812a84e72cae2605" id="r_a8e39ea4a5ca7b998812a84e72cae2605"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e39ea4a5ca7b998812a84e72cae2605">InterpolationType</a> { <a class="el" href="#a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b">Linear</a>
 , <a class="el" href="#a8e39ea4a5ca7b998812a84e72cae2605a8b2972385ed28d0e199ae2985d6fea4c">Quadratic</a>
-, <a class="el" href="#a8e39ea4a5ca7b998812a84e72cae2605ae2ddeeb4ef2fa30355decdd487059136">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>
+, <a class="el" href="#a8e39ea4a5ca7b998812a84e72cae2605aec6b5414eb175379ff9efc9b3eef5814">Cubic</a>
  }</td></tr>
 <tr class="memdesc:a8e39ea4a5ca7b998812a84e72cae2605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the type of interpolation to be used.  <a href="#a8e39ea4a5ca7b998812a84e72cae2605">More...</a><br /></td></tr>
 <tr class="separator:a8e39ea4a5ca7b998812a84e72cae2605"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,6 +140,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af49adb529a56ad02dc0740d633ef6c86" id="r_af49adb529a56ad02dc0740d633ef6c86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a84ca62b2818549dda82c000f3e1a260b">bvec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af49adb529a56ad02dc0740d633ef6c86">solveLinearSystem</a> (<a class="el" href="#aa0972424008d49c8464d45fb8ed82f2d">bmat</a> A, <a class="el" href="#a84ca62b2818549dda82c000f3e1a260b">bvec</a> b)</td></tr>
+<tr class="memdesc:af49adb529a56ad02dc0740d633ef6c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves a linear system of equations Ax = b.  <br /></td></tr>
 <tr class="separator:af49adb529a56ad02dc0740d633ef6c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -159,8 +159,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Typedef for a Boost uBLAS matrix of doubles. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2table_lattice_8h-example.html#a5">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -177,8 +175,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Typedef for a Boost uBLAS vector of doubles. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2table_lattice_8h-example.html#a6">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -209,17 +205,9 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a8e39ea4a5ca7b998812a84e72cae2605a8b2972385ed28d0e199ae2985d6fea4c" name="a8e39ea4a5ca7b998812a84e72cae2605a8b2972385ed28d0e199ae2985d6fea4c"></a>Quadratic&#160;</td><td class="fielddoc"><p>Quadratic interpolation (Not yet implemented). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8e39ea4a5ca7b998812a84e72cae2605ae2ddeeb4ef2fa30355decdd487059136" name="a8e39ea4a5ca7b998812a84e72cae2605ae2ddeeb4ef2fa30355decdd487059136"></a>/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h&#160;</td><td class="fielddoc"><p>Cubic interpolation (Not yet implemented). </p>
-<div class="fragment"><div class="line"><a class="code hl_enumeration" href="#a8e39ea4a5ca7b998812a84e72cae2605">opat::lattice::InterpolationType</a> type = <a class="code hl_enumvalue" href="#a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b">opat::lattice::InterpolationType::Linear</a>;</div>
-<div class="line"><span class="keywordflow">if</span> (type == <a class="code hl_enumvalue" href="#a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b">opat::lattice::InterpolationType::Linear</a>) {</div>
-<div class="line">    <span class="comment">// Do something for linear interpolation</span></div>
-<div class="line">}</div>
-<div class="ttc" id="anamespaceopat_1_1lattice_html_a8e39ea4a5ca7b998812a84e72cae2605"><div class="ttname"><a href="#a8e39ea4a5ca7b998812a84e72cae2605">opat::lattice::InterpolationType</a></div><div class="ttdeci">InterpolationType</div><div class="ttdoc">Defines the type of interpolation to be used.</div><div class="ttdef"><b>Definition</b> tableLattice.h:62</div></div>
-<div class="ttc" id="anamespaceopat_1_1lattice_html_a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b"><div class="ttname"><a href="#a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b">opat::lattice::InterpolationType::Linear</a></div><div class="ttdeci">@ Linear</div><div class="ttdoc">Linear interpolation.</div><div class="ttdef"><b>Definition</b> tableLattice.h:63</div></div>
-</div><!-- fragment --> </td></tr>
+<tr><td class="fieldname"><a id="a8e39ea4a5ca7b998812a84e72cae2605aec6b5414eb175379ff9efc9b3eef5814" name="a8e39ea4a5ca7b998812a84e72cae2605aec6b5414eb175379ff9efc9b3eef5814"></a>Cubic&#160;</td><td class="fielddoc"><p>Cubic interpolation (Not yet implemented). </p>
+</td></tr>
 </table>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2table_lattice_8h-example.html#a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -242,9 +230,38 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2table_lattice_8h-example.html#a20">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>.</dd>
-</dl>
 
+<p>Solves a linear system of equations Ax = b. </p>
+<p>Uses LU decomposition to solve the system. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">A</td><td>The matrix A. </td></tr>
+    <tr><td class="paramname">b</td><td>The vector b. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The solution vector x. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>if matrix dimensions are mismatched or LU factorization fails.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="comment">// Solves Ax = b for x</span></div>
+<div class="line"><a class="code hl_typedef" href="#aa0972424008d49c8464d45fb8ed82f2d">opat::lattice::bmat</a> A(2, 2); <span class="comment">// 2x2 matrix</span></div>
+<div class="line">A(0, 0) = 2.0; A(0, 1) = 1.0;</div>
+<div class="line">A(1, 0) = 1.0; A(1, 1) = 3.0;</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_typedef" href="#a84ca62b2818549dda82c000f3e1a260b">opat::lattice::bvec</a> b(2);    <span class="comment">// 2-element vector</span></div>
+<div class="line">b(0) = 5.0;</div>
+<div class="line">b(1) = 7.0;</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_typedef" href="#a84ca62b2818549dda82c000f3e1a260b">opat::lattice::bvec</a> x = <a class="code hl_function" href="#af49adb529a56ad02dc0740d633ef6c86">opat::lattice::solveLinearSystem</a>(A, b);</div>
+<div class="line"><span class="comment">// x should be approximately [1.6, 1.8]</span></div>
+<div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Solution x: &quot;</span> &lt;&lt; x &lt;&lt; std::endl;</div>
+<div class="ttc" id="anamespaceopat_1_1lattice_html_a84ca62b2818549dda82c000f3e1a260b"><div class="ttname"><a href="#a84ca62b2818549dda82c000f3e1a260b">opat::lattice::bvec</a></div><div class="ttdeci">boost::numeric::ublas::vector&lt; double &gt; bvec</div><div class="ttdoc">Typedef for a Boost uBLAS vector of doubles.</div><div class="ttdef"><b>Definition</b> tableLattice.h:25</div></div>
+<div class="ttc" id="anamespaceopat_1_1lattice_html_aa0972424008d49c8464d45fb8ed82f2d"><div class="ttname"><a href="#aa0972424008d49c8464d45fb8ed82f2d">opat::lattice::bmat</a></div><div class="ttdeci">boost::numeric::ublas::matrix&lt; double &gt; bmat</div><div class="ttdoc">Typedef for a Boost uBLAS matrix of doubles.</div><div class="ttdef"><b>Definition</b> tableLattice.h:21</div></div>
+<div class="ttc" id="anamespaceopat_1_1lattice_html_af49adb529a56ad02dc0740d633ef6c86"><div class="ttname"><a href="#af49adb529a56ad02dc0740d633ef6c86">opat::lattice::solveLinearSystem</a></div><div class="ttdeci">bvec solveLinearSystem(bmat A, bvec b)</div><div class="ttdoc">Solves a linear system of equations Ax = b.</div><div class="ttdef"><b>Definition</b> tableLattice.cpp:517</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 </div><!-- contents -->

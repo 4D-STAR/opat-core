@@ -119,12 +119,11 @@ $(function(){initNavTree('table_lattice_8h.html',''); initResizable(true); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_hypercube_corner.html">opat::lattice::HypercubeCorner</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a corner of a hypercube in the index space.  <a href="structopat_1_1lattice_1_1_hypercube_corner.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_containing_simplex.html">opat::lattice::ContainingSimplex</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structopat_1_1lattice_1_1_simplex.html">opat::lattice::Simplex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a simplex containing a point, along with barycentric weights.  <a href="structopat_1_1lattice_1_1_simplex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classopat_1_1lattice_1_1_table_lattice.html">opat::lattice::TableLattice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a lattice structure for interpolating data from an <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> object.  <a href="classopat_1_1lattice_1_1_table_lattice.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -148,7 +147,7 @@ Typedefs</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a8e39ea4a5ca7b998812a84e72cae2605" id="r_a8e39ea4a5ca7b998812a84e72cae2605"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605">opat::lattice::InterpolationType</a> { <a class="el" href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605a32a843da6ea40ab3b17a3421ccdf671b">opat::lattice::Linear</a>
 , <a class="el" href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605a8b2972385ed28d0e199ae2985d6fea4c">opat::lattice::Quadratic</a>
-, <a class="el" href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605ae2ddeeb4ef2fa30355decdd487059136">opat::lattice::/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>
+, <a class="el" href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605aec6b5414eb175379ff9efc9b3eef5814">opat::lattice::Cubic</a>
  }</td></tr>
 <tr class="memdesc:a8e39ea4a5ca7b998812a84e72cae2605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the type of interpolation to be used.  <a href="namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605">More...</a><br /></td></tr>
 <tr class="separator:a8e39ea4a5ca7b998812a84e72cae2605"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +155,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af49adb529a56ad02dc0740d633ef6c86" id="r_af49adb529a56ad02dc0740d633ef6c86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceopat_1_1lattice.html#a84ca62b2818549dda82c000f3e1a260b">bvec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceopat_1_1lattice.html#af49adb529a56ad02dc0740d633ef6c86">opat::lattice::solveLinearSystem</a> (<a class="el" href="namespaceopat_1_1lattice.html#aa0972424008d49c8464d45fb8ed82f2d">bmat</a> A, <a class="el" href="namespaceopat_1_1lattice.html#a84ca62b2818549dda82c000f3e1a260b">bvec</a> b)</td></tr>
+<tr class="memdesc:af49adb529a56ad02dc0740d633ef6c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves a linear system of equations Ax = b.  <br /></td></tr>
 <tr class="separator:af49adb529a56ad02dc0740d633ef6c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

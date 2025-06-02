@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['version_0',['version',['../structopat_1_1_header.html#a9a7100813f45aa1690ec2b75154cc409',1,'opat::Header']]],
-  ['vsize_1',['vsize',['../structopat_1_1_o_p_a_t_table.html#af1decd49333fb50399cda232f5393d42',1,'opat::OPATTable']]]
+  ['_7etablelattice_0',['~TableLattice',['../classopat_1_1lattice_1_1_table_lattice.html#a211417a765057c1b17f31b5c1b83e6cd',1,'opat::lattice::TableLattice']]]
 ];

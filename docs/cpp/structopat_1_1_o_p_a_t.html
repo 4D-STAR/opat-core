@@ -118,13 +118,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aad792db70df5106256e9cc96ad878c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by index.  <br /></td></tr>
 <tr class="separator:aad792db70df5106256e9cc96ad878c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a366c44e15d70b3e0042c8322897ea39f" id="r_a366c44e15d70b3e0042c8322897ea39f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a366c44e15d70b3e0042c8322897ea39f">get</a> (const std::vector&lt; double &gt; &amp;index) const</td></tr>
+<tr class="memdesc:a366c44e15d70b3e0042c8322897ea39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by a standard vector of doubles. This is a convenience overload that constructs a <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> internally.  <br /></td></tr>
 <tr class="separator:a366c44e15d70b3e0042c8322897ea39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa9173a42b4ec4cbc01c3f298e1d0d19" id="r_afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa9173a42b4ec4cbc01c3f298e1d0d19">operator[]</a> (const <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> &amp;index) const</td></tr>
 <tr class="memdesc:afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by index.  <br /></td></tr>
 <tr class="separator:afa9173a42b4ec4cbc01c3f298e1d0d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a973cd27c04f868564c1a075e13e72c9e" id="r_a973cd27c04f868564c1a075e13e72c9e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structopat_1_1_data_card.html">DataCard</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a973cd27c04f868564c1a075e13e72c9e">operator[]</a> (const std::vector&lt; double &gt; &amp;index) const</td></tr>
+<tr class="memdesc:a973cd27c04f868564c1a075e13e72c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by a standard vector of doubles. This is a convenience overload that constructs a <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> internally.  <br /></td></tr>
 <tr class="separator:a973cd27c04f868564c1a075e13e72c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa11de0c3d51e4ee48526a0b2295f017c" id="r_aa11de0c3d51e4ee48526a0b2295f017c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structopat_1_1_bounds.html">Bounds</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa11de0c3d51e4ee48526a0b2295f017c">getBounds</a> () const</td></tr>
+<tr class="memdesc:aa11de0c3d51e4ee48526a0b2295f017c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates and returns the bounds (min and max values) for each dimension of the index vectors in the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file.  <br /></td></tr>
 <tr class="separator:aa11de0c3d51e4ee48526a0b2295f017c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -148,7 +151,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure to hold the entire <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
 <p>The <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure contains the file header, card catalog, and all DataCards. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2private_2fextern_8cpp-example.html#_a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/private/fextern.cpp</a>, <a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#_a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>, and <a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2table_lattice_8h-example.html#_a13">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/tableLattice.h</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2private_2fextern_8cpp-example.html#_a9">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/private/fextern.cpp</a>.</dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aad792db70df5106256e9cc96ad878c42" name="aad792db70df5106256e9cc96ad878c42"></a>
@@ -188,8 +191,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a80">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -216,6 +217,27 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Retrieves a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by a standard vector of doubles. This is a convenience overload that constructs a <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> internally. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The std::vector&lt;double&gt; representing the index of the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> to retrieve. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A constant reference to the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the index is not found.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="comment">// Assuming &#39;opat_file&#39; is an initialized opat::OPAT object</span></div>
+<div class="line">std::vector&lt;double&gt; my_index = {1.0, 2.5};</div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structopat_1_1_data_card.html">opat::DataCard</a>&amp; card = opat_file.<a class="code hl_function" href="structopat_1_1_data_card.html#af81bd2ef5fe5d57a368a07e9cf580197">get</a>(my_index);</div>
+<div class="line"><span class="comment">// Use the card</span></div>
+<div class="ttc" id="astructopat_1_1_data_card_html"><div class="ttname"><a href="structopat_1_1_data_card.html">opat::DataCard</a></div><div class="ttdoc">Structure to hold a DataCard, which contains multiple tables.</div><div class="ttdef"><b>Definition</b> opatIO.h:409</div></div>
+<div class="ttc" id="astructopat_1_1_data_card_html_af81bd2ef5fe5d57a368a07e9cf580197"><div class="ttname"><a href="structopat_1_1_data_card.html#af81bd2ef5fe5d57a368a07e9cf580197">opat::DataCard::get</a></div><div class="ttdeci">const OPATTable &amp; get(const std::string &amp;tag) const</div><div class="ttdoc">Retrieves a table from the DataCard by tag.</div><div class="ttdef"><b>Definition</b> opatIO.cpp:284</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa11de0c3d51e4ee48526a0b2295f017c" name="aa11de0c3d51e4ee48526a0b2295f017c"></a>
@@ -240,9 +262,16 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a82">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
+<p>Calculates and returns the bounds (min and max values) for each dimension of the index vectors in the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of <a class="el" href="structopat_1_1_bounds.html" title="Structure to hold the minimum and maximum values for a dimension.">Bounds</a> structs, where each struct corresponds to a dimension of the index vectors. The size of the returned vector will be equal to <code>header.numIndex</code>.</dd></dl>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="comment">// Assuming &#39;opat_file&#39; is an initialized opat::OPAT object</span></div>
+<div class="line">std::vector&lt;opat::Bounds&gt; all_bounds = opat_file.getBounds();</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; all_bounds.size(); ++i) {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Dimension &quot;</span> &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;: Min = &quot;</span> &lt;&lt; all_bounds[i].min</div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;, Max = &quot;</span> &lt;&lt; all_bounds[i].max &lt;&lt; std::endl;</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="afa9173a42b4ec4cbc01c3f298e1d0d19" name="afa9173a42b4ec4cbc01c3f298e1d0d19"></a>
@@ -274,8 +303,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a81">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -302,6 +329,25 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Accesses a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> from the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> structure by a standard vector of doubles. This is a convenience overload that constructs a <a class="el" href="class_float_index_vector.html">FloatIndexVector</a> internally. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The std::vector&lt;double&gt; representing the index of the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> to access. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A constant reference to the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::out_of_range</td><td>if the index is not found.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="comment">// Assuming &#39;opat_file&#39; is an initialized opat::OPAT object</span></div>
+<div class="line">std::vector&lt;double&gt; my_index = {1.0, 2.5};</div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="structopat_1_1_data_card.html">opat::DataCard</a>&amp; card = opat_file[my_index];</div>
+<div class="line"><span class="comment">// Use the card</span></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Symbol Documentation</h2>
@@ -341,8 +387,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the output stream. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a79">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -360,8 +404,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Catalog of DataCards in the file. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a77">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -378,8 +420,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Map of index vectors to DataCards. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a78">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -396,8 +436,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="structopat_1_1_header.html" title="Structure to hold the header information of an OPAT file.">Header</a> of the <a class="el" href="structopat_1_1_o_p_a_t.html" title="Structure to hold the entire OPAT file.">OPAT</a> file. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a76">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>

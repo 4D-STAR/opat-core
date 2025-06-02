@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['print_0',['print',['../structopat_1_1_header.html#af80325e25e93dfd6f3dc5938550a3236',1,'opat::Header::print()'],['../structopat_1_1_o_p_a_t_table.html#a02c70d52d5af937f2575eee6c92733a7',1,'opat::OPATTable::print()']]],
-  ['programmatic_20api_20usage_1',['1. Programmatic (API) Usage',['../index.html#autotoc_md7',1,'']]]
+  ['quadratic_0',['Quadratic',['../namespaceopat_1_1lattice.html#a8e39ea4a5ca7b998812a84e72cae2605a8b2972385ed28d0e199ae2985d6fea4c',1,'opat::lattice']]]
 ];

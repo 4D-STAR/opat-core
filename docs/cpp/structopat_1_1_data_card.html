@@ -127,6 +127,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a96e956a5bb1349a41b95020a7f6abddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses a table from the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> by tag (string_view version).  <br /></td></tr>
 <tr class="separator:a96e956a5bb1349a41b95020a7f6abddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8bce41e6cd7336a3afd20d7c6d86e41" id="r_aa8bce41e6cd7336a3afd20d7c6d86e41"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8bce41e6cd7336a3afd20d7c6d86e41">getKeys</a> () const</td></tr>
+<tr class="memdesc:aa8bce41e6cd7336a3afd20d7c6d86e41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a list of all table tags (keys) present in this <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>.  <br /></td></tr>
 <tr class="separator:aa8bce41e6cd7336a3afd20d7c6d86e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -150,8 +151,6 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure to hold a <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>, which contains multiple tables. </p>
 <p>A <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a> includes metadata, a table index, and the actual table data. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#_a7">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af81bd2ef5fe5d57a368a07e9cf580197" name="af81bd2ef5fe5d57a368a07e9cf580197"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af81bd2ef5fe5d57a368a07e9cf580197">&#9670;&#160;</a></span>get()</h2>
@@ -190,8 +189,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a70">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -217,9 +214,18 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a72">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
+<p>Retrieves a list of all table tags (keys) present in this <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of strings, where each string is a table tag.</dd></dl>
+<p><b>Example:</b> </p><div class="fragment"><div class="line"><span class="comment">// Assuming &#39;data_card&#39; is an initialized opat::DataCard object</span></div>
+<div class="line">std::vector&lt;std::string&gt; table_keys = data_card.getKeys();</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; key : table_keys) {</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Table found: &quot;</span> &lt;&lt; key &lt;&lt; std::endl;</div>
+<div class="line">    <span class="keyword">const</span> <a class="code hl_struct" href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a>&amp; table = data_card[key];</div>
+<div class="line">    <span class="comment">// Process the table</span></div>
+<div class="line">}</div>
+<div class="ttc" id="astructopat_1_1_o_p_a_t_table_html"><div class="ttname"><a href="structopat_1_1_o_p_a_t_table.html">opat::OPATTable</a></div><div class="ttdoc">Structure to hold the data of an OPAT table.</div><div class="ttdef"><b>Definition</b> opatIO.h:259</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a33df151c70ef750b5f171d04fe89f066" name="a33df151c70ef750b5f171d04fe89f066"></a>
@@ -282,8 +288,6 @@ Friends</h2></td></tr>
     <tr><td class="paramname">std::out_of_range</td><td>if the tag is not found. </td></tr>
   </table>
   </dd>
-</dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a71">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
 </dl>
 
 </div>
@@ -357,8 +361,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the output stream. </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a69">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -376,8 +378,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p><a class="el" href="structopat_1_1_header.html" title="Structure to hold the header information of an OPAT file.">Header</a> of the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a66">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -394,8 +394,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Map of table tags to their data. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a68">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
@@ -412,8 +410,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Index of tables within the <a class="el" href="structopat_1_1_data_card.html" title="Structure to hold a DataCard, which contains multiple tables.">DataCard</a>. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_2_users_2tboudreaux_2_programming_2opat-core_2opat_i_o-cpp_2src_2public_2opat_i_o_8h-example.html#a67">/Users/tboudreaux/Programming/opat-core/opatIO-cpp/src/public/opatIO.h</a>.</dd>
-</dl>
 
 </div>
 </div>
