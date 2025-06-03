@@ -25,6 +25,29 @@ This repository provides both C++ and python bindings. The first thing to note i
 
 There are more details on usage for each language in their respective folder; however, broad installation instructions are included here as well.
 
+### Dependencies Overview
+
+Below is a summary of the key dependencies for each part of the project.
+
+#### Python Dependencies
+These are managed by `pip` and are listed in `opatIO-py/pyproject.toml`.
+
+| Dependency | Minimum Version | Usage                                  | Source/Authors                                                                 |
+|------------|-----------------|----------------------------------------|--------------------------------------------------------------------------------|
+| `numpy`    | `>= 1.21.1`     | Numerical operations, array handling   | [NumPy Developers](https://numpy.org/)                                         |
+| `xxhash`   | `>= 3.5.0`      | Fast hashing algorithms (internal use) | [Yann Collet (Cyan4973)](https://github.com/Cyan4973/xxHash)                   |
+
+#### C++ Dependencies
+Most C++ dependencies are handled via Meson's wrap system (built at compile time). Boost is an exception.
+
+| Dependency | Installation                                     | Usage                                                                 | Source/Authors                                                                                                                                                                     |
+|------------|--------------------------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Boost      | System install or via bundled script (prompts user) | Numerical linear algebra (`ublas`) in `TableLattice`                  | [Boost Community](https://www.boost.org/)                                                                                                                                          |
+| Qhull      | Meson wrap (built automatically)                 | N-dimensional Delaunay triangulation for `TableLattice`               | [Barber, C.B., Dobkin, D.P., and Huhdanpaa, H.T., "The Quickhull algorithm for convex hulls," ACM Trans. on Mathematical Software, 22(4):469-483, Dec 1996](http://www.qhull.org/) |
+| xxHash     | Meson wrap (built automatically)                 | Fast hashing for `FloatIndexVector` lookups in `OPAT` class           | [Yann Collet (Cyan4973)](https://github.com/Cyan4973/xxHash) & [Stefan Brumme (stbrumme)](https://create.stephan-brumme.com/xxhash/)                                                                     
+| PicoSHA2   | Meson wrap (built automatically)                 | SHA-256 hashing for data integrity checks (`CardCatalogEntry`)        | [Shintarou Okada (okdshin)](https://github.com/okdshin/PicoSHA2)                                                                                                                             
+| cxxopts    | Meson wrap (built automatically)                 | Command-line option parsing for CLI tools (e.g., `opatHeader`)        | [Jarryd Beck (jarro2783)](https://github.com/jarro2783/cxxopts)                                                                                                                                
+
 ### Python Installation
 ```bash
 pip install opatio
@@ -44,10 +67,12 @@ cd opat-core
 meson setup build --buildtype=release
 meson compile -C build
 ```
-If you want to run tests
+If you want to run tests you can use meson's build in test command. Note that due to small numerical differences between computers and compilers, some tests may fail. This is expected and can be ignored. Specifically, `TableLattice` tests rely on the ordering / adjacency of Delaunay triangulation which can vary between systems.
 ```bash
 meson test -C build
 ```
+
+
 To install headers, libraries, and the command line utilities
 ```bash
 meson install -C build
@@ -162,7 +187,7 @@ The C++ library is primarily designed for reading and interpolating data from OP
 ### Basic OPAT File Operations
 
 #### Reading an OPAT File
-```cpp
+```c++
 #include "opatIO.h" // Main header for OPAT file operations
 #include <string>
 #include <iostream>
@@ -182,7 +207,8 @@ int main() {
 ```
 
 #### Accessing a Table by Index and Tag
-```cpp
+
+```c++
 #include "opatIO.h"
 #include "indexVector.h" // For FloatIndexVector
 #include <string>
@@ -212,7 +238,7 @@ int main() {
 ```
 
 #### Slicing a Table
-```cpp
+```c++
 #include "opatIO.h"
 #include "indexVector.h"
 #include <string>
@@ -246,7 +272,7 @@ int main() {
 ### Using `TableLattice` for Interpolation
 The `TableLattice` class allows for N-dimensional linear interpolation of data within an OPAT file.
 
-```cpp
+```c++
 #include "opatIO.h"
 #include "indexVector.h"
 #include "tableLattice.h" // For TableLattice
