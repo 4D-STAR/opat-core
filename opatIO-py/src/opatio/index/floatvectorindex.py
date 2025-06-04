@@ -42,7 +42,7 @@ class FloatVectorIndex:
     >>> index[0]
     1.123
     """
-    vector: Tuple[float]
+    vector: Tuple[float, ...]
     hashPrecision: int
 
     def __hash__(self) -> int:

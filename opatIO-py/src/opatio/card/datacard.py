@@ -4,7 +4,7 @@ import hashlib
 import numpy as np
 import numpy.typing as npt
 
-from typing import Dict, Iterable, Tuple, Union
+from typing import Dict, Iterable, Tuple, Union, List
 
 from opatio.misc.opatentity import OPATEntity
 
@@ -832,3 +832,26 @@ class DataCard(OPATEntity):
         newCard.index = {tag: index.copy() for tag, index in self.index.items()}
         newCard.tables = {tag: table.copy() for tag, table in self.tables.items()}
         return newCard
+
+    def keys(self) -> List[str]:
+        """
+        Get the list of table tags in the data card.
+
+        Returns
+        -------
+        List[str]
+            A list of tags corresponding to the tables in the data card.
+
+        Examples
+        --------
+        >>> card = DataCard()
+        >>> table1 = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])
+        >>> table2 = OPATTable(columnValues=[1.5, 2.5], rowValues=[3.5, 4.5], data=[[9.0, 10.0], [11.0, 12.0]])
+        >>> card.add_table(tag="Table1", table=table1)
+        >>> card.add_table(tag="Table2", table=table2)
+        >>> print(card.keys())
+        ['Table1', 'Table2']
+        """
+        return list(self.index.keys())
+
+

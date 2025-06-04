@@ -42,6 +42,7 @@
 <li class="toctree-l2"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.OPALI_2_OPAT"><code class="docutils literal notranslate"><span class="pre">OPALI_2_OPAT()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.get_OPAL_I_log_R"><code class="docutils literal notranslate"><span class="pre">get_OPAL_I_log_R()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.get_OPAL_I_log_T"><code class="docutils literal notranslate"><span class="pre">get_OPAL_I_log_T()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.load_opat1_as_opat"><code class="docutils literal notranslate"><span class="pre">load_opat1_as_opat()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.parse_OPAL_I"><code class="docutils literal notranslate"><span class="pre">parse_OPAL_I()</span></code></a></li>
 </ul>
 </li>
@@ -66,6 +67,14 @@ available for converting OPAL Type I files.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">OPALI_2_OPAT</span><span class="p">(</span><span class="s2">&quot;GS98hz&quot;</span><span class="p">,</span> <span class="s2">&quot;GS98hz.opat&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load the converted OPAT file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opatio</span> <span class="kn">import</span> <span class="n">read_opat</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">opat</span> <span class="o">=</span> <span class="n">read_opat</span><span class="p">(</span><span class="s2">&quot;GS98hz.opat&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or you can use the <cite>load_opat1_as_opat</cite> function to load OPAL Type I directly
+&gt;&gt;&gt; from opatio.convert import load_opat1_as_opat
+&gt;&gt;&gt; opat = load_opat1_as_opat(“GS98hz”)</p>
 </section>
 </section>
 </section>

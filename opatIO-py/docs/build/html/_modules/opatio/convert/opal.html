@@ -32,6 +32,7 @@
   <h1>Source code for opatio.convert.opal</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">opatio</span> <span class="kn">import</span> <span class="n">OPAT</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="get_OPAL_I_log_R">
@@ -132,6 +133,39 @@
     <span class="k">return</span> <span class="n">get_OPAL_I_log_R</span><span class="p">(),</span> <span class="n">get_OPAL_I_log_T</span><span class="p">(),</span> <span class="n">p</span></div>
 
 
+<div class="viewcode-block" id="load_opat1_as_opat">
+<a class="viewcode-back" href="../../../opatio.convert.opal.html#opatio.convert.opal.load_opat1_as_opat">[docs]</a>
+<span class="k">def</span> <span class="nf">load_opat1_as_opat</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OPAT</span><span class="p">:</span>
+    <span class="n">compFind</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;TABLE #\s*(\d+)\s+\d+\s+X=(\d\.\d+)\s+Y=(\d\.\d+)\s+Z=(\d\.\d+).+\n&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">compMap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">compFind</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+        <span class="n">compMap</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+    <span class="n">logR</span><span class="p">,</span> <span class="n">logT</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">parse_OPAL_I</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="c1"># Create the OPAT object</span>
+    <span class="n">opat</span> <span class="o">=</span> <span class="n">OPAT</span><span class="p">()</span>
+    <span class="n">opat</span><span class="o">.</span><span class="n">set_comment</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted from OPAL I </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">opat</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">table</span><span class="p">,</span> <span class="p">(</span><span class="n">tabID</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">compMap</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">tab2Add</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">tab2Add</span><span class="p">[</span><span class="n">tab2Add</span> <span class="o">==</span> <span class="mf">9.999</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">opat</span><span class="o">.</span><span class="n">add_table</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Z</span><span class="p">),</span>
+            <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">logR</span><span class="p">,</span>
+            <span class="n">logT</span><span class="p">,</span>
+            <span class="n">tab2Add</span><span class="p">,</span>
+            <span class="n">columnName</span><span class="o">=</span><span class="s2">&quot;logR&quot;</span><span class="p">,</span>
+            <span class="n">rowName</span><span class="o">=</span><span class="s2">&quot;logT&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">opat</span></div>
+
+
+
 <div class="viewcode-block" id="OPALI_2_OPAT">
 <a class="viewcode-back" href="../../../opatio.convert.opal.html#opatio.convert.opal.OPALI_2_OPAT">[docs]</a>
 <span class="k">def</span> <span class="nf">OPALI_2_OPAT</span><span class="p">(</span><span class="n">inPath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outPath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">saveAsASCII</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -156,34 +190,7 @@
 <span class="sd">    &gt;&gt;&gt; OPALI_2_OPAT(&quot;path/to/opal_file.txt&quot;, &quot;path/to/output.opat&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; OPALI_2_OPAT(&quot;path/to/opal_file.txt&quot;, &quot;path/to/output.opat&quot;, saveAsASCII=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">compFind</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;TABLE #\s*(\d+)\s+\d+\s+X=(\d\.\d+)\s+Y=(\d\.\d+)\s+Z=(\d\.\d+).+\n&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">inPath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">compMap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">compFind</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
-        <span class="n">compMap</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-    <span class="n">logR</span><span class="p">,</span> <span class="n">logT</span><span class="p">,</span> <span class="n">I</span> <span class="o">=</span> <span class="n">parse_OPAL_I</span><span class="p">(</span><span class="n">inPath</span><span class="p">)</span>
-    <span class="c1"># Create the OPAT object</span>
-    <span class="kn">from</span> <span class="nn">opatio</span> <span class="kn">import</span> <span class="n">OPAT</span>
-    <span class="n">opat</span> <span class="o">=</span> <span class="n">OPAT</span><span class="p">()</span>
-    <span class="n">opat</span><span class="o">.</span><span class="n">set_comment</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Converted from OPAL I </span><span class="si">{</span><span class="n">inPath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">opat</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span><span class="n">inPath</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">table</span><span class="p">,</span> <span class="p">(</span><span class="n">tabID</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">compMap</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-        <span class="n">tab2Add</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">tab2Add</span><span class="p">[</span><span class="n">tab2Add</span> <span class="o">==</span> <span class="mf">9.999</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-        <span class="n">opat</span><span class="o">.</span><span class="n">add_table</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Z</span><span class="p">),</span>
-            <span class="s2">&quot;data&quot;</span><span class="p">,</span>
-            <span class="n">logT</span><span class="p">,</span>
-            <span class="n">logR</span><span class="p">,</span>
-            <span class="n">tab2Add</span><span class="p">,</span>
-            <span class="n">columnName</span><span class="o">=</span><span class="s2">&quot;logR&quot;</span><span class="p">,</span>
-            <span class="n">rowName</span><span class="o">=</span><span class="s2">&quot;logT&quot;</span><span class="p">,</span>
-        <span class="p">)</span>
-
+    <span class="n">opat</span> <span class="o">=</span> <span class="n">load_opat1_as_opat</span><span class="p">(</span><span class="n">inPath</span><span class="p">)</span>
     <span class="c1"># Save the OPAT file</span>
     <span class="n">opat</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">outPath</span><span class="p">)</span>
 

@@ -224,3 +224,114 @@ you can do the following:
 
 
 The shape will automatically be inferred from the data you provide. The `add_table` method will handle the additional dimension and store it correctly in the OPAT file.
+
+Using TableLattice for Interpolation
+-----------------------------
+
+The `TableLattice` class provides a powerful mechanism for interpolating data stored in an OPAT object using Delaunay triangulation. This is particularly useful for estimating data for index vectors that are not explicitly present in the OPAT file.
+
+Example: Basic Interpolation
+===========================
+
+1. **Import the necessary classes:**
+
+   .. code-block:: python
+
+      from opatio.base.opat import OPAT
+      from opatio.lattice.tableLattice import TableLattice
+      from opatio.index.floatvectorindex import FloatVectorIndex
+
+2. **Load or create an OPAT object:**
+
+   .. code-block:: python
+
+      opat = read_opat("path/to/your/opat_file.opat")
+      # Add data to the OPAT object (see previous sections for details)
+
+3. **Create a `TableLattice` instance:**
+
+   .. code-block:: python
+
+      lattice = TableLattice(opat)
+
+4. **Query for interpolated data:**
+
+   .. code-block:: python
+
+      query_vector = FloatVectorIndex((4.75, -3.25))  # Example query vector
+      try:
+          interpolated_card = lattice.get(query_vector)
+          print("Interpolation successful!")
+      except ValueError as e:
+          print(f"Interpolation failed: {e}")
+
+5. **Access the interpolated table:**
+
+   .. code-block:: python
+
+      tag = "rosseland_mean"
+      interpolated_table = interpolated_card[tag]
+      print(f"Interpolated data for tag '{tag}':")
+      print(interpolated_table.data)
+
+Advanced Example: Interpolating Multiple Tables
+================================================
+
+You can interpolate multiple tables simultaneously if the data cards have consistent tags.
+
+.. code-block:: python
+
+   query_vector = FloatVectorIndex((4.75, -3.25))
+   interpolated_card = lattice.get(query_vector)
+
+   for tag in interpolated_card.keys():
+       interpolated_table = interpolated_card[tag]
+       print(f"Interpolated data for tag '{tag}':")
+       print(interpolated_table.data)
+
+Potential Pitfalls and Gotchas
+============================
+
+1. **Query Point Outside Triangulation:**
+   If the query vector lies outside the convex hull of the index vectors, interpolation will fail with a `ValueError`. Ensure that your query vector is within the range of the data.
+
+   .. code-block:: python
+
+      query_vector = FloatVectorIndex((10.0, -5.0))  # Outside the convex hull
+      try:
+          interpolated_card = lattice.get(query_vector)
+      except ValueError:
+          print("Query point is outside the triangulation.")
+
+2. **Inconsistent Tags Across Data Cards:**
+   The interpolation assumes that all data cards in the OPAT object have the same set of tags. If tags differ between cards, interpolation will fail. Verify consistency before using `TableLattice`.
+
+   .. code-block:: python
+
+      # Check tags consistency
+      tags = [set(card.keys()) for card in opat.cards.values()]
+      if not all(tags[0] == t for t in tags):
+          print("Tags are inconsistent across data cards.")
+
+3. **Collinear Points:**
+   If the index vectors are collinear, Delaunay triangulation cannot be constructed. Ensure that your index vectors span a valid space.
+
+   .. code-block:: python
+
+      try:
+          lattice = TableLattice(opat)
+      except ValueError as e:
+          print(f"Failed to build triangulation: {e}")
+
+4. **Precision Issues:**
+   Floating-point precision can affect the triangulation and interpolation. Use consistent precision for index vectors and query vectors.
+
+   .. code-block:: python
+
+      query_vector = FloatVectorIndex((4.7500001, -3.2500001))  # Slightly off due to precision
+      interpolated_card = lattice.get(query_vector)
+
+Summary
+========
+
+The `TableLattice` class is a robust tool for interpolating data stored in OPAT files. By understanding its functionality and addressing potential pitfalls, you can effectively use it to estimate data for arbitrary index vectors.
