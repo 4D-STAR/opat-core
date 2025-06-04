@@ -12,6 +12,7 @@ Subpackages
    opatio.catalog
    opatio.convert
    opatio.index
+   opatio.lattice
    opatio.load
    opatio.misc
 

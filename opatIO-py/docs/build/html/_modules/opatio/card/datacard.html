@@ -36,7 +36,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">opatio.misc.opatentity</span> <span class="kn">import</span> <span class="n">OPATEntity</span>
 
@@ -514,8 +514,8 @@
 
         <span class="n">tableBytes</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rV</span><span class="p">)</span><span class="si">}</span><span class="s2">d</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cV</span><span class="p">)</span><span class="si">}</span><span class="s2">d</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">d&quot;</span><span class="p">,</span>
-            <span class="o">*</span><span class="n">cV</span><span class="p">,</span>
             <span class="o">*</span><span class="n">rV</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">cV</span><span class="p">,</span>
             <span class="o">*</span><span class="n">data</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">tableBytes</span>
@@ -916,7 +916,33 @@
         <span class="n">newCard</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">{</span><span class="n">tag</span><span class="p">:</span> <span class="n">index</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="n">newCard</span><span class="o">.</span><span class="n">tables</span> <span class="o">=</span> <span class="p">{</span><span class="n">tag</span><span class="p">:</span> <span class="n">table</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">newCard</span></div>
+
+
+<div class="viewcode-block" id="DataCard.keys">
+<a class="viewcode-back" href="../../../opatio.card.datacard.html#opatio.card.datacard.DataCard.keys">[docs]</a>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the list of table tags in the data card.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[str]</span>
+<span class="sd">            A list of tags corresponding to the tables in the data card.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; card = DataCard()</span>
+<span class="sd">        &gt;&gt;&gt; table1 = OPATTable(columnValues=[1.0, 2.0], rowValues=[3.0, 4.0], data=[[5.0, 6.0], [7.0, 8.0]])</span>
+<span class="sd">        &gt;&gt;&gt; table2 = OPATTable(columnValues=[1.5, 2.5], rowValues=[3.5, 4.5], data=[[9.0, 10.0], [11.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; card.add_table(tag=&quot;Table1&quot;, table=table1)</span>
+<span class="sd">        &gt;&gt;&gt; card.add_table(tag=&quot;Table2&quot;, table=table2)</span>
+<span class="sd">        &gt;&gt;&gt; print(card.keys())</span>
+<span class="sd">        [&#39;Table1&#39;, &#39;Table2&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 </div>
+
+
 
 </pre></div>
 
