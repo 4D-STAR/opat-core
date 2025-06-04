@@ -64,7 +64,7 @@ Examples
 >>> # Set the number of dimensions for the index vector (e.g., 2D)
 >>> opat.set_numIndex(2)
 
->>> # 2. Define data for a table
+>>> # Define data for a table
 >>> index_vector = (1.5, 20.0)  # Example parameters (e.g., Temperature, Density)
 >>> table_tag = "opacity_data"
 >>> logT_values = np.array([3.0, 3.5, 4.0])
@@ -75,7 +75,7 @@ Examples
 ...     [0.4, 1.2]   # Corresponds to logT=4.0, logR=(-5.0, -4.0)
 ... ])
 
->>> # 3. Add the table to a data card associated with the index vector
+>>> # Add the table to a data card associated with the index vector
 >>> updated_card = opat.add_table(
 ...     indexVector=index_vector,
 ...     tag=table_tag,
@@ -114,8 +114,22 @@ Examples
 ... except Exception as e:
 ...    print(f"Error loading file: {e}")
 
+>>> # 6. Use TableLattice for interpolation
+>>> from opatio.lattice import TableLattice
+>>> lattice = TableLattice(opat)
+
+>>> # Query for interpolated data
+>>> query_vector = opatio.FloatVectorIndex((1.75, 25.0))  # Example query vector
+>>> interpolated_card = lattice.get(query_vector)
+
+>>> # Access interpolated table
+>>> interpolated_table = interpolated_card[table_tag]
+>>> print("Interpolated data:")
+>>> print(interpolated_table.data)
+
 """
 from .base import OPAT
 from .load import read_opat
+from .lattice import TableLattice
 
-__version__ = "0.2.7"
+__version__ = "0.3.0"

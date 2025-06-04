@@ -204,6 +204,15 @@ class OPAT():
         Recalculates the index for all cards in the catalog.
 
         Updates the catalog and header with the new byte offsets and card counts.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector = [1.0, 2.0]
+        >>> card = DataCard()
+        >>> opat.add_card(indexVector, card)
+        >>> opat._recaclulate_index()
         """
         currentByteStart = self.header.headerSize
         for indexVector, card in self.cards.items():
@@ -236,6 +245,16 @@ class OPAT():
         ------
         KeyError
             If the index vector is not found in the catalog.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector = [1.0, 2.0]
+        >>> card = DataCard()
+        >>> opat.add_card(indexVector, card)
+        >>> removed_card = opat.pop_card(indexVector)
+        >>> print(removed_card)
         """
         indexVector = self._validate_indexVector(indexVector)
         if indexVector not in self.catalog:
@@ -261,6 +280,14 @@ class OPAT():
             If the card is not an instance of DataCard.
         RuntimeError
             If an error occurs while removing an existing card.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector = [1.0, 2.0]
+        >>> card = DataCard()
+        >>> opat.add_card(indexVector, card)
         """
         indexVector = self._validate_indexVector(indexVector)
 
@@ -370,6 +397,23 @@ class OPAT():
         -------
         str
             The string representation of the OPAT instance.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> print(opat)
+        OPAT(
+          version: 1
+          numCards: 0
+          headerSize: 128
+          indexOffset: 128
+          creationDate: 2023-01-01
+          sourceInfo: example_source
+          comment: This is a test comment.
+          numIndex: 2
+          hashPrecision: 0.01
+          reserved: None
+        )
         """
         reprString = f"""OPAT(
   version: {self.header.version}
@@ -398,6 +442,13 @@ class OPAT():
         -------
         str
             The name of the saved file.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> filename = "opat_ascii.txt"
+        >>> opat.save_as_ascii(filename)
+        >>> print(f"File saved as {filename}")
         """
         with open(filename, 'w') as f:
             f.write("This is an ASCII representation of an OPAT file, it is not a valid OPAT file in and of itself.\n")
@@ -449,6 +500,13 @@ class OPAT():
         ------
         RuntimeError
             If the file cannot be saved.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> filename = "opat_binary.opat"
+        >>> opat.save(filename)
+        >>> print(f"File saved as {filename}")
         """
         with open(filename, 'wb') as f:
             f.write(bytes(self))
@@ -465,6 +523,12 @@ class OPAT():
         -------
         bytes
             The byte representation of the OPAT instance.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> byte_data = bytes(opat)
+        >>> print(byte_data)
         """
         outBytes = b""
         outBytes += bytes(self.header)
@@ -474,8 +538,87 @@ class OPAT():
             outBytes += bytes(index)
         return outBytes
 
-    def __getitem__(self, key: Tuple[float]):
+    def __getitem__(self, key: Tuple[float, ...]):
+        """
+        Retrieves a data card using an index vector.
+
+        Parameters
+        ----------
+        key : Tuple[float, ...]
+            The index vector to retrieve the data card.
+
+        Returns
+        -------
+        DataCard
+            The data card associated with the given index vector.
+
+        Raises
+        ------
+        KeyError
+            If the index vector is not found in the catalog.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector = (1.0, 2.0)
+        >>> card = DataCard()
+        >>> opat.add_card(indexVector, card)
+        >>> retrieved_card = opat[(1.0, 2.0)]
+        >>> print(retrieved_card)
+        """
         fiv = FloatVectorIndex(key, hashPrecision=self.header.hashPrecision)
         if fiv not in self.catalog:
             raise KeyError(f"indexVector {fiv} not found in catalog!")
         return self.cards[fiv]
+
+    def size(self) -> Tuple[int, int]:
+        """
+        Returns the size of the OPAT instance.
+
+        The size is defined as the number of indexes per card and the number of cards.
+        For example, an OPAT file might have a size of (2, 126).
+
+        Returns
+        -------
+        Tuple[int, int]
+            A tuple representing the size of the OPAT instance.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector = (1.0, 2.0)
+        >>> card = DataCard()
+        >>> opat.add_card(indexVector, card)
+        >>> print(opat.size())
+        (2, 1)
+        """
+        return self.header.numIndex, self.header.numCards
+
+    @property
+    def indexVectors(self) -> List[FloatVectorIndex]:
+        """
+        Returns a list of index vectors in the catalog.
+
+        This property provides a convenient way to access all index vectors stored in the catalog.
+
+        Returns
+        -------
+        List[FloatVectorIndex]
+            A list of index vectors.
+
+        Examples
+        --------
+        >>> opat = OPAT()
+        >>> opat.set_numIndex(2)
+        >>> indexVector1 = (1.0, 2.0)
+        >>> indexVector2 = (3.0, 4.0)
+        >>> card1 = DataCard()
+        >>> card2 = DataCard()
+        >>> opat.add_card(indexVector1, card1)
+        >>> opat.add_card(indexVector2, card2)
+        >>> print(opat.indexVectors)
+        [FloatVectorIndex((1.0, 2.0)), FloatVectorIndex((3.0, 4.0))]
+        """
+        return list(self.catalog.keys())
