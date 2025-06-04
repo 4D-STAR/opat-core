@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>opatio.lattice.tableLattice &#8212; opatio  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=12dfc556" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for opatio.lattice.tableLattice</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">opatio.base.opat</span> <span class="kn">import</span> <span class="n">OPAT</span>
+<span class="kn">from</span> <span class="nn">opatio.card.datacard</span> <span class="kn">import</span> <span class="n">OPATTable</span>
+<span class="kn">from</span> <span class="nn">opatio.card.datacard</span> <span class="kn">import</span> <span class="n">DataCard</span>
+<span class="kn">from</span> <span class="nn">opatio.index.floatvectorindex</span> <span class="kn">import</span> <span class="n">FloatVectorIndex</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">Delaunay</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+
+<div class="viewcode-block" id="TableLattice">
+<a class="viewcode-back" href="../../../opatio.lattice.tableLattice.html#opatio.lattice.tableLattice.TableLattice">[docs]</a>
+<span class="k">class</span> <span class="nc">TableLattice</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for performing interpolation over a lattice of data points using Delaunay triangulation.</span>
+
+<span class="sd">    This class is useful for interpolating data stored in an OPAT object, which contains index vectors</span>
+<span class="sd">    and associated data cards. It builds a Delaunay triangulation of the index vectors and allows</span>
+<span class="sd">    querying for interpolated data cards based on a given query vector.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    opat : OPAT</span>
+<span class="sd">        The OPAT object containing index vectors and associated data cards.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    opat : OPAT</span>
+<span class="sd">        The OPAT object passed during initialization.</span>
+<span class="sd">    opatSize : Tuple[int, int]</span>
+<span class="sd">        The size of the OPAT object (dimensions of the data).</span>
+<span class="sd">    indexVectors : List[FloatVectorIndex]</span>
+<span class="sd">        The list of index vectors from the OPAT object.</span>
+<span class="sd">    triangulation : scipy.spatial.Delaunay</span>
+<span class="sd">        The Delaunay triangulation built from the index vectors.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from opatio.base.opat import OPAT</span>
+<span class="sd">    &gt;&gt;&gt; from opatio.lattice.tableLattice import TableLattice</span>
+<span class="sd">    &gt;&gt;&gt; opat = OPAT(...)  # Initialize OPAT object</span>
+<span class="sd">    &gt;&gt;&gt; lattice = TableLattice(opat)</span>
+<span class="sd">    &gt;&gt;&gt; query_vector = FloatVectorIndex(...)  # Create a query vector</span>
+<span class="sd">    &gt;&gt;&gt; result_card = lattice.get(query_vector)</span>
+<span class="sd">    &gt;&gt;&gt; print(result_card)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">opat</span><span class="p">:</span> <span class="n">OPAT</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the TableLattice object.</span>
+
+<span class="sd">        This method sets up the OPAT object, retrieves its size and index vectors, and builds</span>
+<span class="sd">        the Delaunay triangulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        opat : OPAT</span>
+<span class="sd">            The OPAT object containing index vectors and associated data cards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opat</span> <span class="p">:</span> <span class="n">OPAT</span> <span class="o">=</span> <span class="n">opat</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">opatSize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">opat</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">indexVectors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FloatVectorIndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">opat</span><span class="o">.</span><span class="n">indexVectors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_delaunay</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TableLattice.get">
+<a class="viewcode-back" href="../../../opatio.lattice.tableLattice.html#opatio.lattice.tableLattice.TableLattice.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">FloatVectorIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataCard</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolate a data card based on a query vector using barycentric weights.</span>
+
+<span class="sd">        This method finds the simplex containing the query vector, calculates barycentric weights,</span>
+<span class="sd">        and interpolates the associated data cards of the simplex vertices to produce a result data card.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        query : FloatVectorIndex</span>
+<span class="sd">            The index vector to query for interpolation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataCard</span>
+<span class="sd">            The interpolated data card.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the query point is not contained in any simplex.</span>
+<span class="sd">        IndexError</span>
+<span class="sd">            If a vertex ID is out of bounds for the index vectors.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; query_vector = FloatVectorIndex(...)  # Create a query vector</span>
+<span class="sd">        &gt;&gt;&gt; result_card = lattice.get(query_vector)</span>
+<span class="sd">        &gt;&gt;&gt; print(result_card)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">simplexID</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_containing_simplex</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">simplexID</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Query point is not contained in any simplex.&quot;</span><span class="p">)</span>
+        <span class="n">vertexIDs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">triangulation</span><span class="o">.</span><span class="n">simplices</span><span class="p">[</span><span class="n">simplexID</span><span class="p">]</span>
+        <span class="n">verticies</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DataCard</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vertexID</span> <span class="ow">in</span> <span class="n">vertexIDs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">vertexID</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">vertexID</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexVectors</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vertex ID </span><span class="si">{</span><span class="n">vertexID</span><span class="si">}</span><span class="s2"> is out of bounds for index vectors.&quot;</span><span class="p">)</span>
+            <span class="n">verticies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opat</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indexVectors</span><span class="p">[</span><span class="n">vertexID</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">])</span>
+
+        <span class="n">tagOkay</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Check if all DataCards have the same tags</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">verticies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">DC</span> <span class="ow">in</span> <span class="n">verticies</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">DC</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="n">tags</span><span class="p">:</span>
+                <span class="n">tagOkay</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+
+        <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opatSize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">transform</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">triangulation</span><span class="o">.</span><span class="n">transform</span><span class="p">[</span><span class="n">simplexID</span><span class="p">]</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">transform</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+        <span class="n">matrix_d</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">transform</span><span class="p">[:</span><span class="n">dim</span><span class="p">]</span>
+
+        <span class="n">delta</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">vector</span> <span class="o">-</span> <span class="n">offset</span>
+        <span class="n">bary_partial</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">matrix_d</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="n">last_weight</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">bary_partial</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="n">weights</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">bary_partial</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">last_weight</span><span class="p">])])</span>  <span class="c1"># shape (dim+1,)</span>
+
+        <span class="n">resultCard</span><span class="p">:</span> <span class="n">DataCard</span> <span class="o">=</span> <span class="n">DataCard</span><span class="p">()</span>
+        <span class="n">resultCard</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">verticies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span>  <span class="c1"># copy header from the first vertex</span>
+
+        <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="c1">#get column names and row names from the datacard&#39;s index</span>
+            <span class="n">columnName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">verticies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">columnName</span>
+            <span class="n">rowName</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">verticies</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">rowName</span>
+            <span class="c1"># Start a fresh OPATTable for this tag</span>
+            <span class="c1"># Copy columnValues and rowValues from the first vertex’s table</span>
+            <span class="n">firstTable</span> <span class="o">=</span> <span class="n">verticies</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">tag</span><span class="p">]</span>
+
+            <span class="c1"># Allocate zero‐array matching the shape of firstTable.data</span>
+            <span class="n">accumulator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">firstTable</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+            <span class="c1"># Accumulate weighted sum over all vertices</span>
+            <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">DC</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">verticies</span><span class="p">):</span>
+                <span class="n">srcTable</span><span class="p">:</span> <span class="n">OPATTable</span> <span class="o">=</span> <span class="n">DC</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
+                <span class="n">accumulator</span> <span class="o">+=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">srcTable</span><span class="o">.</span><span class="n">data</span>
+
+            <span class="c1"># Attach the interpolated table under this tag</span>
+            <span class="n">resultTable</span><span class="p">:</span> <span class="n">OPATTable</span> <span class="o">=</span> <span class="n">OPATTable</span><span class="p">(</span><span class="n">firstTable</span><span class="o">.</span><span class="n">columnValues</span><span class="p">,</span> <span class="n">firstTable</span><span class="o">.</span><span class="n">rowValues</span><span class="p">,</span> <span class="n">accumulator</span><span class="p">)</span>
+            <span class="n">resultCard</span><span class="o">.</span><span class="n">add_table</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">resultTable</span><span class="p">,</span> <span class="n">columnName</span><span class="o">=</span><span class="n">columnName</span><span class="p">,</span> <span class="n">rowName</span><span class="o">=</span><span class="n">rowName</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">resultCard</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">_build_delaunay</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the Delaunay triangulation for the index vectors.</span>
+
+<span class="sd">        This method constructs a Delaunay triangulation using the index vectors from the OPAT object.</span>
+<span class="sd">        It ensures that the triangulation is valid and raises an error if the points are collinear.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the Delaunay triangulation fails due to invalid or collinear points.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; lattice._build_delaunay()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">points</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opatSize</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">opatSize</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">iv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexVectors</span><span class="p">):</span>
+            <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">iv</span><span class="o">.</span><span class="n">vector</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">triangulation</span> <span class="o">=</span> <span class="n">Delaunay</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Failed to create Delaunay triangulation. Ensure that the index vectors are valid and not collinear.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+    <span class="k">def</span> <span class="nf">_find_containing_simplex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">FloatVectorIndex</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the index of the simplex that contains the query point.</span>
+
+<span class="sd">        This method uses the Delaunay triangulation to locate the simplex containing the query vector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        query : FloatVectorIndex</span>
+<span class="sd">            The index vector to query.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The index of the containing simplex, or None if the query point is not contained in any simplex.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; simplex_index = lattice._find_containing_simplex(query_vector)</span>
+<span class="sd">        &gt;&gt;&gt; print(simplex_index)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">simplex_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">triangulation</span><span class="o">.</span><span class="n">find_simplex</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">vector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">simplex_index</span> <span class="k">if</span> <span class="n">simplex_index</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">opatio</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage_guide.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ Utilities Usage Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">opatio</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, 4D-STAR collaboration, Emily M. Boudreaux, Aaron Dotter.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

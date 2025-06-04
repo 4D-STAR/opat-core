@@ -236,6 +236,108 @@ you can do the following:</p>
 </div>
 <p>The shape will automatically be inferred from the data you provide. The <cite>add_table</cite> method will handle the additional dimension and store it correctly in the OPAT file.</p>
 </section>
+<section id="using-tablelattice-for-interpolation">
+<h2>Using TableLattice for Interpolation<a class="headerlink" href="#using-tablelattice-for-interpolation" title="Link to this heading">¶</a></h2>
+<p>The <cite>TableLattice</cite> class provides a powerful mechanism for interpolating data stored in an OPAT object using Delaunay triangulation. This is particularly useful for estimating data for index vectors that are not explicitly present in the OPAT file.</p>
+<section id="example-basic-interpolation">
+<h3>Example: Basic Interpolation<a class="headerlink" href="#example-basic-interpolation" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p><strong>Import the necessary classes:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">opatio.base.opat</span> <span class="kn">import</span> <span class="n">OPAT</span>
+<span class="kn">from</span> <span class="nn">opatio.lattice.tableLattice</span> <span class="kn">import</span> <span class="n">TableLattice</span>
+<span class="kn">from</span> <span class="nn">opatio.index.floatvectorindex</span> <span class="kn">import</span> <span class="n">FloatVectorIndex</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Load or create an OPAT object:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opat</span> <span class="o">=</span> <span class="n">read_opat</span><span class="p">(</span><span class="s2">&quot;path/to/your/opat_file.opat&quot;</span><span class="p">)</span>
+<span class="c1"># Add data to the OPAT object (see previous sections for details)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a `TableLattice` instance:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lattice</span> <span class="o">=</span> <span class="n">TableLattice</span><span class="p">(</span><span class="n">opat</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Query for interpolated data:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">FloatVectorIndex</span><span class="p">((</span><span class="mf">4.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.25</span><span class="p">))</span>  <span class="c1"># Example query vector</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">interpolated_card</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query_vector</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolation successful!&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interpolation failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Access the interpolated table:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;rosseland_mean&quot;</span>
+<span class="n">interpolated_table</span> <span class="o">=</span> <span class="n">interpolated_card</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interpolated data for tag &#39;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39;:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">interpolated_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="advanced-example-interpolating-multiple-tables">
+<h3>Advanced Example: Interpolating Multiple Tables<a class="headerlink" href="#advanced-example-interpolating-multiple-tables" title="Link to this heading">¶</a></h3>
+<p>You can interpolate multiple tables simultaneously if the data cards have consistent tags.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">FloatVectorIndex</span><span class="p">((</span><span class="mf">4.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.25</span><span class="p">))</span>
+<span class="n">interpolated_card</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query_vector</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">interpolated_card</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="n">interpolated_table</span> <span class="o">=</span> <span class="n">interpolated_card</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Interpolated data for tag &#39;</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&#39;:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">interpolated_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="potential-pitfalls-and-gotchas">
+<h3>Potential Pitfalls and Gotchas<a class="headerlink" href="#potential-pitfalls-and-gotchas" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p><strong>Query Point Outside Triangulation:</strong>
+If the query vector lies outside the convex hull of the index vectors, interpolation will fail with a <cite>ValueError</cite>. Ensure that your query vector is within the range of the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">FloatVectorIndex</span><span class="p">((</span><span class="mf">10.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">))</span>  <span class="c1"># Outside the convex hull</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">interpolated_card</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query_vector</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Query point is outside the triangulation.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Inconsistent Tags Across Data Cards:</strong>
+The interpolation assumes that all data cards in the OPAT object have the same set of tags. If tags differ between cards, interpolation will fail. Verify consistency before using <cite>TableLattice</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check tags consistency</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">card</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">opat</span><span class="o">.</span><span class="n">cards</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tags are inconsistent across data cards.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Collinear Points:</strong>
+If the index vectors are collinear, Delaunay triangulation cannot be constructed. Ensure that your index vectors span a valid space.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">lattice</span> <span class="o">=</span> <span class="n">TableLattice</span><span class="p">(</span><span class="n">opat</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to build triangulation: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Precision Issues:</strong>
+Floating-point precision can affect the triangulation and interpolation. Use consistent precision for index vectors and query vectors.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">FloatVectorIndex</span><span class="p">((</span><span class="mf">4.7500001</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.2500001</span><span class="p">))</span>  <span class="c1"># Slightly off due to precision</span>
+<span class="n">interpolated_card</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query_vector</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h3>
+<p>The <cite>TableLattice</cite> class is a robust tool for interpolating data stored in OPAT files. By understanding its functionality and addressing potential pitfalls, you can effectively use it to estimate data for arbitrary index vectors.</p>
+</section>
+</section>
 </section>
 
 
@@ -265,6 +367,7 @@ you can do the following:</p>
 <li class="toctree-l2"><a class="reference internal" href="#modifying-an-opat-file">Modifying an OPAT File</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#converting-opal-type-i-files">Converting OPAL Type I Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#storing-3d-data">Storing 3D Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-tablelattice-for-interpolation">Using TableLattice for Interpolation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cpp.html">C++ Utilities Usage Guide</a></li>

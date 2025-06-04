@@ -91,6 +91,7 @@
 <li class="toctree-l4"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.OPALI_2_OPAT"><code class="docutils literal notranslate"><span class="pre">OPALI_2_OPAT()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.get_OPAL_I_log_R"><code class="docutils literal notranslate"><span class="pre">get_OPAL_I_log_R()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.get_OPAL_I_log_T"><code class="docutils literal notranslate"><span class="pre">get_OPAL_I_log_T()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.load_opat1_as_opat"><code class="docutils literal notranslate"><span class="pre">load_opat1_as_opat()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="opatio.convert.opal.html#opatio.convert.opal.parse_OPAL_I"><code class="docutils literal notranslate"><span class="pre">parse_OPAL_I()</span></code></a></li>
 </ul>
 </li>
@@ -114,6 +115,17 @@
 <li class="toctree-l3"><a class="reference internal" href="opatio.index.html#modules">Modules</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opatio.lattice.html">opatio.lattice package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="opatio.lattice.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="opatio.lattice.tableLattice.html">opatio.lattice.tableLattice module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="opatio.lattice.tableLattice.html#opatio.lattice.tableLattice.TableLattice"><code class="docutils literal notranslate"><span class="pre">TableLattice</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opatio.lattice.html#module-opatio.lattice">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="opatio.load.html">opatio.load package</a><ul>
@@ -226,7 +238,7 @@ If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/
 <span class="gp">&gt;&gt;&gt; </span><span class="n">opat</span><span class="o">.</span><span class="n">set_numIndex</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2. Define data for a table</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define data for a table</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">index_vector</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">)</span>  <span class="c1"># Example parameters (e.g., Temperature, Density)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table_tag</span> <span class="o">=</span> <span class="s2">&quot;opacity_data&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logT_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
@@ -238,7 +250,7 @@ If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/
 <span class="gp">... </span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 3. Add the table to a data card associated with the index vector</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add the table to a data card associated with the index vector</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">updated_card</span> <span class="o">=</span> <span class="n">opat</span><span class="o">.</span><span class="n">add_table</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">indexVector</span><span class="o">=</span><span class="n">index_vector</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">tag</span><span class="o">=</span><span class="n">table_tag</span><span class="p">,</span>
@@ -278,6 +290,22 @@ If not, see &lt;<a class="reference external" href="http://www.gnu.org/licenses/
 <span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: </span><span class="si">{</span><span class="n">output_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 <span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error loading file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 6. Use TableLattice for interpolation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opatio.lattice</span> <span class="kn">import</span> <span class="n">TableLattice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lattice</span> <span class="o">=</span> <span class="n">TableLattice</span><span class="p">(</span><span class="n">opat</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Query for interpolated data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">query_vector</span> <span class="o">=</span> <span class="n">opatio</span><span class="o">.</span><span class="n">FloatVectorIndex</span><span class="p">((</span><span class="mf">1.75</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">))</span>  <span class="c1"># Example query vector</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interpolated_card</span> <span class="o">=</span> <span class="n">lattice</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query_vector</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Access interpolated table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interpolated_table</span> <span class="o">=</span> <span class="n">interpolated_card</span><span class="p">[</span><span class="n">table_tag</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Interpolated data:&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">interpolated_table</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
