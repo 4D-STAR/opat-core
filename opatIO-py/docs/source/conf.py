@@ -35,7 +35,7 @@ napoleon_numpy_docstring = True
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'furo'
 html_static_path = ['_static']
 
 import os

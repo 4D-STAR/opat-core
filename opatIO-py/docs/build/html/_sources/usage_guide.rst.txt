@@ -1,3 +1,4 @@
+.. _Usage:
 ===========
 Usage Guide
 ===========
@@ -197,7 +198,7 @@ The library includes a utility to convert OPAL Type I opacity files to the OPAT 
 This provides a basic overview. Refer to the API Reference section for detailed information on specific classes and methods.
 
 Storing 3D Data
-----------------
+---------------
 To store 3D data, you can use the `add_table` method with a 3D numpy array. The method will automatically handle the additional dimension.
 For example, if you have a 2D array of temperature and density and for each point you want to store a vector of interpolation coefficients
 you can do the following:
@@ -226,12 +227,12 @@ you can do the following:
 The shape will automatically be inferred from the data you provide. The `add_table` method will handle the additional dimension and store it correctly in the OPAT file.
 
 Using TableLattice for Interpolation
------------------------------
+------------------------------------
 
 The `TableLattice` class provides a powerful mechanism for interpolating data stored in an OPAT object using Delaunay triangulation. This is particularly useful for estimating data for index vectors that are not explicitly present in the OPAT file.
 
 Example: Basic Interpolation
-===========================
+============================
 
 1. **Import the necessary classes:**
 
@@ -275,7 +276,7 @@ Example: Basic Interpolation
       print(interpolated_table.data)
 
 Advanced Example: Interpolating Multiple Tables
-================================================
+===============================================
 
 You can interpolate multiple tables simultaneously if the data cards have consistent tags.
 
@@ -290,7 +291,7 @@ You can interpolate multiple tables simultaneously if the data cards have consis
        print(interpolated_table.data)
 
 Potential Pitfalls and Gotchas
-============================
+==============================
 
 1. **Query Point Outside Triangulation:**
    If the query vector lies outside the convex hull of the index vectors, interpolation will fail with a `ValueError`. Ensure that your query vector is within the range of the data.
@@ -332,6 +333,6 @@ Potential Pitfalls and Gotchas
       interpolated_card = lattice.get(query_vector)
 
 Summary
-========
+=======
 
 The `TableLattice` class is a robust tool for interpolating data stored in OPAT files. By understanding its functionality and addressing potential pitfalls, you can effectively use it to estimate data for arbitrary index vectors.
