@@ -144,3 +144,17 @@ TEST_F(opatIOTest, getBounds) {
     EXPECT_DOUBLE_EQ(bounds.at(1).min, 0);
     EXPECT_DOUBLE_EQ(bounds.at(1).max, 0.1);
 }
+
+TEST_F(opatIOTest, getKeys) {
+    opat::OPAT opat = opat::readOPAT(EXAMPLE_FILENAME);
+    FloatIndexVector index({0.35, 0.004});
+    const auto keys = opat[index].getKeys();
+    ASSERT_FALSE(keys.empty());
+    EXPECT_EQ(keys[0], "data"); // Replace with an expected key
+}
+
+TEST_F(opatIOTest, badKey) {
+    opat::OPAT opat = opat::readOPAT(EXAMPLE_FILENAME);
+    FloatIndexVector index({0.35, 0.004});
+    EXPECT_THROW(opat[index]["non_existent_key"], std::out_of_range);
+}

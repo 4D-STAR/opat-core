@@ -285,7 +285,22 @@ namespace opat {
         if (const auto it = tableData.find(tag); it != tableData.end()) {
             return it->second;
         } else {
-            throw std::runtime_error("Table not found for the given tag.");
+            std::ostringstream oss;
+            oss << "Tag '" << tag << "' not found in TableIndex. Available tags are: [";
+            int tagCount = 0;
+            int totalTags = static_cast<int>(getKeys().size());
+            for (const auto& entry : getKeys()) {
+                oss << entry << "";
+                tagCount++;
+                if (tagCount == totalTags - 1) {
+                    oss << ", and ";
+                } else if (tagCount == totalTags) {
+                    oss << "]";
+                } else {
+                    oss << ", ";
+                }
+            }
+            throw std::out_of_range(oss.str());
         }
     }
 
@@ -313,7 +328,12 @@ namespace opat {
         if (it != tableIndex.end()) {
             return it->second;
         } else {
-            throw std::out_of_range("Tag not found in TableIndex");
+            std::ostringstream oss;
+            oss << "Tag '" << tag << "' not found in TableIndex. Available tags: ";
+            for (const auto& entry : tableIndex) {
+                oss << entry.first << " ";
+            }
+            throw std::out_of_range(oss.str());
         }
     }
     const TableIndexEntry& TableIndex::operator[](const std::string& tag) const {
