@@ -34,4 +34,4 @@ opatio_dep = declare_dependency(
     dependencies: dependencies
 )
 # Make headers accessible
-install_headers(opatio_headers, subdir : 'opatIO/include')
+install_headers(opatio_headers, subdir : 'opatIO')
