@@ -32,10 +32,11 @@ Below is a summary of the key dependencies for each part of the project.
 #### Python Dependencies
 These are managed by `pip` and are listed in `opatIO-py/pyproject.toml`.
 
-| Dependency | Minimum Version | Usage                                  | Source/Authors                                                                 |
-|------------|-----------------|----------------------------------------|--------------------------------------------------------------------------------|
-| `numpy`    | `>= 1.21.1`     | Numerical operations, array handling   | [NumPy Developers](https://numpy.org/)                                         |
-| `xxhash`   | `>= 3.5.0`      | Fast hashing algorithms (internal use) | [Yann Collet (Cyan4973)](https://github.com/Cyan4973/xxHash)                   |
+| Dependency  | Minimum Version | Usage                                  | Source/Authors                                                                 |
+|-------------|-----------------|----------------------------------------|--------------------------------------------------------------------------------|
+| `numpy`     | `>= 1.21.1`     | Numerical operations, array handling   | [NumPy Developers](https://numpy.org/)                                         |
+| `xxhash`    | `>= 3.5.0`      | Fast hashing algorithms (internal use) | [Yann Collet (Cyan4973)](https://github.com/Cyan4973/xxHash)                   |
+| `scipy`     | `>= 1.15.0`     | Triangulation (for interpolation)      | [SciPy Developers](https://scipy.org/)                                         |
 
 #### C++ Dependencies
 Most C++ dependencies are handled via Meson's wrap system (built at compile time). Boost is an exception.
@@ -54,7 +55,7 @@ pip install opatio
 ```
 
 ### C++ Installation
-You will need `meson`, `cmake`, and `ninja` installed pre-installed. These can be installed with pip
+You will need `meson`, `cmake`, and `ninja` installed pre-installed. Note that cmake is needed in order to build subprojects which use CMake as their build system. *opat-core does not make use of CMake as a build system*. These can be installed with pip
 ```bash
 pip install "meson>=1.6.0"
 pip install cmake
@@ -73,7 +74,7 @@ meson test -C build
 ```
 
 
-To install headers, libraries, and the command line utilities
+To install headers, libraries, the pkg_config file (`opatIO.pc`), and the command line utilities
 ```bash
 meson install -C build
 ```
@@ -184,27 +185,35 @@ print("Converted OPAL Type I file to gs98hz.opat")
 ## C++ Library/Header Usage
 The C++ library is primarily designed for reading and interpolating data from OPAT files. Below are some common usage examples. For a more detailed API manual, refer to the Doxygen documentation generated in `opatIO-cpp/docs/html/index.html` (or the PDF version in `opatIO-cpp/docs/latex/refman.pdf`).
 
-### Basic OPAT File Operations
+### Linking the C++ Library
 
-#### Reading an OPAT File
+The installation process detailed above generate a package config file `opatIO.pc` that can be used to link against the
+C++ library. You can use this in your `CMakeLists.txt`, `meson.build` files, or directly in your compiler commands. 
+
+as a simple example lets say you make a file called `main.cpp` with the following contents:
 ```c++
-#include "opatIO.h" // Main header for OPAT file operations
-#include <string>
-#include <iostream>
+#include <opatIO.h>
 
 int main() {
-    std::string filename = "example.opat";
-    try {
-        opat::OPAT opat_file = opat::readOPAT(filename);
-        std::cout << "Successfully read OPAT file: " << filename << std::endl;
-        opat_file.header.print(); // Print the header information
-    } catch (const std::exception& e) {
-        std::cerr << "Error reading OPAT file: " << e.what() << std::endl;
-        return 1;
-    }
-    return 0;
+    opat::OPAT opat_file = opat::readOPAT("example.opat");
+    std::cout << "Successfully read OPAT file: example.opat" << std::endl;
 }
 ```
+if you were to just run
+```bash
+g++ main.cpp -o main
+```
+This would fail because the compiler neither knows where to find the `opatIO.h` header file nor the `libopatio.a` library.
+
+However, if you use the `pkg-config` tool, you can easily compile and link against the OPAT library:
+```bash
+g++ main.cpp -o main $(pkg-config --cflags --libs opatIO) --std=c++23
+```
+
+> ⚠️ The `--std=c++23` flag is required as the OPAT C++ library makes use of C++23 features. --std=c++17 is the minimum required version, but C++23 is recommended for full compatibility.
+> 
+
+### C++ API Usage Examples
 
 #### Accessing a Table by Index and Tag
 
@@ -269,7 +278,7 @@ int main() {
 }
 ```
 
-### Using `TableLattice` for Interpolation
+#### Using `TableLattice` for Interpolation
 The `TableLattice` class allows for N-dimensional linear interpolation of data within an OPAT file.
 
 ```c++
