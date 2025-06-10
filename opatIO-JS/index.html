@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPAT File Inspector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2d3748; /* gray-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568; /* gray-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-gray-800 text-gray-200 font-sans">
+
+<header class="bg-gray-900 shadow-lg">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-white">OPAT File Inspector</h1>
+        <a href="https://github.com/4D-STAR/opat-core" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center">
+            <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+            GitHub Repo
+        </a>
+    </div>
+</header>
+
+<main class="container mx-auto p-4 md:p-6">
+    <div class="mb-6">
+        <label for="fileInput" class="block text-sm font-medium text-gray-300 mb-2">Select an .opat file to inspect:</label>
+        <input type="file" id="fileInput" accept=".opat" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600 transition-colors cursor-pointer"/>
+    </div>
+
+    <div id="content-wrapper" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-white mb-4 border-b border-gray-600 pb-2">File Information</h2>
+            <div id="header-info" class="space-y-2 text-sm"></div>
+
+            <h2 class="text-xl font-bold text-white mt-6 mb-4 border-b border-gray-600 pb-2">All Table Tags</h2>
+            <ul id="all-tags-list" class="space-y-1 text-sm list-disc list-inside"></ul>
+        </div>
+
+        <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-bold text-white mb-4 border-b border-gray-600 pb-2">Data Card Explorer</h2>
+            <div>
+                <label for="index-selector" class="block text-sm font-medium text-gray-300 mb-2">Select Index Vector:</label>
+                <select id="index-selector" class="block w-full p-2 bg-gray-600 border border-gray-500 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option>-- Upload a file first --</option>
+                </select>
+            </div>
+            <div id="tables-display" class="mt-6"></div>
+        </div>
+
+        <div id="data-viewer-pane" class="bg-gray-700 p-6 rounded-lg shadow-md md:col-span-2">
+            <h2 class="text-xl font-bold text-white mb-4 border-b border-gray-600 pb-2">Table Viewer</h2>
+            <div id="table-data-content" class="overflow-x-auto">
+                <p class="text-gray-400">Click on a table from the 'Data Card Explorer' to view its data here.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="opatParser.js"></script>
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const contentWrapper = document.getElementById('content-wrapper');
+    const headerInfoEl = document.getElementById('header-info');
+    const allTagsListEl = document.getElementById('all-tags-list');
+    const indexSelectorEl = document.getElementById('index-selector');
+    const tablesDisplayEl = document.getElementById('tables-display');
+    const tableDataContentEl = document.getElementById('table-data-content');
+
+    let opatFile = null;
+
+    fileInput.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        try {
+            opatFile = parseOPAT(await file.arrayBuffer());
+
+            displayFileStats(opatFile);
+            populateIndexSelector(opatFile);
+            contentWrapper.classList.remove('hidden');
+
+            indexSelectorEl.dispatchEvent(new Event('change'));
+
+        } catch (error) {
+            console.error("Failed to parse file:", error);
+            alert(`Error parsing file: ${error.message}`);
+            contentWrapper.classList.add('hidden');
+        }
+    });
+
+    function displayFileStats(file) {
+        headerInfoEl.innerHTML = `
+                <p><strong>Magic:</strong> <span class="font-mono text-green-400">${file.header.magic}</span></p>
+                <p><strong>Version:</strong> ${file.header.version}</p>
+                <p><strong>Comment:</strong> ${file.header.comment || 'N/A'}</p>
+                <p><strong>Source:</strong> ${file.header.sourceInfo || 'N/A'}</p>
+                <p><strong>Creation Date:</strong> ${file.header.creationDate || 'N/A'}</p>
+                <p><strong>Index Dimensions:</strong> ${file.header.numIndex}</p>
+                <p><strong>Total Data Cards:</strong> ${file.header.numTables}</p>
+            `;
+
+        const allTags = new Set([...file.cards.values()].flatMap(card => [...card.tableData.keys()]));
+        allTagsListEl.innerHTML = allTags.size > 0 ? [...allTags].map(tag => `<li>${tag}</li>`).join('') : '<li>No tags found.</li>';
+    }
+
+    function populateIndexSelector(file) {
+        indexSelectorEl.innerHTML = file.cardCatalog.size > 0 ?
+            [...file.cardCatalog.keys()].map(key => `<option value='${key}'>Index: ${JSON.parse(key).join(', ')}</option>`).join('') :
+            '<option>-- No data cards found --</option>';
+    }
+
+    indexSelectorEl.addEventListener('change', (event) => {
+        if (!opatFile) return;
+
+        const dataCard = opatFile.get(JSON.parse(event.target.value));
+        tablesDisplayEl.innerHTML = '';
+        tableDataContentEl.innerHTML = `<p class="text-gray-400">Click on a table from the 'Data Card Explorer' to view its data here.</p>`;
+
+        if (dataCard) {
+            const title = document.createElement('h3');
+            title.className = "text-lg font-semibold text-white mb-3";
+            title.textContent = `Tables in Card`;
+            tablesDisplayEl.appendChild(title);
+
+            const tableList = document.createElement('div');
+            tableList.className = 'space-y-3';
+            tablesDisplayEl.appendChild(tableList);
+
+            if (dataCard.tableData.size > 0) {
+                for (const [tag, table] of dataCard.tableData.entries()) {
+                    const tableInfo = document.createElement('div');
+                    tableInfo.className = 'p-3 bg-gray-800 rounded-md text-sm cursor-pointer hover:bg-gray-900 transition-colors';
+                    tableInfo.dataset.tag = tag; // Store tag for click event
+                    tableInfo.innerHTML = `
+                            <p class="font-bold text-green-400 pointer-events-none">${tag}</p>
+                            <p class="text-xs text-gray-400 pointer-events-none">Dimensions (RxC): ${table.N_R} x ${table.N_C}</p>
+                            <p class="text-xs text-gray-400 pointer-events-none">Vector Size per Cell: ${table.m_vsize}</p>
+                        `;
+                    tableList.appendChild(tableInfo);
+                }
+            } else {
+                tableList.textContent = "No tables found in this data card.";
+            }
+        }
+    });
+
+    tablesDisplayEl.addEventListener('click', (event) => {
+        const tableInfoBox = event.target.closest('[data-tag]');
+        if (!tableInfoBox || !opatFile) return;
+
+        const tag = tableInfoBox.dataset.tag;
+        const currentCard = opatFile.get(JSON.parse(indexSelectorEl.value));
+        const table = currentCard.get(tag);
+
+        if (table) {
+            displayTableData(table, tag);
+        }
+    });
+
+    function displayTableData(table, tag) {
+        tableDataContentEl.innerHTML = '';
+
+        const title = document.createElement('h3');
+        title.className = "text-lg font-semibold text-white mb-3";
+        title.innerHTML = `Data for Table: <span class="text-green-400 font-mono">${tag}</span>`;
+        tableDataContentEl.appendChild(title);
+
+        const tableEl = document.createElement('table');
+        tableEl.className = 'table-auto border-collapse w-full text-xs';
+
+        // Create Table Header
+        const thead = tableEl.createTHead();
+        const headerRow = thead.insertRow();
+        headerRow.className = "bg-gray-800";
+        headerRow.insertCell().className = "sticky top-0 left-0 bg-gray-800 z-10 p-2 border border-gray-600"; // Corner cell
+
+        for (const colValue of table.columnValues) {
+            const th = document.createElement('th');
+            th.className = "p-2 border border-gray-600 font-mono sticky top-0 bg-gray-800";
+            th.textContent = colValue.toPrecision(3);
+            headerRow.appendChild(th);
+        }
+
+        // Create Table Body
+        const tbody = tableEl.createTBody();
+        for (let i = 0; i < table.N_R; i++) {
+            const row = tbody.insertRow();
+            const rowHeader = document.createElement('th');
+            rowHeader.className = "p-2 border border-gray-600 font-mono text-right sticky left-0 bg-gray-800";
+            rowHeader.textContent = table.rowValues[i].toPrecision(4);
+            row.appendChild(rowHeader);
+
+            for (let j = 0; j < table.N_C; j++) {
+                const cell = row.insertCell();
+                cell.className = "p-2 border border-gray-600 font-mono text-center";
+                const cellData = table.getData(i, j);
+
+                if (table.m_vsize === 1) {
+                    cell.textContent = cellData[0].toPrecision(4);
+                } else {
+                    const formattedVector = Array.from(cellData).map(v => v.toPrecision(3)).join(', ');
+                    cell.textContent = `<${formattedVector}>`;
+                }
+            }
+        }
+
+        tableDataContentEl.appendChild(tableEl);
+    }
+
+</script>
+</body>
+</html>
