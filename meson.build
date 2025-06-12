@@ -7,13 +7,15 @@ subdir('opatIO-fortran')
 
 pkg = import('pkgconfig')
 
-pkg.generate(
-    name: 'opatIO',
-    description: 'C++ library for OPAT',
-    version: meson.project_version(),
-    libraries: [libopatio],
-    subdirs: ['opatIO'],
-    filebase: 'opatio',
-    install_dir: join_paths(get_option('libdir'), 'pkgconfig')
-)
-
+# There are cases where we do not want to generate the pkg-config file (such as when building opat-core as a part of a python library)
+if get_option('generate_pc')
+    pkg.generate(
+        name: 'opatIO',
+        description: 'C++ library for OPAT',
+        version: meson.project_version(),
+        libraries: [libopatio],
+        subdirs: ['opatIO'],
+        filebase: 'opatio',
+        install_dir: join_paths(get_option('libdir'), 'pkgconfig')
+    )
+endif

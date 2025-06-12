@@ -1,0 +1,1 @@
+option('generate_pc', type: 'boolean', value: true, description: 'Flag to control whether or not to generate a pkg-config file for the library. If set to false, no pkg-config file will be generated. This is useful for projects that do not require pkg-config support or when the library is not intended for public use.')
