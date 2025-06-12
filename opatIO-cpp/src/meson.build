@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 # Define the libopatIO library so it can be linked against by other parts of the build system
-libopatio = static_library('opatio',
+libopatio = shared_library('opatio',
     opatio_sources, 
     include_directories: include_directories('public'),
     cpp_args: ['-fvisibility=default'],
