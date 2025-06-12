@@ -4,6 +4,7 @@ qhull_cmake_options.add_cmake_defines({
     'BUILD_SHARED_LIBS': 'ON',
     'BUILD_APPLICATIONS': 'OFF',
     'CMAKE_CXX_STANDARD': '14',
+    'BUILD_STATIC_LIBS': 'OFF',
 })
 qhull_cmake_options.set_override_option('warning_level', '0')
 qhull_cmake_options.set_override_option('cpp_std', 'c++14')
